@@ -1,0 +1,48 @@
+{
+  "categories": [
+    {
+      "id": "cat-001", "slug": "buying-property",
+      "name": "Buying Property",
+      "description": "Discuss purchases, documentation and legal processes",
+      "topicCount": 11423, "newTopics": 2,
+      "topics": [
+        { "id":"t-001","title":"Is DHA Phase 6 Lahore still a good investment?",
+          "author":"Ahmed Raza","replies":34,"views":1240,
+          "lastActivity":"2 hours ago","isHot":true },
+        { "id":"t-002","title":"Documents to check before buying in Bahria Town?",
+          "author":"Sara Khan","replies":18,"views":876,
+          "lastActivity":"5 hours ago","isHot":false },
+        { "id":"t-003","title":"Comparing plot prices in B-17 vs G-13 Islamabad",
+          "author":"Tariq Mehmood","replies":42,"views":2100,
+          "lastActivity":"1 day ago","isHot":true }
+      ]
+    },
+    {
+      "id": "cat-002", "slug": "renting-property",
+      "name": "Renting Property", "topicCount": 556, "newTopics": 2,
+      "topics": [
+        { "id":"t-004","title":"Fair rent for 3-bed in Gulberg Lahore?",
+          "author":"Hina Malik","replies":12,"views":430,
+          "lastActivity":"3 hours ago","isHot":false }
+      ]
+    },
+    {
+      "id": "cat-003", "slug": "new-projects",
+      "name": "New Projects", "topicCount": 3241, "newTopics": 5,
+      "topics": [
+        { "id":"t-005","title":"Park Lane Residences — worth investing?",
+          "author":"Kamran Ali","replies":67,"views":3400,
+          "lastActivity":"30 min ago","isHot":true }
+      ]
+    },
+    {
+      "id": "cat-004", "slug": "general-discussion",
+      "name": "General Discussion", "topicCount": 8920, "newTopics": 8,
+      "topics": [
+        { "id":"t-006","title":"Impact of Ring Road on property prices in Southern Lahore",
+          "author":"Bilal Siddiqui","replies":89,"views":5600,
+          "lastActivity":"1 hour ago","isHot":true }
+      ]
+    }
+  ]
+}
