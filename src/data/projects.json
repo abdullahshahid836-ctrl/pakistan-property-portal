@@ -1,0 +1,193 @@
+[
+  {
+    "id": "proj-001",
+    "slug": "park-lane-residences-islamabad",
+    "name": "Park Lane Residences",
+    "developer": "Habib Rafiq (Pvt.) Ltd",
+    "city": "Islamabad",
+    "location": "DHA Phase 2, Islamabad",
+    "priceMin": 15000000,
+    "priceMax": 85000000,
+    "priceLabel": "1.5 Cr – 8.5 Cr",
+    "status": "Under Construction",
+    "completionDate": "December 2026",
+    "description": "Premium gated community with 2, 3 and 4 bed apartments offering luxury living in the heart of DHA Islamabad.",
+    "amenities": ["Swimming Pool","Gym","Underground Parking", "24/7 Security","Rooftop Garden","Community Hall"],
+    "units": [
+      {"type":"2 Bedroom Flat","size":"1100 Sq. Ft.","price":"1.5 Cr"},
+      {"type":"3 Bedroom Flat","size":"1600 Sq. Ft.","price":"2.2 Cr"},
+      {"type":"4 Bedroom Flat","size":"2200 Sq. Ft.","price":"3.5 Cr"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
+    "images": [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800"
+    ],
+    "isTrending": true,
+    "coordinates": { "lat": 33.7215, "lng": 73.0433 }
+  },
+  {
+    "id": "proj-002",
+    "slug": "bahria-sky-lahore",
+    "name": "Bahria Sky Lahore",
+    "developer": "OZ Developers",
+    "city": "Lahore",
+    "location": "Bahria Orchard, Lahore",
+    "priceMin": 8500000,
+    "priceMax": 45000000,
+    "priceLabel": "85 Lac – 4.5 Cr",
+    "status": "Under Construction",
+    "completionDate": "June 2027",
+    "description": "A high-rise masterpiece offering luxury apartments and commercial shops with state-of-the-art facilities.",
+    "amenities": ["Shopping Mall","Cinema","Food Court", "Kids Play Area","24/7 Power Backup"],
+    "units": [
+      {"type":"Studio Apartment","size":"450 Sq. Ft.","price":"85 Lac"},
+      {"type":"1 Bedroom Flat","size":"750 Sq. Ft.","price":"1.2 Cr"},
+      {"type":"2 Bedroom Flat","size":"1200 Sq. Ft.","price":"2.1 Cr"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+    "images": [],
+    "isTrending": true,
+    "coordinates": { "lat": 31.3621, "lng": 74.1824 }
+  },
+  {
+    "id": "proj-003",
+    "slug": "emaar-oceanfront-karachi",
+    "name": "Emaar Oceanfront",
+    "developer": "Emaar Pakistan",
+    "city": "Karachi",
+    "location": "DHA Phase 8, Karachi",
+    "priceMin": 45000000,
+    "priceMax": 250000000,
+    "priceLabel": "4.5 Cr – 25 Cr",
+    "status": "Ready",
+    "completionDate": "Completed",
+    "description": "Exquisite waterfront living with breathtaking views of the Arabian Sea and world-class luxury features.",
+    "amenities": ["Private Beach","Infinity Pool","Spa", "Yoga Studio","Concierge Service"],
+    "units": [
+      {"type":"3 Bedroom Apartment","size":"2400 Sq. Ft.","price":"8.5 Cr"},
+      {"type":"4 Bedroom Apartment","size":"3200 Sq. Ft.","price":"12 Cr"},
+      {"type":"Penthouse","size":"5500 Sq. Ft.","price":"25 Cr"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+    "images": [],
+    "isTrending": true,
+    "coordinates": { "lat": 24.7865, "lng": 67.0654 }
+  },
+  {
+    "id": "proj-004",
+    "slug": "eighteen-islamabad",
+    "name": "Eighteen Islamabad",
+    "developer": "Ora Developers",
+    "city": "Islamabad",
+    "location": "Srinagar Highway, Islamabad",
+    "priceMin": 35000000,
+    "priceMax": 500000000,
+    "priceLabel": "3.5 Cr – 50 Cr",
+    "status": "Under Construction",
+    "completionDate": "December 2025",
+    "description": "An international standard mixed-use development set on 2.7 million square yards of natural landscape.",
+    "amenities": ["Championship Golf Course","Clubhouse","International School", "Medical Center","Retail Center"],
+    "units": [
+      {"type":"1/2 Kanal Villa","size":"2500 Sq. Ft.","price":"5.5 Cr"},
+      {"type":"1 Kanal Villa","size":"5000 Sq. Ft.","price":"9.5 Cr"},
+      {"type":"2 Kanal Villa","size":"10000 Sq. Ft.","price":"18 Cr"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+    "images": [],
+    "isTrending": false,
+    "coordinates": { "lat": 33.6267, "lng": 72.8943 }
+  },
+  {
+    "id": "proj-005",
+    "slug": "gold-crest-mall-lahore",
+    "name": "Gold Crest Mall",
+    "developer": "Al-Ghurair Giga",
+    "city": "Lahore",
+    "location": "DHA Phase 4, Lahore",
+    "priceMin": 12000000,
+    "priceMax": 65000000,
+    "priceLabel": "1.2 Cr – 6.5 Cr",
+    "status": "Ready",
+    "completionDate": "Completed",
+    "description": "A premium residential and commercial project in the heart of DHA Lahore offering luxury apartments.",
+    "amenities": ["Shopping Mall","Food Court","Fitness Center", "Dedicated Parking","High Speed Elevators"],
+    "units": [
+      {"type":"1 Bedroom Flat","size":"850 Sq. Ft.","price":"1.8 Cr"},
+      {"type":"2 Bedroom Flat","size":"1450 Sq. Ft.","price":"3.2 Cr"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
+    "images": [],
+    "isTrending": false,
+    "coordinates": { "lat": 31.4723, "lng": 74.3721 }
+  },
+  {
+    "id": "proj-006",
+    "slug": "one-canal-road-lahore",
+    "name": "One Canal Road",
+    "developer": "Diyar Homes",
+    "city": "Lahore",
+    "location": "Main Canal Road, Lahore",
+    "priceMin": 25000000,
+    "priceMax": 150000000,
+    "priceLabel": "2.5 Cr – 15 Cr",
+    "status": "Pre-Launch",
+    "completionDate": "December 2028",
+    "description": "Ultra-luxury serviced apartments designed by international architects, offering hotel-style living.",
+    "amenities": ["Rooftop Infinity Pool","Private Cinema","Business Lounge", "Chauffeur Service","Wellness Spa"],
+    "units": [
+      {"type":"1 Bedroom Suite","size":"950 Sq. Ft.","price":"3.5 Cr"},
+      {"type":"2 Bedroom Suite","size":"1650 Sq. Ft.","price":"5.8 Cr"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+    "images": [],
+    "isTrending": true,
+    "coordinates": { "lat": 31.5123, "lng": 74.3456 }
+  },
+  {
+    "id": "proj-007",
+    "slug": "giga-mall-extension-islamabad",
+    "name": "Giga Mall Extension",
+    "developer": "Al-Ghurair Giga",
+    "city": "Islamabad",
+    "location": "DHA Phase 2, Islamabad",
+    "priceMin": 7500000,
+    "priceMax": 120000000,
+    "priceLabel": "75 Lac – 12 Cr",
+    "status": "Under Construction",
+    "completionDate": "December 2027",
+    "description": "Expansion of the iconic Giga Mall, featuring high-end retail brands and luxury hotel apartments.",
+    "amenities": ["Grand Mosque","Multi-screen Cinema","Indoor Theme Park", "Hotel Services","Secure Access"],
+    "units": [
+      {"type":"Commercial Shop","size":"350 Sq. Ft.","price":"1.5 Cr"},
+      {"type":"Hotel Apartment","size":"650 Sq. Ft.","price":"95 Lac"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800",
+    "images": [],
+    "isTrending": true,
+    "coordinates": { "lat": 33.5234, "lng": 73.1567 }
+  },
+  {
+    "id": "proj-008",
+    "slug": "ary-laguna-karachi",
+    "name": "ARY Laguna",
+    "developer": "ARY Group",
+    "city": "Karachi",
+    "location": "DHA City, Karachi",
+    "priceMin": 5500000,
+    "priceMax": 45000000,
+    "priceLabel": "55 Lac – 4.5 Cr",
+    "status": "Pre-Launch",
+    "completionDate": "December 2029",
+    "description": "Pakistan's first man-made crystal lagoon living community with resort-style amenities.",
+    "amenities": ["Man-made Lagoon","Water Sports","Boardwalk", "Beach Club","Parks"],
+    "units": [
+      {"type":"1 Bedroom Flat","size":"750 Sq. Ft.","price":"65 Lac"},
+      {"type":"2 Bedroom Flat","size":"1250 Sq. Ft.","price":"1.2 Cr"}
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800",
+    "images": [],
+    "isTrending": true,
+    "coordinates": { "lat": 24.9543, "lng": 67.2435 }
+  }
+]

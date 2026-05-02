@@ -1,0 +1,46 @@
+{
+  "cities": [
+    {
+      "name": "Lahore", "slug": "lahore",
+      "areas": ["DHA Phase 1","DHA Phase 2","DHA Phase 4","DHA Phase 5",
+                "DHA Phase 6","Bahria Town","Bahria Orchard","Gulberg III",
+                "Johar Town","Model Town","Garden Town","Raiwind Road",
+                "LDA Avenue","Park View City","Central Park Housing Scheme",
+                "Lake City","Askari","Cantt"]
+    },
+    {
+      "name": "Karachi", "slug": "karachi",
+      "areas": ["DHA Phase 1","DHA Phase 5","DHA Phase 6","DHA Phase 8",
+                "Clifton","Gulshan-e-Iqbal","Gulistan-e-Jauhar","Scheme 33",
+                "North Nazimabad","Bahria Town Karachi","Cantt","Malir",
+                "Gadap Town","Emaar Oceanfront","Naval Housing Society"]
+    },
+    {
+      "name": "Islamabad", "slug": "islamabad",
+      "areas": ["DHA Phase 1","DHA Phase 2","Bahria Town Phase 7",
+                "Bahria Town Phase 8","F-7","F-10","F-11","G-11","G-13",
+                "G-15","E-11","B-17","Gulberg Greens","Bani Gala","Top City 1",
+                "Faisal Hills","Srinagar Highway"]
+    },
+    {
+      "name": "Rawalpindi", "slug": "rawalpindi",
+      "areas": ["Bahria Town Phase 1","Bahria Town Phase 4","Chaklala Scheme 3",
+                "Gulraiz Housing","Satellite Town","PWD Housing Society"]
+    },
+    {
+      "name": "Multan", "slug": "multan",
+      "areas": ["DHA Multan","Bahria Town Multan","Gulgasht Colony","Model Town",
+                "New Multan","Cantt"]
+    },
+    {
+      "name": "Faisalabad", "slug": "faisalabad",
+      "areas": ["Susan Road","Gulberg","Madina Town","Peoples Colony",
+                "Canal Road","Millat Road"]
+    },
+    {
+      "name": "Peshawar", "slug": "peshawar",
+      "areas": ["Hayatabad","University Town","Defence Colony",
+                "Regi Model Town","Warsak Road"]
+    }
+  ]
+}
