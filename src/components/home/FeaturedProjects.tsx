@@ -1,16 +1,31 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, MapPin, Heart } from 'lucide-react'
+import { ArrowRight, MapPin, Heart, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import SectionHeader from '@/components/shared/SectionHeader'
-import projectsData from '@/data/projects.json'
 import { Project } from '@/types'
 
 const FeaturedProjects = () => {
-  const trendingProjects = projectsData.filter(p => p.isTrending).slice(0, 3)
+  const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects?trending=true')
+        const data = await res.json()
+        setProjects(data.projects?.slice(0, 3) || [])
+      } catch (err) {
+        console.error('Failed to fetch projects:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchProjects()
+  }, [])
 
   return (
     <section className="bg-[#F8F9FA] py-12 sm:py-16 lg:py-20">
@@ -27,9 +42,15 @@ const FeaturedProjects = () => {
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {trendingProjects.map((project) => (
-            <ProjectCard key={project.id} project={project as Project} />
-          ))}
+          {loading ? (
+            Array(3).fill(0).map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl h-[400px] animate-pulse border border-[#E5E7EB]" />
+            ))
+          ) : (
+            projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))
+          )}
         </div>
       </div>
     </section>
@@ -42,7 +63,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
     
     <div className="relative h-52 sm:h-56 overflow-hidden">
       <Image 
-        src={project.coverImage} 
+        src={project.coverImage || project.cover_image || '/placeholder-project.png'} 
         alt={project.name}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -78,7 +99,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
             Starting From
           </span>
           <span className="text-base sm:text-lg font-bold text-[#1E6BFF]">
-            {project.priceLabel}
+            PKR {project.price_label || project.priceLabel}
           </span>
         </div>
         <div className="text-right">
@@ -95,3 +116,4 @@ const ProjectCard = ({ project }: { project: Project }) => (
 )
 
 export default FeaturedProjects
+

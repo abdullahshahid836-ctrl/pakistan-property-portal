@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Search, Map as MapIcon, ChevronRight, SlidersHorizontal } from 'lucide-react'
+import { Search, Map as MapIcon, ChevronRight, SlidersHorizontal, Loader2 } from 'lucide-react'
 import SearchSidebar from '@/components/search/SearchSidebar'
 import PropertyCardHorizontal from '@/components/property/PropertyCardHorizontal'
-import propertiesData from '@/data/properties.json'
 import { Property } from '@/types'
 
 const SearchContent = () => {
   const searchParams = useSearchParams()
-  const [filteredProperties, setFilteredProperties] = useState<Property[]>(propertiesData as Property[])
+  const [properties, setProperties] = useState<Property[]>([])
+  const [loading, setLoading] = useState(true)
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false)
 
   const city = searchParams.get('city')
@@ -19,26 +19,23 @@ const SearchContent = () => {
   const q = searchParams.get('q')
 
   useEffect(() => {
-    let filtered = propertiesData as Property[]
-    
-    if (city) {
-      filtered = filtered.filter(p => p.city.toLowerCase() === city.toLowerCase())
+    const fetchProperties = async () => {
+      setLoading(true)
+      const params = new URLSearchParams(searchParams.toString())
+      
+      try {
+        const res = await fetch(`/api/properties?${params.toString()}`)
+        const data = await res.json()
+        setProperties(data.properties || [])
+      } catch (err) {
+        console.error('Failed to fetch properties:', err)
+      } finally {
+        setLoading(false)
+      }
     }
-    if (purpose) {
-      filtered = filtered.filter(p => p.purpose.toLowerCase() === purpose.toLowerCase())
-    }
-    if (type && type !== 'All Types') {
-      filtered = filtered.filter(p => p.type.toLowerCase() === type.toLowerCase())
-    }
-    if (q) {
-      filtered = filtered.filter(p => 
-        p.title.toLowerCase().includes(q.toLowerCase()) || 
-        p.area.toLowerCase().includes(q.toLowerCase())
-      )
-    }
-    
-    setFilteredProperties(filtered)
-  }, [city, purpose, type, q])
+
+    fetchProperties()
+  }, [searchParams])
 
   return (
     <>
@@ -54,7 +51,7 @@ const SearchContent = () => {
             {purpose ? `Properties for ${purpose}` : 'Properties for Sale & Rent'} in {city || 'Pakistan'}
           </h1>
           <p className="text-sm text-[#9CA3AF] mt-1 font-medium">
-            {filteredProperties.length} verified listings available
+            {loading ? 'Updating results...' : `${properties.length} verified listings available`}
           </p>
         </div>
       </div>
@@ -67,6 +64,7 @@ const SearchContent = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF] group-focus-within:text-[#1E6BFF] transition-colors" />
               <input 
                 type="text" 
+                defaultValue={q || ''}
                 placeholder="Find city, area or society..." 
                 className="w-full h-11 pl-10 pr-4 text-sm bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF] transition-all"
               />
@@ -96,9 +94,13 @@ const SearchContent = () => {
 
           {/* Results List */}
           <div className="flex-1 min-w-0">
-            {filteredProperties.length > 0 ? (
+            {loading ? (
+              <div className="flex items-center justify-center h-64">
+                <Loader2 className="w-8 h-8 text-[#1E6BFF] animate-spin" />
+              </div>
+            ) : properties.length > 0 ? (
               <div className="space-y-6">
-                {filteredProperties.map((prop) => (
+                {properties.map((prop) => (
                   <PropertyCardHorizontal key={prop.id} property={prop} />
                 ))}
               </div>
@@ -109,7 +111,10 @@ const SearchContent = () => {
                 </div>
                 <h3 className="text-lg font-bold text-[#1A1A2E] mb-2">No properties found</h3>
                 <p className="text-sm text-[#9CA3AF] mb-6">Try adjusting your filters or search area to find what you're looking for.</p>
-                <button className="px-6 py-2.5 bg-[#1E6BFF] text-white text-xs font-bold rounded-xl hover:bg-[#1554CC] transition-all">
+                <button 
+                  onClick={() => window.location.href = '/search'}
+                  className="px-6 py-2.5 bg-[#1E6BFF] text-white text-xs font-bold rounded-xl hover:bg-[#1554CC] transition-all"
+                >
                   Clear All Filters
                 </button>
               </div>
@@ -132,3 +137,4 @@ const SearchPage = () => {
 }
 
 export default SearchPage
+

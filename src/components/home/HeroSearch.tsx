@@ -1,34 +1,35 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Search, MapPin, Building2, ChevronDown, Settings } from 'lucide-react'
+import { Search, MapPin, Building2, ChevronDown, Settings, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import locationsData from '@/data/locations.json'
 
 const HeroSearch = () => {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<'BUY' | 'RENT' | 'PROJECTS'>('BUY')
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [suggestions, setSuggestions] = useState<{name: string, city: string}[]>([])
+  const [suggestions, setSuggestions] = useState<any[]>([])
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false)
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setSearchQuery(value)
     
     if (value.length > 1) {
-      const filtered: {name: string, city: string}[] = []
-      locationsData.cities.forEach(city => {
-        city.areas.forEach(area => {
-          if (area.toLowerCase().includes(value.toLowerCase())) {
-            filtered.push({ name: area, city: city.name })
-          }
-        })
-      })
-      setSuggestions(filtered.slice(0, 8))
+      setLoadingSuggestions(true)
+      try {
+        const res = await fetch(`/api/search/suggestions?q=${encodeURIComponent(value)}`)
+        const data = await res.json()
+        setSuggestions(data.suggestions || [])
+      } catch (err) {
+        console.error('Failed to fetch suggestions:', err)
+      } finally {
+        setLoadingSuggestions(false)
+      }
     } else {
       setSuggestions([])
     }
@@ -73,7 +74,7 @@ const HeroSearch = () => {
         </h1>
 
         <p className="text-sm sm:text-base text-white/70 mt-3 mb-8 max-w-lg mx-auto">
-          Explore 50,000+ verified listings across Lahore, Karachi, Islamabad & more
+          Explore thousands of verified listings across Lahore, Karachi, Islamabad & more
         </p>
 
         {/* Search Form */}
@@ -104,7 +105,11 @@ const HeroSearch = () => {
                 {/* Location Input */}
                 <div className="relative flex-1">
                   <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                    <MapPin className="w-4 h-4 text-[#9CA3AF]" />
+                    {loadingSuggestions ? (
+                      <Loader2 className="w-4 h-4 text-[#1E6BFF] animate-spin" />
+                    ) : (
+                      <MapPin className="w-4 h-4 text-[#9CA3AF]" />
+                    )}
                   </div>
                   <input 
                     type="text" 
@@ -121,15 +126,15 @@ const HeroSearch = () => {
                           key={idx}
                           type="button"
                           onClick={() => {
-                            setSearchQuery(s.name)
+                            setSearchQuery(s.label)
                             setSuggestions([])
                           }}
                           className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-[#4A5568] hover:bg-[#F8F9FA] transition-colors border-b last:border-0 border-[#F3F4F6]"
                         >
                           <MapPin className="w-3.5 h-3.5 text-[#1E6BFF]" />
                           <div>
-                            <span className="font-semibold">{s.name}</span>
-                            <span className="text-xs text-[#9CA3AF] ml-2">{s.city}</span>
+                            <span className="font-semibold">{s.label}</span>
+                            <span className="text-[10px] font-bold text-[#9CA3AF] uppercase ml-2">{s.type}</span>
                           </div>
                         </button>
                       ))}
@@ -251,3 +256,4 @@ const StatItem = ({ value, label }: { value: string, label: string }) => (
 )
 
 export default HeroSearch
+
