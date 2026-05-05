@@ -9,10 +9,10 @@ export async function GET(request: NextRequest) {
 
   let query = supabase
     .from('agents')
-    .select('*')
+    .select('*, properties(count)')
     .order('rating', { ascending: false })
 
-  if (city) query = query.eq('city', city)
+  if (city && city !== 'All Cities') query = query.eq('city', city)
   if (search) query = query.ilike('name', `%${search}%`)
 
   const { data, error } = await query
