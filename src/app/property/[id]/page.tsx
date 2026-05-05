@@ -213,7 +213,7 @@ const PropertyDetailPage = () => {
           <div className="space-y-6">
             
             {/* Agent Card */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-card sticky top-24">
+            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-card">
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#EBF2FF]">
                   <Image src={agent.photo_url || agent.photo || 'https://via.placeholder.com/100'} alt={agent.name || 'Agent Photo'} fill sizes="64px" className="object-cover" />
