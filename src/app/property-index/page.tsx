@@ -15,9 +15,28 @@ const PropertyIndexPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { title: 'Residential', icon: Home, count: '45,230', links: ['Houses', 'Flats', 'Lower Portions', 'Upper Portions', 'Farm Houses', 'Rooms'] },
-            { title: 'Plots', icon: Map, count: '12,850', links: ['Residential Plots', 'Commercial Plots', 'Plot Files', 'Industrial Plots', 'Agricultural Land'] },
-            { title: 'Commercial', icon: Building, count: '8,420', links: ['Offices', 'Shops', 'Warehouses', 'Factories', 'Buildings'] },
+            { title: 'Residential', icon: Home, count: '45,230', links: [
+              { label: 'Houses', slug: 'House' }, 
+              { label: 'Flats', slug: 'Flat' }, 
+              { label: 'Lower Portions', slug: 'Lower Portion' }, 
+              { label: 'Upper Portions', slug: 'Upper Portion' }, 
+              { label: 'Farm Houses', slug: 'Farm House' }, 
+              { label: 'Rooms', slug: 'Room' }
+            ] },
+            { title: 'Plots', icon: Map, count: '12,850', links: [
+              { label: 'Residential Plots', slug: 'Plot' }, 
+              { label: 'Commercial Plots', slug: 'Commercial Plot' }, 
+              { label: 'Plot Files', slug: 'Plot File' }, 
+              { label: 'Industrial Plots', slug: 'Industrial Plot' }, 
+              { label: 'Agricultural Land', slug: 'Agricultural Land' }
+            ] },
+            { title: 'Commercial', icon: Building, count: '8,420', links: [
+              { label: 'Offices', slug: 'Office' }, 
+              { label: 'Shops', slug: 'Shop' }, 
+              { label: 'Warehouses', slug: 'Warehouse' }, 
+              { label: 'Factories', slug: 'Factory' }, 
+              { label: 'Buildings', slug: 'Building' }
+            ] },
           ].map((cat, idx) => (
             <div key={idx} className="bg-white rounded-3xl border border-[#E5E7EB] p-8 shadow-sm hover:shadow-xl transition-all">
               <div className="flex items-center gap-4 mb-6">
@@ -31,8 +50,12 @@ const PropertyIndexPage = () => {
               </div>
               <div className="space-y-3">
                 {cat.links.map((link, lIdx) => (
-                  <Link key={lIdx} href="#" className="flex items-center justify-between group">
-                    <span className="text-sm text-[#4A5568] group-hover:text-[#1E6BFF] transition-colors">{link}</span>
+                  <Link 
+                    key={lIdx} 
+                    href={`/search?type=${encodeURIComponent(link.slug)}`} 
+                    className="flex items-center justify-between group"
+                  >
+                    <span className="text-sm text-[#4A5568] group-hover:text-[#1E6BFF] transition-colors">{link.label}</span>
                     <ChevronRight className="w-3 h-3 text-[#9CA3AF] group-hover:translate-x-1 transition-transform" />
                   </Link>
                 ))}

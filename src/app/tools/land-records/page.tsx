@@ -20,10 +20,10 @@ const LandRecordsPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { province: 'Punjab', authority: 'PLRA', desc: 'Punjab Land Records Authority', color: 'bg-green-600' },
-            { province: 'Sindh', authority: 'LARMIS', desc: 'Sindh Land Records Information System', color: 'bg-blue-600' },
-            { province: 'Khyber Pakhtunkhwa', authority: 'ZAMEEN', desc: 'KP Land Records Management System', color: 'bg-emerald-600' },
-            { province: 'Balochistan', authority: 'LRMIS', desc: 'Balochistan Land Records Portal', color: 'bg-red-600' },
+            { province: 'Punjab', authority: 'PLRA', desc: 'Punjab Land Records Authority', color: 'bg-green-600', url: 'https://www.punjab-zameen.gov.pk/' },
+            { province: 'Sindh', authority: 'LARMIS', desc: 'Sindh Land Records Information System', color: 'bg-blue-600', url: 'https://sindhzameen.gos.pk/' },
+            { province: 'Khyber Pakhtunkhwa', authority: 'ZAMEEN', desc: 'KP Land Records Management System', color: 'bg-emerald-600', url: 'https://larmis.kp.gov.pk/' },
+            { province: 'Balochistan', authority: 'LRMIS', desc: 'Balochistan Land Records Portal', color: 'bg-red-600', url: 'http://balochistanlrmis.org/' },
           ].map((item, idx) => (
             <div key={idx} className="bg-white rounded-3xl border border-[#E5E7EB] overflow-hidden shadow-sm hover:shadow-xl transition-all group">
               <div className={cn("h-2 w-full", item.color)} />
@@ -34,9 +34,14 @@ const LandRecordsPage = () => {
                 <h3 className="text-xl font-bold text-[#1A1A2E] mb-1">{item.province}</h3>
                 <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-4">{item.authority}</p>
                 <p className="text-xs text-[#4A5568] leading-relaxed mb-8 h-10">{item.desc}</p>
-                <button className="w-full py-3.5 bg-[#1A1A2E] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-black transition-all">
+                <a 
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 bg-[#1A1A2E] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-black transition-all"
+                >
                   Access Records <ExternalLink className="w-4 h-4" />
-                </button>
+                </a>
               </div>
             </div>
           ))}

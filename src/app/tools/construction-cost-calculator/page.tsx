@@ -17,7 +17,9 @@ const ConstructionCostCalculator = () => {
   }
 
   const marlaToSqft = 225
-  const totalSqft = parseFloat(area) * marlaToSqft
+  const totalSqft = unit === 'Kanal' 
+    ? parseFloat(area) * 20 * marlaToSqft 
+    : parseFloat(area) * marlaToSqft
   const estimatedCost = totalSqft * costs[quality as keyof typeof costs]
 
   return (
