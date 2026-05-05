@@ -51,13 +51,14 @@ export default function PlotFinderPage() {
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
 
-  const fetchPlots = useCallback(async (auto = false) => {
+  const fetchPlots = useCallback(async (selectedCity?: string) => {
     setLoading(true)
     setSearched(true)
     try {
+      const activeCity = selectedCity || city
       const params = new URLSearchParams()
       params.set('type', 'Plot')
-      if (city !== 'All Cities') params.set('city', city)
+      if (activeCity !== 'All Cities') params.set('city', activeCity)
       if (purpose !== 'All') params.set('purpose', purpose)
       if (minPrice) params.set('minPrice', minPrice)
       if (maxPrice) params.set('maxPrice', maxPrice)
@@ -383,7 +384,7 @@ export default function PlotFinderPage() {
                   {CITIES.slice(1).map(c => (
                     <button
                       key={c}
-                      onClick={() => { setCity(c); setTimeout(() => fetchPlots(), 100) }}
+                      onClick={() => { setCity(c); fetchPlots(c) }}
                       className="w-full flex items-center justify-between py-2.5 px-4 bg-white/5 hover:bg-white/10 rounded-xl text-sm font-medium transition-all"
                     >
                       <span>{c}</span>

@@ -32,8 +32,8 @@ export async function GET(request: NextRequest) {
 
   if (purpose) query = query.eq('purpose', purpose)
   if (type && type !== 'all') query = query.eq('type', type)
-  if (city) query = query.eq('city', city)
-  if (area) query = query.eq('area', area)
+  if (city) query = query.ilike('city', `%${city}%`)
+  if (area) query = query.ilike('area', `%${area}%`)
   if (minPrice) query = query.gte('price', parseInt(minPrice))
   if (maxPrice) query = query.lte('price', parseInt(maxPrice))
   if (minArea) query = query.gte('area_size', parseFloat(minArea))
