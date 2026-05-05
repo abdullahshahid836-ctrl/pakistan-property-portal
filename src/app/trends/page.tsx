@@ -196,7 +196,7 @@ export default function TrendsPage() {
                   />
                   <Tooltip 
                     contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.1)', fontSize: '12px' }}
-                    formatter={(val: number) => [val.toLocaleString(), 'PKR']}
+                    formatter={(val: any) => [Number(val).toLocaleString(), 'PKR']}
                   />
                   <Area type="monotone" dataKey="lahore" stroke="#1E6BFF" strokeWidth={3} fillOpacity={1} fill="url(#colorLhr)" />
                   <Area type="monotone" dataKey="karachi" stroke="#10B981" strokeWidth={2} fillOpacity={0} />
