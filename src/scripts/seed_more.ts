@@ -20,36 +20,29 @@ const moreProperties = [
     title: "10 Marla Luxury House in Bahria Town Lahore",
     type: "House", purpose: "Sale", price: 32000000, city: "Lahore", area: "Bahria Town Lahore",
     address: "Sector C, Bahria Town, Lahore", bedrooms: 4, bathrooms: 5, areaSize: 10, areaUnit: "Marla",
-    description: "Modern design 10 Marla house in the heart of Bahria Town Lahore. Ready to move in with premium finishes.",
-    features: ["Security", "Park View", "Modern Kitchen"], agentId: "agent-004"
+    description: "Modern design 10 Marla house in the heart of Bahria Town Lahore.",
+    features: ["Security", "Park View"], agentId: "agent-004"
   },
   {
     title: "5 Marla Residential Plot in Bahria Town Lahore",
     type: "Plot", purpose: "Sale", price: 6500000, city: "Lahore", area: "Bahria Town Lahore",
     address: "Sector F, Bahria Town, Lahore", bedrooms: 0, bathrooms: 0, areaSize: 5, areaUnit: "Marla",
-    description: "Ideal investment 5 Marla plot in Sector F, Bahria Town Lahore. Possession expected soon.",
-    features: ["Leveled Ground", "Electricity"], agentId: "agent-004"
+    description: "Ideal investment 5 Marla plot in Sector F, Bahria Town Lahore.",
+    features: ["Leveled Ground"], agentId: "agent-001"
   },
   {
     title: "1 Kanal Plot in DHA Lahore",
     type: "Plot", purpose: "Sale", price: 38000000, city: "Lahore", area: "DHA Lahore",
     address: "Block Q, DHA Phase 7, Lahore", bedrooms: 0, bathrooms: 0, areaSize: 1, areaUnit: "Kanal",
-    description: "Prime location 1 Kanal plot in DHA Phase 7. Perfect for your dream home.",
-    features: ["Gas", "Electricity", "Water"], agentId: "agent-001"
+    description: "Prime location 1 Kanal plot in DHA Phase 7.",
+    features: ["Gas", "Electricity"], agentId: "agent-007"
   },
   {
     title: "Luxury Apartment in Gulberg",
     type: "Flat", purpose: "Rent", price: 150000, city: "Lahore", area: "Gulberg",
     address: "Main Boulevard, Gulberg, Lahore", bedrooms: 2, bathrooms: 2, areaSize: 1200, areaUnit: "Sq. Ft.",
-    description: "Fully furnished 2-bedroom apartment with all amenities in Gulberg.",
-    features: ["Furnished", "Gym", "Pool"], agentId: "agent-001"
-  },
-  {
-    title: "12 Marla House in Model Town",
-    type: "House", purpose: "Sale", price: 45000000, city: "Lahore", area: "Model Town",
-    address: "Block L, Model Town, Lahore", bedrooms: 4, bathrooms: 4, areaSize: 12, areaUnit: "Marla",
-    description: "Classic 12 Marla house in the heart of Model Town.",
-    features: ["Green Area", "Security"], agentId: "agent-001"
+    description: "Fully furnished 2-bedroom apartment in Gulberg.",
+    features: ["Furnished", "Gym"], agentId: "agent-001"
   },
 
   // KARACHI
@@ -57,22 +50,22 @@ const moreProperties = [
     title: "125 Sq Yd Plot in Bahria Town Karachi",
     type: "Plot", purpose: "Sale", price: 4500000, city: "Karachi", area: "Bahria Town Karachi",
     address: "Precinct 12, Bahria Town Karachi", bedrooms: 0, bathrooms: 0, areaSize: 125, areaUnit: "Sq. Yd.",
-    description: "Ali Block Precinct 12 plot available. Best for investment.",
-    features: ["Corner Plot", "Utilities Ready"], agentId: "agent-002"
+    description: "Ali Block Precinct 12 plot available.",
+    features: ["Corner Plot"], agentId: "agent-005"
   },
   {
     title: "3 Bed Luxury Flat in Clifton",
     type: "Flat", purpose: "Sale", price: 45000000, city: "Karachi", area: "Clifton",
     address: "Block 4, Clifton, Karachi", bedrooms: 3, bathrooms: 3, areaSize: 2200, areaUnit: "Sq. Ft.",
     description: "Sea view apartment in the most elite area of Karachi.",
-    features: ["Sea View", "Security", "Parking"], agentId: "agent-008"
+    features: ["Sea View", "Security"], agentId: "agent-002"
   },
   {
     title: "1 Kanal Plot in DHA Karachi",
     type: "Plot", purpose: "Sale", price: 55000000, city: "Karachi", area: "DHA Karachi",
     address: "Phase 8, DHA, Karachi", bedrooms: 0, bathrooms: 0, areaSize: 1, areaUnit: "Kanal",
     description: "Prime residential plot in DHA Karachi Phase 8.",
-    features: ["Sea Side"], agentId: "agent-002"
+    features: ["Sea Side"], agentId: "agent-008"
   },
 
   // ISLAMABAD
@@ -81,14 +74,14 @@ const moreProperties = [
     type: "Plot", purpose: "Sale", price: 22000000, city: "Islamabad", area: "Bahria Enclave",
     address: "Sector C, Bahria Enclave, Islamabad", bedrooms: 0, bathrooms: 0, areaSize: 1, areaUnit: "Kanal",
     description: "Beautiful view 1 Kanal plot in Bahria Enclave.",
-    features: ["Hilly View", "Leveled"], agentId: "agent-003"
+    features: ["Hilly View"], agentId: "agent-003"
   },
   {
     title: "10 Marla House in DHA Islamabad",
     type: "House", purpose: "Sale", price: 35000000, city: "Islamabad", area: "DHA Islamabad",
     address: "Phase 2, DHA Islamabad", bedrooms: 4, bathrooms: 5, areaSize: 10, areaUnit: "Marla",
     description: "Brand new 10 Marla designer house in DHA Phase 2.",
-    features: ["Gas", "Modern Interior"], agentId: "agent-003"
+    features: ["Modern Interior"], agentId: "agent-006"
   },
 
   // RAWALPINDI
@@ -122,14 +115,19 @@ const moreProperties = [
     type: "Plot", purpose: "Sale", price: 3500000, city: "Multan", area: "Bahria Town Multan",
     address: "Block A, Bahria Town Multan", bedrooms: 0, bathrooms: 0, areaSize: 5, areaUnit: "Marla",
     description: "Affordable investment in Bahria Town Multan.",
-    features: ["Electricity"], agentId: "agent-010"
+    features: ["Electricity"], agentId: "agent-011"
   }
 ]
 
 async function seedMore() {
-  console.log('Seeding more properties with price labels...')
+  console.log('Reseeding properties with better agent distribution...')
   
-  const propertiesToInsert = moreProperties.map((p) => ({
+  // First, clear previous extra properties to avoid duplicates if necessary, 
+  // but here we use upsert with deterministic IDs if possible, or just insert more.
+  // To keep it simple, I'll just insert these with specific IDs.
+
+  const propertiesToInsert = moreProperties.map((p, index) => ({
+    id: `extra-prop-${index}`,
     title: p.title,
     type: p.type,
     purpose: p.purpose,
@@ -152,12 +150,12 @@ async function seedMore() {
 
   const { error } = await supabase
     .from('properties')
-    .insert(propertiesToInsert)
+    .upsert(propertiesToInsert)
 
   if (error) {
     console.error('Error seeding more properties:', error)
   } else {
-    console.log('✅ Seeded 14+ more properties with price labels successfully!')
+    console.log('✅ Seeded 13 properties with unique agent IDs successfully!')
   }
 }
 

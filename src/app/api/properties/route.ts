@@ -14,6 +14,7 @@ export async function GET(request: NextRequest) {
   const minArea = searchParams.get('minArea')
   const maxArea = searchParams.get('maxArea')
   const beds = searchParams.get('beds')
+  const agent = searchParams.get('agent')
   const featured = searchParams.get('featured')
   const limit = parseInt(searchParams.get('limit') || '20')
   const offset = parseInt(searchParams.get('offset') || '0')
@@ -39,6 +40,7 @@ export async function GET(request: NextRequest) {
   if (minArea) query = query.gte('area_size', parseFloat(minArea))
   if (maxArea) query = query.lte('area_size', parseFloat(maxArea))
   if (beds && beds !== 'any') query = query.gte('bedrooms', parseInt(beds))
+  if (agent) query = query.eq('agent_id', agent)
   if (featured === 'true') query = query.eq('is_featured', true)
 
   const { data, error, count } = await query
