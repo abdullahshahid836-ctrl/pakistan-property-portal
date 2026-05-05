@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils'
 import { Property, Agent } from '@/types'
 import { formatPrice } from '@/lib/formatters'
 
+import { useWishlist } from '@/hooks/useWishlist'
+
 const PropertyDetailPage = () => {
   const params = useParams()
   const propertyId = params.id as string
@@ -17,6 +19,8 @@ const PropertyDetailPage = () => {
   const [activeImage, setActiveImage] = useState(0)
   const [inquiryLoading, setInquiryLoading] = useState(false)
   const [inquirySent, setInquirySent] = useState(false)
+
+  const { isSaved: isInWishlist, toggle: toggleWishlist, loading: wishlistLoading } = useWishlist(propertyId)
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -115,8 +119,16 @@ const PropertyDetailPage = () => {
                   </span>
                 </div>
                 <div className="absolute top-4 right-4 flex gap-2">
-                  <button className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-lg hover:bg-white transition-all group/icon">
-                    <Heart className="w-5 h-5 text-[#4A5568] group-hover/icon:text-red-500 transition-colors" />
+                  <button 
+                    onClick={() => toggleWishlist()}
+                    disabled={wishlistLoading}
+                    className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-lg hover:bg-white transition-all group/icon"
+                  >
+                    {wishlistLoading ? (
+                      <Loader2 className="w-5 h-5 text-[#1E6BFF] animate-spin" />
+                    ) : (
+                      <Heart className={cn("w-5 h-5 transition-colors", isInWishlist ? "fill-red-500 text-red-500" : "text-[#4A5568] group-hover/icon:text-red-500")} />
+                    )}
                   </button>
                   <button className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-lg hover:bg-white transition-all">
                     <Share2 className="w-5 h-5 text-[#4A5568]" />

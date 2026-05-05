@@ -1,11 +1,14 @@
+import { Suspense } from 'react'
 import PropertyArchive from '@/components/shared/PropertyArchive'
 
 export default function CommercialPage() {
   return (
-    <PropertyArchive 
-      title="Commercial Properties in Pakistan" 
-      subtitle="Office spaces, shops, and warehouses for sale and rent in prime business locations."
-      filterType="Commercial"
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <PropertyArchive 
+        title="Commercial Properties in Pakistan" 
+        subtitle="Shops, offices and warehouses for your business needs."
+        filterType="Commercial"
+      />
+    </Suspense>
   )
 }

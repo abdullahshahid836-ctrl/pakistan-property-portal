@@ -1,11 +1,14 @@
+import { Suspense } from 'react'
 import PropertyArchive from '@/components/shared/PropertyArchive'
 
 export default function PlotsPage() {
   return (
-    <PropertyArchive 
-      title="Plots for Sale in Pakistan" 
-      subtitle="Investment opportunities in residential, commercial, and industrial plots across the country."
-      filterType="Plot"
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <PropertyArchive 
+        title="Residential & Commercial Plots" 
+        subtitle="Investment opportunities in top housing societies and commercial sectors."
+        filterType="Plot"
+      />
+    </Suspense>
   )
 }

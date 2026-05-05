@@ -3,14 +3,15 @@ import { createServerSupabaseClient } from '@/lib/supabase/server'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const supabase = await createServerSupabaseClient()
 
   const { data, error } = await supabase
     .from('properties')
     .select('*, agents(*)')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   if (error || !data) {
@@ -18,18 +19,19 @@ export async function GET(
   }
 
   // Increment views (fire and forget)
-  supabase.rpc('increment_property_views', { property_id: params.id })
+  supabase.rpc('increment_property_views', { property_id: id })
 
   return NextResponse.json(data)
 }
+
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = await createServerSupabaseClient()
     const body = await request.json()
-    const { id } = params
 
     // Check ownership
     const { data: { user } } = await supabase.auth.getUser()

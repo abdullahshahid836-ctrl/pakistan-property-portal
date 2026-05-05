@@ -14,7 +14,7 @@ interface PropertyCardHorizontalProps {
 }
 
 const PropertyCardHorizontal: React.FC<PropertyCardHorizontalProps> = ({ property }) => {
-  const { isInWishlist, toggleWishlist, loading: wishlistLoading } = useWishlist(property.id)
+  const { isSaved: isInWishlist, toggle: toggleWishlist, loading: wishlistLoading } = useWishlist(property.id)
 
   // Handle both snake_case (Supabase) and camelCase (types)
   const images = property.images || (property as any).property_images || []

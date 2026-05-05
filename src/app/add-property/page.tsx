@@ -1,14 +1,14 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Check, ChevronRight, ChevronLeft, Upload, MapPin, Building2, Home, Landmark, Warehouse, Bed, Bath, Move, DollarSign, Info, Loader2, X, Plus } from 'lucide-react'
+import { Check, ChevronRight, ChevronLeft, Building2, Home, Landmark, Warehouse, Bed, Bath, Move, DollarSign, Loader2, X, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 const steps = ["Type", "Purpose", "Location", "Details", "Features", "Photos", "Contact"]
 
-export default function AddPropertyPage() {
+function AddPropertyContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const editId = searchParams.get('edit')
@@ -58,7 +58,7 @@ export default function AddPropertyPage() {
               title: data.title || '',
               description: data.description || '',
               features: data.features || [],
-              sender_name: '', // We might not have this in the db record depending on schema
+              sender_name: '',
               sender_phone: '',
               sender_email: ''
             })
@@ -118,12 +118,7 @@ export default function AddPropertyPage() {
       if (res.ok && (result.success || result.id)) {
         router.push('/dashboard?success=true')
       } else {
-        const errorDetails = result.details 
-          ? Object.entries(result.details.fieldErrors)
-              .map(([field, msgs]: any) => `${field}: ${msgs.join(', ')}`)
-              .join('\n')
-          : result.error
-        alert(`Submission failed:\n${errorDetails}`)
+        alert(`Submission failed: ${result.error}`)
       }
     } catch (err) {
       alert('An error occurred during submission')
@@ -322,6 +317,14 @@ export default function AddPropertyPage() {
   )
 }
 
+export default function AddPropertyPage() {
+  return (
+    <Suspense fallback={<div className="p-20 text-center"><Loader2 className="w-8 h-8 text-[#1E6BFF] animate-spin mx-auto mb-4" />Loading form...</div>}>
+      <AddPropertyContent />
+    </Suspense>
+  )
+}
+
 function TypeCard({ icon, label, active, onClick }: any) {
   return (
     <button onClick={onClick} className={cn("flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all group", active ? "bg-[#EBF2FF] border-[#1E6BFF] text-[#1E6BFF]" : "bg-white border-[#E5E7EB] text-[#4A5568] hover:border-[#1E6BFF]/50")}>
@@ -343,4 +346,3 @@ function PurposeCard({ label, active, onClick }: any) {
     </button>
   )
 }
-
