@@ -279,7 +279,7 @@ function ProjectDetailContent() {
           <div className="space-y-6">
 
             {/* Price Summary Card */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-sm sticky top-24">
+            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-sm">
               <div className="mb-6">
                 <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Price Range</p>
                 <p className="text-2xl font-black text-[#1E6BFF]">PKR {project.price_label || project.priceLabel}</p>
