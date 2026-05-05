@@ -245,6 +245,12 @@ const PropertyDetailPage = () => {
                   <CheckCircle2 className="w-8 h-8 mx-auto mb-2" />
                   <p className="text-xs font-bold">Inquiry Sent Successfully!</p>
                   <p className="text-[10px] mt-1 opacity-80">The agent will contact you soon.</p>
+                  <button 
+                    onClick={() => setInquirySent(false)}
+                    className="mt-4 text-[10px] font-bold text-[#1E6BFF] hover:underline"
+                  >
+                    Send Another Inquiry
+                  </button>
                 </div>
               ) : (
                 <form className="space-y-3" onSubmit={handleInquiry}>
@@ -264,9 +270,13 @@ const PropertyDetailPage = () => {
               <div className="relative z-10">
                 <h4 className="text-lg font-bold mb-2">Need Help?</h4>
                 <p className="text-xs text-white/60 mb-6 leading-relaxed">Our property experts are here to help you find the perfect home in {property.city}.</p>
-                <button className="flex items-center gap-2 text-xs font-bold text-[#1E6BFF] bg-white px-5 py-2.5 rounded-xl group-hover:scale-105 transition-transform">
+                <a 
+                  href="https://wa.me/923001234567?text=Hi, I need help with a property on Pakistan Property Portal"
+                  target="_blank"
+                  className="flex items-center justify-center gap-2 text-xs font-bold text-[#1E6BFF] bg-white px-5 py-2.5 rounded-xl group-hover:scale-105 transition-transform"
+                >
                   Contact Support <ChevronRight className="w-4 h-4" />
-                </button>
+                </a>
               </div>
               <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#1E6BFF]/20 rounded-full blur-2xl" />
             </div>

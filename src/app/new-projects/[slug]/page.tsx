@@ -296,6 +296,12 @@ function ProjectDetailContent() {
                   </div>
                   <p className="font-bold text-[#1A1A2E] mb-1">Inquiry Sent!</p>
                   <p className="text-xs text-[#9CA3AF]">Our team will contact you within 24 hours.</p>
+                  <button 
+                    onClick={() => setSent(false)}
+                    className="mt-4 text-[10px] font-bold text-[#1E6BFF] hover:underline"
+                  >
+                    Send Another Inquiry
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleInquiry} className="space-y-3">
@@ -363,10 +369,30 @@ function ProjectDetailContent() {
                   <p className="text-[10px] text-[#9CA3AF]">Verified Developer</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-[10px] font-bold text-green-600 bg-green-50 rounded-xl p-3">
+              <a 
+                href="https://wa.me/923001234567?text=Hi, I need help with a new project on Pakistan Property Portal"
+                target="_blank"
+                className="flex items-center justify-center gap-2 text-[10px] font-bold text-green-600 bg-green-50 rounded-xl p-3 hover:bg-green-100 transition-colors"
+              >
                 <Shield className="w-3.5 h-3.5" />
                 Trusted & Verified by Pakistan Property Portal
+              </a>
+            </div>
+
+            {/* Need Help Card */}
+            <div className="bg-[#1A1A2E] rounded-3xl p-6 text-white overflow-hidden relative group">
+              <div className="relative z-10">
+                <h4 className="text-lg font-bold mb-2">Need Help?</h4>
+                <p className="text-xs text-white/60 mb-6 leading-relaxed">Our project experts are here to help you find the perfect investment in {project.city}.</p>
+                <a 
+                  href="https://wa.me/923001234567?text=Hi, I need help with a new project on Pakistan Property Portal"
+                  target="_blank"
+                  className="flex items-center justify-center gap-2 text-xs font-bold text-[#1E6BFF] bg-white px-5 py-2.5 rounded-xl group-hover:scale-105 transition-transform"
+                >
+                  Contact Support <ChevronRight className="w-4 h-4" />
+                </a>
               </div>
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#1E6BFF]/20 rounded-full blur-2xl" />
             </div>
 
             {/* Back Link */}
