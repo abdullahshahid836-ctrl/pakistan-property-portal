@@ -91,7 +91,7 @@ const HeroSearch = () => {
           </div>
 
           {/* Form Box */}
-          <div className="bg-white rounded-b-2xl rounded-tr-2xl p-4 sm:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+          <div className="bg-white/5 backdrop-blur-xl rounded-b-2xl rounded-tr-2xl p-4 sm:p-5 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
             <form onSubmit={handleSearchSubmit}>
               <div className="flex flex-col sm:flex-row gap-3">
                 {/* Location Input */}
@@ -108,7 +108,7 @@ const HeroSearch = () => {
                     value={searchQuery}
                     onChange={handleSearchChange}
                     placeholder="Enter city, area or society..."
-                    className="w-full h-12 pl-11 pr-4 text-sm text-[#1A1A2E] bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF] transition-all"
+                    className="w-full h-12 pl-11 pr-4 text-sm text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#1E6BFF] transition-all placeholder:text-slate-500"
                   />
                   {/* Suggestions Dropdown */}
                   {suggestions.length > 0 && (
@@ -136,7 +136,7 @@ const HeroSearch = () => {
 
                 {/* Property Type */}
                 <div className="relative sm:w-44">
-                  <select className="w-full h-12 px-4 appearance-none text-sm text-[#1A1A2E] bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer">
+                  <select className="w-full h-12 px-4 appearance-none text-sm text-white bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer">
                     <option>All Types</option>
                     <option>House</option>
                     <option>Flat</option>
@@ -156,7 +156,7 @@ const HeroSearch = () => {
               {/* Row 2 - Filters */}
               <div className="flex flex-col sm:flex-row gap-3 mt-3">
                 <div className="relative flex-1">
-                  <select className="w-full h-11 px-4 appearance-none text-sm text-[#4A5568] bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer">
+                  <select className="w-full h-11 px-4 appearance-none text-sm text-slate-300 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer">
                     <option>Any Price</option>
                     <option>Up to 50 Lac</option>
                     <option>50 Lac – 1 Cr</option>
@@ -167,7 +167,7 @@ const HeroSearch = () => {
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#9CA3AF] pointer-events-none" />
                 </div>
                 <div className="relative flex-1">
-                  <select className="w-full h-11 px-4 appearance-none text-sm text-[#4A5568] bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer">
+                  <select className="w-full h-11 px-4 appearance-none text-sm text-slate-300 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer">
                     <option>Any Area</option>
                     <option>Up to 5 Marla</option>
                     <option>5 – 10 Marla</option>

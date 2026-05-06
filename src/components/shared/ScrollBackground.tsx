@@ -96,7 +96,7 @@ export default function ScrollBackground() {
         ref={canvasRef}
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/20 to-[#F8F9FA]/40" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/40 via-[#0F172A]/60 to-[#0F172A]/90" />
     </div>
   )
 }

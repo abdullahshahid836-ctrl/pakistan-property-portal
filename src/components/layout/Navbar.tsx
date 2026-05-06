@@ -21,36 +21,36 @@ const Navbar = () => {
   return (
     <>
       <nav className={cn(
-        "fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b border-[#E5E7EB] transition-all duration-200",
-        scrolled ? "shadow-[0_1px_3px_rgba(0,0,0,0.08)]" : ""
+        "fixed top-0 left-0 right-0 z-50 h-16 bg-[#0F172A]/80 backdrop-blur-lg border-b border-white/10 transition-all duration-200",
+        scrolled ? "shadow-[0_4px_20px_rgba(0,0,0,0.4)]" : ""
       )}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-
-          {/* LOGO */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 bg-[#1E6BFF] rounded-lg flex items-center justify-center">
-              <span className="text-white font-black text-sm">P</span>
-            </div>
-            <div className="hidden sm:block">
-              <div className="text-sm font-bold text-[#1A1A2E] leading-none">
-                PAKISTAN
-              </div>
-              <div className="text-[10px] text-[#9CA3AF] tracking-widest leading-none mt-0.5">
-                PROPERTY PORTAL
-              </div>
-            </div>
-          </Link>
+ 
+           {/* LOGO */}
+           <Link href="/" className="flex items-center gap-2 shrink-0">
+             <div className="w-8 h-8 bg-[#1E6BFF] rounded-lg flex items-center justify-center">
+               <span className="text-white font-black text-sm">P</span>
+             </div>
+             <div className="hidden sm:block">
+               <div className="text-sm font-bold text-white leading-none">
+                 PAKISTAN
+               </div>
+               <div className="text-[10px] text-slate-400 tracking-widest leading-none mt-0.5">
+                 PROPERTY PORTAL
+               </div>
+             </div>
+           </Link>
 
           {/* DESKTOP NAV */}
           <div className="hidden lg:flex items-center gap-1">
 
             {/* PROPERTIES dropdown */}
             <div className="relative group">
-              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#4A5568] hover:text-[#1E6BFF] rounded-lg hover:bg-[#F8F9FA] transition-all">
+              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-300 hover:text-[#1E6BFF] rounded-lg hover:bg-white/5 transition-all">
                 Properties
                 <ChevronDown className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform" />
               </button>
-              <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-xl border border-[#E5E7EB] shadow-[0_10px_40px_rgba(0,0,0,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute top-full left-0 mt-1 w-48 bg-[#1E293B] rounded-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="p-2">
                   {[
                     { label: 'Homes for Sale', href: '/homes' },
@@ -61,7 +61,7 @@ const Navbar = () => {
                     { label: 'Rentals', href: '/rentals' },
                   ].map(item => (
                     <Link key={item.href} href={item.href}
-                      className="block px-3 py-2 text-sm text-[#4A5568] hover:text-[#1E6BFF] hover:bg-[#F8F9FA] rounded-lg transition-all">
+                      className="block px-3 py-2 text-sm text-slate-300 hover:text-[#1E6BFF] hover:bg-white/5 rounded-lg transition-all">
                       {item.label}
                     </Link>
                   ))}
@@ -70,26 +70,26 @@ const Navbar = () => {
             </div>
 
             {/* Direct links */}
-            <Link href="/plotfinder" className="px-3 py-2 text-sm font-medium text-[#4A5568] hover:text-[#1E6BFF] rounded-lg hover:bg-[#F8F9FA] transition-all">
+            <Link href="/plotfinder" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-[#1E6BFF] rounded-lg hover:bg-white/5 transition-all">
               Plot Finder
             </Link>
-            <Link href="/new-projects" className="px-3 py-2 text-sm font-medium text-[#4A5568] hover:text-[#1E6BFF] rounded-lg hover:bg-[#F8F9FA] transition-all">
+            <Link href="/new-projects" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-[#1E6BFF] rounded-lg hover:bg-white/5 transition-all">
               New Projects
             </Link>
-            <Link href="/area-guides" className="px-3 py-2 text-sm font-medium text-[#4A5568] hover:text-[#1E6BFF] rounded-lg hover:bg-[#F8F9FA] transition-all">
+            <Link href="/area-guides" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-[#1E6BFF] rounded-lg hover:bg-white/5 transition-all">
               Area Guides
             </Link>
-            <Link href="/blog" className="px-3 py-2 text-sm font-medium text-[#4A5568] hover:text-[#1E6BFF] rounded-lg hover:bg-[#F8F9FA] transition-all">
+            <Link href="/blog" className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-[#1E6BFF] rounded-lg hover:bg-white/5 transition-all">
               Blog
             </Link>
 
             {/* TOOLS dropdown */}
             <div className="relative group">
-              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#4A5568] hover:text-[#1E6BFF] rounded-lg hover:bg-[#F8F9FA] transition-all">
+              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-300 hover:text-[#1E6BFF] rounded-lg hover:bg-white/5 transition-all">
                 Tools
                 <ChevronDown className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform" />
               </button>
-              <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl border border-[#E5E7EB] shadow-[0_10px_40px_rgba(0,0,0,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#1E293B] rounded-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="p-2">
                   {[
                     { label: 'Home Loan Calculator', href: '/tools/home-loan-calculator' },
@@ -108,11 +108,11 @@ const Navbar = () => {
 
             {/* MORE dropdown */}
             <div className="relative group">
-              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#4A5568] hover:text-[#1E6BFF] rounded-lg hover:bg-[#F8F9FA] transition-all">
+              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-300 hover:text-[#1E6BFF] rounded-lg hover:bg-white/5 transition-all">
                 More
                 <ChevronDown className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform" />
               </button>
-              <div className="absolute top-full right-0 mt-1 w-44 bg-white rounded-xl border border-[#E5E7EB] shadow-[0_10px_40px_rgba(0,0,0,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute top-full right-0 mt-1 w-44 bg-[#1E293B] rounded-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="p-2">
                   {[
                     { label: 'Maps', href: '/maps' },
@@ -133,11 +133,11 @@ const Navbar = () => {
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-2">
-            <button className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#4A5568] border border-[#E5E7EB] rounded-lg hover:border-[#1E6BFF] hover:text-[#1E6BFF] transition-all">
+            <button className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-300 border border-white/10 rounded-lg hover:border-[#1E6BFF] hover:text-[#1E6BFF] transition-all">
               PKR
               <ChevronDown className="w-3 h-3" />
             </button>
-            <button className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-[#4A5568] border border-[#E5E7EB] rounded-lg hover:border-[#1E6BFF] hover:text-[#1E6BFF] transition-all">
+            <button className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-300 border border-white/10 rounded-lg hover:border-[#1E6BFF] hover:text-[#1E6BFF] transition-all">
               Marla
               <ChevronDown className="w-3 h-3" />
             </button>

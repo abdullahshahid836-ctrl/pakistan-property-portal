@@ -59,7 +59,7 @@ const FeaturedProjects = () => {
 
 const ProjectCard = ({ project }: { project: Project }) => (
   <Link href={`/new-projects/${project.slug}`}
-    className="group bg-white/60 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+    className="group bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300">
     
     <div className="relative h-52 sm:h-56 overflow-hidden">
       <Image 
@@ -67,7 +67,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
         alt={project.name}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="object-cover group-hover:scale-105 transition-transform duration-500"
+        className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
       />
       
       <div className={cn(
@@ -78,24 +78,24 @@ const ProjectCard = ({ project }: { project: Project }) => (
         {project.status}
       </div>
 
-      <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm hover:bg-white transition-colors z-10">
-        <Heart className="w-4 h-4 text-[#4A5568] hover:text-red-500 transition-colors" />
+      <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center shadow-sm hover:bg-black/60 transition-colors z-10">
+        <Heart className="w-4 h-4 text-white hover:text-red-500 transition-colors" />
       </button>
     </div>
 
     <div className="p-5">
-      <h3 className="text-base sm:text-lg font-bold text-[#1A1A2E] mb-2 group-hover:text-[#1E6BFF] transition-colors line-clamp-1">
+      <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-[#1E6BFF] transition-colors line-clamp-1">
         {project.name}
       </h3>
       
-      <div className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-4">
+      <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
         <MapPin className="w-3.5 h-3.5 text-[#1E6BFF]" />
         {project.location}
       </div>
 
-      <div className="pt-4 border-t border-[#F3F4F6] flex items-end justify-between">
+      <div className="pt-4 border-t border-white/10 flex items-end justify-between">
         <div>
-          <span className="text-[10px] text-[#9CA3AF] font-bold uppercase tracking-widest block mb-1">
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">
             Starting From
           </span>
           <span className="text-base sm:text-lg font-bold text-[#1E6BFF]">
@@ -103,10 +103,10 @@ const ProjectCard = ({ project }: { project: Project }) => (
           </span>
         </div>
         <div className="text-right">
-          <span className="text-[10px] text-[#9CA3AF] font-bold uppercase tracking-widest block mb-1">
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block mb-1">
             Developer
           </span>
-          <span className="text-xs font-semibold text-[#4A5568]">
+          <span className="text-xs font-semibold text-slate-300">
             {project.developer.split(' ')[0]}
           </span>
         </div>
