@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body className={inter.className}>
         <Navbar />
-        <main className="min-h-screen pt-16 bg-white">
+        <main className="min-h-screen pt-16 bg-transparent">
           {children}
         </main>
         <Footer />
