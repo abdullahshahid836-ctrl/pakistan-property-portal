@@ -24,8 +24,10 @@ export default function ParticleBackground() {
       color: string
 
       constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
+        const w = canvas?.width || 1920
+        const h = canvas?.height || 1080
+        this.x = Math.random() * w
+        this.y = Math.random() * h
         this.size = Math.random() * 2 + 1
         this.speedY = -(Math.random() * 0.5 + 0.2) // Slow upward drift
         this.color = Math.random() > 0.5 ? '#ffffff' : '#93C5FD'
