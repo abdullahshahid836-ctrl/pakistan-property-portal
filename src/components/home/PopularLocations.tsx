@@ -15,7 +15,7 @@ const PopularLocations = () => {
   const cities = ['Lahore', 'Karachi', 'Islamabad']
 
   return (
-    <section className="bg-[#F8F9FA] py-12 sm:py-16 lg:py-20">
+    <section className="bg-transparent py-12 sm:py-16 lg:py-20 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader 
           heading="Popular Locations"
@@ -33,7 +33,7 @@ const PopularLocations = () => {
                   "px-5 py-2 text-sm font-bold rounded-full transition-all duration-200 border",
                   activeType === type 
                     ? "bg-[#1E6BFF] text-white border-[#1E6BFF] shadow-sm" 
-                    : "bg-white text-[#4A5568] border-[#E5E7EB] hover:border-[#1E6BFF] hover:text-[#1E6BFF]"
+                    : "bg-white/60 backdrop-blur-md text-[#4A5568] border-white/20 hover:border-[#1E6BFF] hover:text-[#1E6BFF]"
                 )}
               >
                 {type}
@@ -49,7 +49,7 @@ const PopularLocations = () => {
                   "px-5 py-1.5 text-xs font-bold rounded-full transition-all duration-200 border uppercase tracking-wider",
                   activeCity === city 
                     ? "bg-[#1A1A2E] text-white border-[#1A1A2E]" 
-                    : "bg-white text-[#9CA3AF] border-[#E5E7EB] hover:border-[#1A1A2E] hover:text-[#1A1A2E]"
+                    : "bg-white/60 backdrop-blur-md text-[#9CA3AF] border-white/20 hover:border-[#1A1A2E] hover:text-[#1A1A2E]"
                 )}
               >
                 {city}
@@ -65,7 +65,7 @@ const PopularLocations = () => {
             if (!city) return null
             
             return (
-              <div key={cityName} className="bg-white rounded-2xl border border-[#E5E7EB] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+              <div key={cityName} className="bg-white/60 backdrop-blur-md rounded-2xl border border-white/20 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
                 <div className="flex items-center justify-between mb-5 pb-3 border-b-2 border-[#1E6BFF]/10">
                   <h3 className="text-sm font-bold text-[#1E6BFF] uppercase tracking-widest">
                     {cityName} SOCIETIES

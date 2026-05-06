@@ -4,7 +4,7 @@ import { Plus, Check } from 'lucide-react'
 
 const ListPropertyCTA = () => {
   return (
-    <section className="bg-[#1E6BFF] py-16 sm:py-20 overflow-hidden relative">
+    <section className="bg-[#1E6BFF]/80 backdrop-blur-md py-16 sm:py-20 overflow-hidden relative z-10">
       {/* Decorative circles */}
       <div className="absolute -top-20 -left-20 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
       <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-black/10 rounded-full blur-3xl" />

@@ -44,18 +44,10 @@ const HeroSearch = () => {
   }
 
   return (
-    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col items-center justify-center bg-[#F8F9FA] overflow-hidden">
-      {/* Background */}
+    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col items-center justify-center bg-transparent overflow-hidden">
+      {/* Background Overlay - Making it transparent to show ScrollBackground */}
       <div className="absolute inset-0">
-        <Image 
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920"
-          alt="Pakistan Real Estate"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
       </div>
 
       {/* Content */}

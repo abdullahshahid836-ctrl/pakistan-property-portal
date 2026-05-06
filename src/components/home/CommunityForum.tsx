@@ -13,7 +13,7 @@ const icons = {
 
 const CommunityForum = () => {
   return (
-    <section className="bg-white py-12 sm:py-16 lg:py-20">
+    <section className="bg-transparent py-12 sm:py-16 lg:py-20 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader 
           eyebrow="COMMUNITY"
@@ -28,7 +28,7 @@ const CommunityForum = () => {
               <Link 
                 key={cat.id} 
                 href={`/forum/${cat.slug}`}
-                className="group p-6 bg-white rounded-2xl border border-[#E5E7EB] shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_30px_rgba(30,107,255,0.08)] hover:border-[#1E6BFF]/30 transition-all duration-300 flex flex-col"
+                className="group p-6 bg-white/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_30px_rgba(30,107,255,0.08)] hover:border-[#1E6BFF]/30 transition-all duration-300 flex flex-col"
               >
                 <div className="w-12 h-12 rounded-2xl bg-[#EBF2FF] mb-4 flex items-center justify-center group-hover:bg-[#1E6BFF] transition-all duration-300">
                   <Icon className="w-6 h-6 text-[#1E6BFF] group-hover:text-white transition-colors" />
