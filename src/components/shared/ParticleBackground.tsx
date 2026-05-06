@@ -34,20 +34,23 @@ export default function ParticleBackground() {
       }
 
       update() {
+        const h = canvas?.height || 1080
+        const w = canvas?.width || 1920
         this.y += this.speedY
         if (this.y < 0) {
-          this.y = canvas.height
-          this.x = Math.random() * canvas.width
+          this.y = h
+          this.x = Math.random() * w
         }
       }
 
       draw() {
-        if (!ctx) return
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fillStyle = this.color
-        ctx.globalAlpha = 0.25
-        ctx.fill()
+        const context = canvas?.getContext('2d')
+        if (!context) return
+        context.beginPath()
+        context.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        context.fillStyle = this.color
+        context.globalAlpha = 0.25
+        context.fill()
       }
     }
 
