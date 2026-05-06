@@ -69,15 +69,15 @@ const ExploreTools = () => {
             <Link 
               key={idx} 
               href={tool.href}
-              className="group flex flex-col items-center text-center p-5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_30px_rgba(30,107,255,0.2)] hover:border-[#1E6BFF]/50 transition-all duration-300"
+              className="group flex flex-col items-center text-center p-5 bg-white/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(30,107,255,0.1)] hover:border-[#1E6BFF]/30 transition-all duration-300"
             >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#1E6BFF]/10 mb-4 flex items-center justify-center group-hover:bg-[#1E6BFF] transition-all duration-300">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#EBF2FF] mb-4 flex items-center justify-center group-hover:bg-[#1E6BFF] transition-all duration-300">
                 <tool.icon className="w-6 h-6 text-[#1E6BFF] group-hover:text-white transition-colors" />
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-white mb-1">
+              <h3 className="text-sm sm:text-base font-bold text-[#1A1A2E] mb-1">
                 {tool.name}
               </h3>
-              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-[#9CA3AF] leading-relaxed">
                 {tool.desc}
               </p>
             </Link>
