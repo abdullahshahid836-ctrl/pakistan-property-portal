@@ -1,12 +1,16 @@
-import { Inter } from 'next/font/google'
+import { Syne, Inter } from 'next/font/google'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import './globals.css'
 
-const inter = Inter({ 
-  subsets: ['latin'], 
-  weight: ['400','500','600','700','800'],
-  variable: '--font-inter'
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
 })
 
 export const metadata = {
@@ -20,10 +24,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className={inter.className}>
+    <html lang="en" className={`${syne.variable} ${inter.variable}`}>
+      <body className="font-inter">
         <Navbar />
-        <main className="min-h-screen pt-16 bg-white">
+        <main className="min-h-screen pt-16 bg-bg-primary">
           {children}
         </main>
         <Footer />

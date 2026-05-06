@@ -1,7 +1,4 @@
-import React from 'react'
-import Link from 'next/link'
-import { Building2, Calculator, Home, Map, Search, TrendingUp, ArrowLeftRight, BarChart2 } from 'lucide-react'
-import SectionHeader from '@/components/shared/SectionHeader'
+import RevealWrapper from '@/components/shared/RevealWrapper'
 
 const tools = [
   { 
@@ -56,31 +53,43 @@ const tools = [
 
 const ExploreTools = () => {
   return (
-    <section className="bg-white py-12 sm:py-16 lg:py-20 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader 
-          eyebrow="EXPLORE"
-          heading="Real Estate Tools"
-          sub="Everything you need to make smart property decisions in Pakistan's dynamic market"
-        />
+    <section className="bg-flecto-cream py-20 sm:py-24 lg:py-32 relative z-10 overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-flecto-lime/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <RevealWrapper animation="fade-up">
+          <SectionHeader 
+            eyebrow="Market Essentials"
+            heading="Premium Real Estate Tools"
+            sub="Empowering your property journey with data-driven insights and financial planning tools designed for the Pakistani market."
+          />
+        </RevealWrapper>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
           {tools.map((tool, idx) => (
-            <Link 
-              key={idx} 
-              href={tool.href}
-              className="group flex flex-col items-center text-center p-5 bg-white rounded-2xl border border-[#E5E7EB] shadow-sm hover:shadow-md hover:border-[#1E6BFF]/30 transition-all duration-300"
-            >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#EBF2FF] mb-4 flex items-center justify-center group-hover:bg-[#1E6BFF] transition-all duration-300">
-                <tool.icon className="w-6 h-6 text-[#1E6BFF] group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-sm sm:text-base font-bold text-[#1A1A2E] mb-1">
-                {tool.name}
-              </h3>
-              <p className="text-[11px] sm:text-xs text-[#9CA3AF] leading-relaxed">
-                {tool.desc}
-              </p>
-            </Link>
+            <RevealWrapper key={idx} animation="fade-up" delay={idx * 0.05}>
+              <Link 
+                href={tool.href}
+                className="flecto-card group flex flex-col items-start p-8 h-full bg-white"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-flecto-green/5 mb-6 flex items-center justify-center group-hover:bg-flecto-green transition-all duration-500 transform group-hover:rotate-6">
+                  <tool.icon className="w-6 h-6 text-flecto-green group-hover:text-flecto-lime transition-colors" />
+                </div>
+                <h3 className="text-lg font-bold text-flecto-green mb-2 font-syne">
+                  {tool.name}
+                </h3>
+                <p className="text-sm text-flecto-text-muted leading-relaxed font-inter">
+                  {tool.desc}
+                </p>
+                <div className="mt-6 flex items-center gap-2 text-flecto-green font-bold text-xs uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                  Explore Now
+                  <div className="w-4 h-4 rounded-full bg-flecto-lime flex items-center justify-center">
+                    <span className="text-[10px]">→</span>
+                  </div>
+                </div>
+              </Link>
+            </RevealWrapper>
           ))}
         </div>
       </div>

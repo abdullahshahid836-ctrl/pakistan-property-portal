@@ -31,30 +31,30 @@ const HomeLoanCalculator = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-20">
-      <div className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-2">
+    <div className="min-h-screen bg-flecto-cream-dark pb-24">
+      <div className="bg-flecto-cream border-b border-flecto-green/5 pt-28 pb-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2 text-[9px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-4 font-inter">
             <span>Home</span>
-            <ChevronRight className="w-3 h-3" />
-            <span>Tools</span>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1A1A2E]">Home Loan Calculator</span>
+            <ChevronRight className="w-3 h-3 opacity-30" />
+            <span>Analytical Tools</span>
+            <ChevronRight className="w-3 h-3 opacity-30" />
+            <span className="text-flecto-green-light">Capital Financing Calculator</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-[#1A1A2E]">Home Loan Calculator</h1>
+          <h1 className="text-4xl font-bold text-flecto-green font-syne tracking-tight">Capital Financing Calculator</h1>
+          <p className="text-base text-flecto-text-muted font-inter font-medium mt-2">Projecting long-term amortization and financing structures.</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Inputs */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 sm:p-8 shadow-sm">
-              <div className="space-y-8">
-                {/* Price Slider */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="bg-white rounded-[3rem] border border-flecto-green/5 p-8 sm:p-12 shadow-2xl shadow-flecto-green/[0.04]">
+              <div className="space-y-12">
                 <SliderInput 
-                  label="Property Price" 
+                  label="Asset Valuation" 
                   value={propertyPrice} 
                   onChange={setPropertyPrice} 
                   min={1000000} 
@@ -63,9 +63,8 @@ const HomeLoanCalculator = () => {
                   format={formatPKR}
                 />
                 
-                {/* Down Payment Slider */}
                 <SliderInput 
-                  label="Down Payment (%)" 
+                  label="Initial Capital (Down Payment %)" 
                   value={downPaymentPct} 
                   onChange={setDownPaymentPct} 
                   min={10} 
@@ -74,9 +73,8 @@ const HomeLoanCalculator = () => {
                   format={(val) => `${val}% (${formatPKR(propertyPrice * (val/100))})`}
                 />
 
-                {/* Tenure Slider */}
                 <SliderInput 
-                  label="Loan Tenure (Years)" 
+                  label="Financing Tenure (Years)" 
                   value={tenure} 
                   onChange={setTenure} 
                   min={1} 
@@ -85,9 +83,8 @@ const HomeLoanCalculator = () => {
                   format={(val) => `${val} Years`}
                 />
 
-                {/* Interest Rate Slider */}
                 <SliderInput 
-                  label="Interest Rate (%)" 
+                  label="Yield / Interest Rate (%)" 
                   value={interestRate} 
                   onChange={setInterestRate} 
                   min={5} 
@@ -98,53 +95,54 @@ const HomeLoanCalculator = () => {
               </div>
             </div>
 
-            {/* Info Box */}
-            <div className="bg-[#EBF2FF] rounded-2xl p-6 border border-[#1E6BFF]/20 flex gap-4">
-              <Info className="w-6 h-6 text-[#1E6BFF] shrink-0" />
+            <div className="bg-flecto-lime/10 rounded-[2rem] p-8 border border-flecto-lime/20 flex gap-6">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm">
+                <Info className="w-6 h-6 text-flecto-green" />
+              </div>
               <div>
-                <h4 className="text-sm font-bold text-[#1A1A2E] mb-1">About Home Loans in Pakistan</h4>
-                <p className="text-xs text-[#4A5568] leading-relaxed">
-                  Most banks in Pakistan offer home loans at Kibor + a spread. Interest rates usually vary between 12% to 18%. Down payments typically range from 20% to 30% of the property value.
+                <h4 className="text-[10px] font-bold text-flecto-green uppercase tracking-widest mb-2 font-syne">Market Insight: Financing in Pakistan</h4>
+                <p className="text-[11px] text-flecto-green font-inter font-medium leading-relaxed opacity-80">
+                  Tier-1 financial institutions typically benchmark residential financing against KIBOR benchmarks with a floating spread. Average market yields fluctuate between 12% to 18%, necessitating strategic capital allocation.
                 </p>
               </div>
             </div>
           </div>
 
           {/* Results Card */}
-          <div className="space-y-6">
-            <div className="bg-[#1A1A2E] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-flecto-green rounded-[3rem] p-10 text-flecto-cream shadow-2xl shadow-flecto-green/30 relative overflow-hidden">
               <div className="relative z-10">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-white/50 mb-6">Monthly Installment</h3>
-                <div className="text-3xl sm:text-4xl font-black text-[#1E6BFF] mb-8">
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-flecto-cream/40 mb-8 font-inter">Monthly Commitment</h3>
+                <div className="text-4xl sm:text-5xl font-bold text-flecto-lime mb-10 font-syne tracking-tight">
                   {formatPKR(monthlyInstallment)}
                 </div>
 
-                <div className="space-y-4 pt-6 border-t border-white/10">
-                  <ResultRow label="Loan Amount" value={formatPKR(propertyPrice * (1 - downPaymentPct/100))} />
-                  <ResultRow label="Total Interest" value={formatPKR(totalInterest)} />
-                  <ResultRow label="Total Payment" value={formatPKR(totalPayment)} />
+                <div className="space-y-5 pt-8 border-t border-flecto-cream/10">
+                  <ResultRow label="Principal Financed" value={formatPKR(propertyPrice * (1 - downPaymentPct/100))} />
+                  <ResultRow label="Projected Interest" value={formatPKR(totalInterest)} />
+                  <ResultRow label="Total Capital Outlay" value={formatPKR(totalPayment)} />
                 </div>
 
-                <button className="w-full mt-8 py-4 bg-[#1E6BFF] text-white text-sm font-bold rounded-2xl hover:bg-[#1554CC] transition-all shadow-lg flex items-center justify-center gap-2">
-                  Apply for Loan <ArrowRight className="w-4 h-4" />
+                <button className="w-full mt-10 py-5 bg-flecto-lime text-flecto-green text-xs font-bold rounded-full hover:bg-white transition-all duration-500 shadow-xl shadow-flecto-lime/10 flex items-center justify-center gap-3 font-syne uppercase tracking-widest">
+                  Initialize Financing <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#1E6BFF]/10 rounded-full blur-3xl" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-flecto-lime/5 rounded-full blur-3xl" />
             </div>
 
-            {/* CTA */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-sm flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-2xl bg-[#F8F9FA] flex items-center justify-center mb-4">
-                <Download className="w-5 h-5 text-[#1A1A2E]" />
+            <div className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-8 shadow-2xl shadow-flecto-green/[0.04] flex flex-col items-center text-center group">
+              <div className="w-14 h-14 rounded-2xl bg-flecto-cream flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 shadow-inner">
+                <Download className="w-6 h-6 text-flecto-green-light" />
               </div>
-              <h4 className="text-sm font-bold text-[#1A1A2E] mb-2">Download Repayment Plan</h4>
-              <p className="text-xs text-[#9CA3AF] mb-4">Get a detailed breakdown of your monthly payments.</p>
-              <button className="text-xs font-bold text-[#1E6BFF] hover:underline">Download PDF</button>
+              <h4 className="text-xs font-bold text-flecto-green mb-2 font-syne uppercase tracking-widest">Amortization Schedule</h4>
+              <p className="text-[10px] text-flecto-text-muted mb-6 font-inter font-medium leading-relaxed">Secure a granular breakdown of your projected repayment trajectory.</p>
+              <button className="text-[10px] font-bold text-flecto-green-light hover:text-flecto-green transition-colors font-syne uppercase tracking-widest border-b border-flecto-green-light/20 pb-1">Download Archive</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   )
 }
 

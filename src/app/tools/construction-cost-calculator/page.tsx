@@ -23,43 +23,43 @@ const ConstructionCostCalculator = () => {
   const estimatedCost = totalSqft * costs[quality as keyof typeof costs]
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-20">
-      <div className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
-          <div className="flex items-center justify-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-4">
-            <Link href="/" className="hover:text-[#1E6BFF]">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1A1A2E]">Construction Cost Calculator</span>
+    <div className="min-h-screen bg-flecto-cream-dark pb-24">
+      <div className="bg-flecto-cream border-b border-flecto-green/5 pt-28 pb-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2 text-[9px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-4 font-inter">
+            <Link href="/" className="hover:text-flecto-green transition-colors">Portfolio</Link>
+            <ChevronRight className="w-3 h-3 opacity-30" />
+            <span className="text-flecto-green-light">Construction Estimation</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-[#1A1A2E] mb-4">Construction Cost Calculator</h1>
-          <p className="text-sm text-[#4A5568] max-w-2xl mx-auto">Estimate the approximate cost of building your dream house in Pakistan based on current market rates.</p>
+          <h1 className="text-4xl sm:text-5xl font-bold text-flecto-green font-syne tracking-tight mb-4">Construction Estimation</h1>
+          <p className="text-base text-flecto-text-muted font-inter font-medium max-w-2xl">Projected capital requirements for ground-up development based on current material indexing.</p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Inputs */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 shadow-sm">
-              <h3 className="text-sm font-bold text-[#1A1A2E] mb-6 flex items-center gap-2">
-                <Hammer className="w-4 h-4 text-[#1E6BFF]" /> Project Details
+          <div className="lg:col-span-7 space-y-8">
+            <div className="bg-white rounded-[3rem] border border-flecto-green/5 p-10 sm:p-12 shadow-2xl shadow-flecto-green/[0.04]">
+              <h3 className="text-xs font-bold text-flecto-green mb-8 flex items-center gap-3 font-syne uppercase tracking-widest">
+                <Hammer className="w-4 h-4 text-flecto-lime" /> Development Parameters
               </h3>
               
-              <div className="space-y-6">
+              <div className="space-y-10">
                 <div>
-                  <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-3">Total Area</label>
-                  <div className="flex gap-2">
+                  <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] block mb-4 font-inter">Footprint Specification</label>
+                  <div className="flex gap-4">
                     <input 
                       type="number" 
                       value={area}
                       onChange={(e) => setArea(e.target.value)}
-                      className="flex-1 h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm font-bold text-[#1A1A2E] focus:outline-none focus:border-[#1E6BFF]"
+                      className="flex-1 h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-lg font-bold text-flecto-green focus:outline-none focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 transition-all duration-500 font-syne"
                     />
                     <select 
                       value={unit}
                       onChange={(e) => setUnit(e.target.value)}
-                      className="w-32 h-12 px-3 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-xs font-bold text-[#4A5568] focus:outline-none focus:border-[#1E6BFF]"
+                      className="w-32 h-14 px-4 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-[10px] font-bold text-flecto-green uppercase tracking-widest focus:outline-none focus:border-flecto-green/20 cursor-pointer font-inter"
                     >
                       <option>Marla</option>
                       <option>Kanal</option>
@@ -68,15 +68,17 @@ const ConstructionCostCalculator = () => {
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-3">Construction Quality</label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] block mb-4 font-inter">Material Grade</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {['Standard', 'Premium', 'Luxury'].map((q) => (
                       <button 
                         key={q}
                         onClick={() => setQuality(q)}
                         className={cn(
-                          "py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all border",
-                          quality === q ? "bg-[#1E6BFF] text-white border-[#1E6BFF] shadow-lg" : "bg-white text-[#4A5568] border-[#E5E7EB] hover:border-[#1E6BFF]"
+                          "py-4 rounded-2xl text-[10px] font-bold uppercase tracking-widest transition-all duration-500 border font-syne",
+                          quality === q 
+                            ? "bg-flecto-green text-flecto-cream border-flecto-green shadow-xl shadow-flecto-green/20" 
+                            : "bg-flecto-cream border-transparent text-flecto-text-muted hover:border-flecto-green/20 hover:text-flecto-green"
                         )}
                       >
                         {q}
@@ -87,39 +89,43 @@ const ConstructionCostCalculator = () => {
               </div>
             </div>
 
-            <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 flex gap-4">
-              <Info className="w-5 h-5 text-[#1E6BFF] shrink-0 mt-0.5" />
-              <p className="text-xs text-[#1E6BFF]/80 leading-relaxed font-medium">
-                Calculations are based on average market rates in major cities. Costs include grey structure and basic finishing.
+            <div className="bg-flecto-lime/10 rounded-[2rem] p-8 border border-flecto-lime/20 flex gap-6">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm">
+                <Info className="w-6 h-6 text-flecto-green" />
+              </div>
+              <p className="text-[11px] text-flecto-green font-inter font-medium leading-relaxed opacity-80 pt-1">
+                Estimations represent aggregated market medians across primary metropolitan zones. Scope includes structural foundation and specified interior finishes.
               </p>
             </div>
           </div>
 
           {/* Result Card */}
-          <div className="bg-[#1A1A2E] rounded-3xl p-10 text-white flex flex-col justify-center items-center text-center relative overflow-hidden group">
-            <div className="relative z-10">
-              <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest block mb-4">Estimated Total Cost</span>
-              <div className="flex items-baseline justify-center gap-2 mb-2">
-                <span className="text-xl font-bold text-[#1E6BFF]">PKR</span>
-                <h2 className="text-4xl sm:text-5xl font-black">{estimatedCost.toLocaleString()}</h2>
-              </div>
-              <p className="text-xs text-white/40 mb-8">Approx. PKR {(estimatedCost / 1000000).toFixed(2)} Crore</p>
-              
-              <div className="h-px bg-white/10 w-full mb-8" />
-              
-              <div className="grid grid-cols-2 gap-6 text-left">
-                <div>
-                  <span className="text-[10px] text-white/30 uppercase tracking-widest block mb-1">Grey Structure</span>
-                  <span className="text-sm font-bold">PKR {(estimatedCost * 0.6).toLocaleString()}</span>
+          <div className="lg:col-span-5">
+            <div className="bg-flecto-green rounded-[3rem] p-10 sm:p-14 text-flecto-cream h-full flex flex-col justify-center relative overflow-hidden group shadow-2xl shadow-flecto-green/30">
+              <div className="relative z-10 text-center">
+                <span className="text-[10px] font-bold text-flecto-cream/40 uppercase tracking-[0.3em] block mb-8 font-inter">Projected Capital Outlay</span>
+                <div className="flex items-baseline justify-center gap-3 mb-4">
+                  <span className="text-xl font-bold text-flecto-lime font-syne">PKR</span>
+                  <h2 className="text-5xl sm:text-6xl font-bold text-flecto-cream font-syne tracking-tight">{estimatedCost.toLocaleString()}</h2>
                 </div>
-                <div>
-                  <span className="text-[10px] text-white/30 uppercase tracking-widest block mb-1">Finishing</span>
-                  <span className="text-sm font-bold">PKR {(estimatedCost * 0.4).toLocaleString()}</span>
+                <p className="text-[10px] font-bold text-flecto-cream/30 uppercase tracking-widest mb-12 font-inter">Valuation: {(estimatedCost / 1000000).toFixed(2)} Million</p>
+                
+                <div className="h-px bg-flecto-cream/10 w-full mb-10" />
+                
+                <div className="grid grid-cols-2 gap-8 text-left">
+                  <div>
+                    <span className="text-[9px] font-bold text-flecto-lime uppercase tracking-widest block mb-2 font-inter">Structural Core</span>
+                    <span className="text-sm font-bold text-flecto-cream font-syne">PKR {(estimatedCost * 0.6).toLocaleString()}</span>
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-bold text-flecto-lime uppercase tracking-widest block mb-2 font-inter">Interior Refinement</span>
+                    <span className="text-sm font-bold text-flecto-cream font-syne">PKR {(estimatedCost * 0.4).toLocaleString()}</span>
+                  </div>
                 </div>
               </div>
+              
+              <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-flecto-lime/5 rounded-full blur-[80px] group-hover:bg-flecto-lime/10 transition-all duration-1000" />
             </div>
-            
-            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#1E6BFF]/10 rounded-full blur-3xl group-hover:bg-[#1E6BFF]/20 transition-all duration-700" />
           </div>
 
         </div>
@@ -127,5 +133,6 @@ const ConstructionCostCalculator = () => {
     </div>
   )
 }
+
 
 export default ConstructionCostCalculator

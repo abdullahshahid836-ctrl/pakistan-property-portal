@@ -85,47 +85,47 @@ function ProjectDetailContent() {
   const units = (project as any).project_units || project.units || []
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA]">
+    <div className="min-h-screen bg-flecto-cream-dark pb-24">
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest">
-            <Link href="/" className="hover:text-[#1E6BFF]">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link href="/new-projects" className="hover:text-[#1E6BFF]">New Projects</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1A1A2E]">{project.name}</span>
+      <div className="bg-flecto-cream border-b border-flecto-green/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center gap-2 text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] font-inter">
+            <Link href="/" className="hover:text-flecto-green transition-colors">Home</Link>
+            <ChevronRight className="w-3.5 h-3.5 opacity-30" />
+            <Link href="/new-projects" className="hover:text-flecto-green transition-colors">New Projects</Link>
+            <ChevronRight className="w-3.5 h-3.5 opacity-30" />
+            <span className="text-flecto-green-light">{project.name}</span>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
           {/* LEFT: Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-10">
 
             {/* Image Gallery */}
-            <div className="bg-white rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-sm">
-              <div className="relative h-80 sm:h-[440px] overflow-hidden">
+            <div className="bg-white rounded-[2.5rem] overflow-hidden border border-flecto-green/5 shadow-2xl shadow-flecto-green/[0.04]">
+              <div className="relative h-96 sm:h-[500px] overflow-hidden">
                 <Image
                   src={images[activeImage]}
                   alt={project.name}
                   fill
                   sizes="(max-width: 1024px) 100vw, 66vw"
-                  className="object-cover transition-all duration-700"
+                  className="object-cover transition-all duration-1000 ease-out scale-100"
                   priority
                 />
                 {/* Status Badge */}
-                <div className="absolute top-5 left-5">
-                  <span className={cn("px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white rounded-xl shadow-lg", statusColor)}>
+                <div className="absolute top-8 left-8">
+                  <span className={cn("px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-flecto-cream rounded-full shadow-2xl backdrop-blur-md font-inter", statusColor === 'bg-orange-500' ? "bg-orange-500/90" : statusColor === 'bg-green-500' ? "bg-flecto-green/90" : "bg-flecto-green-light/90")}>
                     {project.status}
                   </span>
                 </div>
                 {/* Trending Badge */}
                 {(project.isTrending || project.is_trending) && (
-                  <div className="absolute top-5 right-5 bg-white/90 backdrop-blur-md text-[#1E6BFF] px-3 py-1 text-[10px] font-bold rounded-lg flex items-center gap-1.5 shadow-sm">
-                    <TrendingUp className="w-3 h-3" /> TRENDING
+                  <div className="absolute top-8 right-8 bg-flecto-lime text-flecto-green px-5 py-2.5 text-[10px] font-bold rounded-full flex items-center gap-2 shadow-2xl font-inter uppercase tracking-widest">
+                    <TrendingUp className="w-4 h-4" /> TRENDING
                   </div>
                 )}
                 {/* Navigation Arrows */}
@@ -133,33 +133,33 @@ function ProjectDetailContent() {
                   <>
                     <button
                       onClick={() => setActiveImage(i => (i - 1 + images.length) % images.length)}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all"
+                      className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-xl rounded-full flex items-center justify-center shadow-2xl hover:bg-white transition-all duration-300 group"
                     >
-                      <ChevronLeft className="w-5 h-5 text-[#1A1A2E]" />
+                      <ChevronLeft className="w-6 h-6 text-flecto-green group-hover:-translate-x-0.5 transition-transform" />
                     </button>
                     <button
                       onClick={() => setActiveImage(i => (i + 1) % images.length)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all"
+                      className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-xl rounded-full flex items-center justify-center shadow-2xl hover:bg-white transition-all duration-300 group"
                     >
-                      <ChevronRightIcon className="w-5 h-5 text-[#1A1A2E]" />
+                      <ChevronRightIcon className="w-6 h-6 text-flecto-green group-hover:translate-x-0.5 transition-transform" />
                     </button>
                   </>
                 )}
                 {/* Image Counter */}
-                <div className="absolute bottom-4 right-4 bg-black/60 text-white text-[10px] font-bold px-3 py-1 rounded-lg">
+                <div className="absolute bottom-8 right-8 bg-flecto-green/80 backdrop-blur-md text-flecto-cream text-[10px] font-bold px-4 py-2 rounded-full font-inter">
                   {activeImage + 1} / {images.length}
                 </div>
               </div>
               {/* Thumbnail Strip */}
               {images.length > 1 && (
-                <div className="flex gap-2 p-4 overflow-x-auto">
+                <div className="flex gap-4 p-6 overflow-x-auto bg-flecto-cream/30">
                   {images.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImage(idx)}
-                      className={cn("relative flex-shrink-0 w-20 h-14 rounded-xl overflow-hidden border-2 transition-all", activeImage === idx ? "border-[#1E6BFF]" : "border-transparent")}
+                      className={cn("relative flex-shrink-0 w-24 h-16 rounded-[1rem] overflow-hidden border-2 transition-all duration-500", activeImage === idx ? "border-flecto-lime scale-105 shadow-xl" : "border-transparent opacity-60 hover:opacity-100")}
                     >
-                      <Image src={img} alt="" fill sizes="80px" className="object-cover" />
+                      <Image src={img} alt="" fill sizes="96px" className="object-cover" />
                     </button>
                   ))}
                 </div>
@@ -167,74 +167,80 @@ function ProjectDetailContent() {
             </div>
 
             {/* Project Header */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 shadow-sm">
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <div>
-                  <h1 className="text-2xl sm:text-3xl font-black text-[#1A1A2E] mb-2">{project.name}</h1>
-                  <div className="flex items-center gap-1.5 text-sm text-[#9CA3AF]">
-                    <MapPin className="w-4 h-4 text-[#1E6BFF]" />
+            <div className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-10 sm:p-14 shadow-2xl shadow-flecto-green/[0.04]">
+              <div className="flex flex-col sm:flex-row items-start justify-between gap-8 mb-10">
+                <div className="space-y-4">
+                  <h1 className="text-3xl sm:text-5xl font-bold text-flecto-green font-syne tracking-tight leading-tight">{project.name}</h1>
+                  <div className="flex items-center gap-2 text-base text-flecto-text-muted font-inter font-medium">
+                    <MapPin className="w-5 h-5 text-flecto-lime" />
                     {project.location}, {project.city}
                   </div>
                 </div>
-                <div className="flex gap-2 flex-shrink-0">
+                <div className="flex gap-4">
                   <button
                     onClick={() => setIsSaved(s => !s)}
-                    className={cn("w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all", isSaved ? "border-red-500 bg-red-50" : "border-[#E5E7EB] hover:border-red-500")}
+                    className={cn("w-14 h-14 rounded-full border border-flecto-green/5 flex items-center justify-center transition-all duration-500 shadow-sm", isSaved ? "bg-red-50 text-red-500 border-red-100" : "bg-flecto-cream text-flecto-green-light hover:bg-white hover:border-flecto-lime")}
                   >
-                    <Heart className={cn("w-4 h-4", isSaved ? "fill-red-500 text-red-500" : "text-[#9CA3AF]")} />
+                    <Heart className={cn("w-6 h-6", isSaved ? "fill-red-500" : "")} />
                   </button>
-                  <button className="w-10 h-10 rounded-full border-2 border-[#E5E7EB] flex items-center justify-center hover:border-[#1E6BFF] transition-all">
-                    <Share2 className="w-4 h-4 text-[#9CA3AF]" />
+                  <button className="w-14 h-14 rounded-full border border-flecto-green/5 bg-flecto-cream text-flecto-green-light flex items-center justify-center hover:bg-white hover:border-flecto-lime transition-all duration-500 shadow-sm">
+                    <Share2 className="w-6 h-6" />
                   </button>
                 </div>
               </div>
 
               {/* Key Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-[#F3F4F6]">
-                <div className="text-center">
-                  <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Starting From</p>
-                  <p className="text-base font-black text-[#1E6BFF]">PKR {project.price_label || project.priceLabel}</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-10 border-t border-flecto-green/5">
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] font-inter">Starting From</p>
+                  <p className="text-xl font-bold text-flecto-green font-syne">
+                    <span className="text-xs mr-1 opacity-40 font-inter">PKR</span>
+                    {project.price_label || project.priceLabel}
+                  </p>
                 </div>
-                <div className="text-center">
-                  <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Developer</p>
-                  <p className="text-sm font-bold text-[#1A1A2E]">{project.developer}</p>
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] font-inter">Developer</p>
+                  <p className="text-base font-bold text-flecto-green font-syne uppercase tracking-wider">{project.developer}</p>
                 </div>
-                <div className="text-center">
-                  <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Status</p>
-                  <p className="text-sm font-bold text-[#1A1A2E]">{project.status}</p>
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] font-inter">Status</p>
+                  <p className="text-base font-bold text-flecto-green-light font-syne uppercase tracking-wider">{project.status}</p>
                 </div>
-                <div className="text-center">
-                  <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Completion</p>
-                  <p className="text-sm font-bold text-[#1A1A2E]">{project.completion_date || project.completionDate || 'TBD'}</p>
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] font-inter">Completion</p>
+                  <p className="text-base font-bold text-flecto-green font-syne uppercase tracking-wider">{project.completion_date || project.completionDate || 'TBD'}</p>
                 </div>
               </div>
             </div>
 
             {/* Description */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 shadow-sm">
-              <h2 className="text-lg font-black text-[#1A1A2E] mb-4">About This Project</h2>
-              <p className="text-sm text-[#4A5568] leading-relaxed whitespace-pre-line">{project.description}</p>
+            <div className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-10 sm:p-14 shadow-2xl shadow-flecto-green/[0.04]">
+              <h2 className="text-2xl font-bold text-flecto-green mb-6 font-syne uppercase tracking-tight">Visionary Outlook</h2>
+              <p className="text-base text-flecto-text-muted leading-relaxed font-inter font-medium whitespace-pre-line">{project.description}</p>
             </div>
 
             {/* Unit Types */}
             {units.length > 0 && (
-              <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 shadow-sm">
-                <h2 className="text-lg font-black text-[#1A1A2E] mb-6">Available Units</h2>
-                <div className="space-y-3">
+              <div className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-10 sm:p-14 shadow-2xl shadow-flecto-green/[0.04]">
+                <h2 className="text-2xl font-bold text-flecto-green mb-8 font-syne uppercase tracking-tight">Configuration Options</h2>
+                <div className="grid grid-cols-1 gap-4">
                   {units.map((unit: any, idx: number) => (
-                    <div key={idx} className="flex items-center justify-between p-4 bg-[#F8F9FA] rounded-2xl hover:bg-[#EBF2FF] transition-colors group">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:bg-[#1E6BFF] transition-colors">
-                          <Bed className="w-4 h-4 text-[#1E6BFF] group-hover:text-white transition-colors" />
+                    <div key={idx} className="flex items-center justify-between p-6 bg-flecto-cream rounded-[1.5rem] hover:bg-flecto-lime/5 border border-transparent hover:border-flecto-lime/20 transition-all duration-500 group">
+                      <div className="flex items-center gap-6">
+                        <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-xl group-hover:bg-flecto-green transition-all duration-500">
+                          <Bed className="w-7 h-7 text-flecto-green-light group-hover:text-flecto-lime transition-all duration-500" />
                         </div>
-                        <div>
-                          <p className="text-sm font-bold text-[#1A1A2E]">{unit.unit_type || unit.type}</p>
-                          <p className="text-[10px] text-[#9CA3AF]">{unit.size}</p>
+                        <div className="space-y-1">
+                          <p className="text-lg font-bold text-flecto-green font-syne uppercase tracking-wider">{unit.unit_type || unit.type}</p>
+                          <p className="text-xs font-bold text-flecto-text-muted uppercase tracking-widest font-inter">{unit.size}</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm font-black text-[#1E6BFF]">PKR {unit.price}</p>
-                        <p className="text-[10px] text-[#9CA3AF]">Starting Price</p>
+                      <div className="text-right space-y-1">
+                        <p className="text-lg font-bold text-flecto-green font-syne">
+                          <span className="text-[10px] mr-1 opacity-40 font-inter">PKR</span>
+                          {unit.price}
+                        </p>
+                        <p className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] font-inter">Premium Starting</p>
                       </div>
                     </div>
                   ))}
@@ -244,13 +250,15 @@ function ProjectDetailContent() {
 
             {/* Amenities */}
             {project.amenities?.length > 0 && (
-              <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 shadow-sm">
-                <h2 className="text-lg font-black text-[#1A1A2E] mb-6">Amenities & Features</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-10 sm:p-14 shadow-2xl shadow-flecto-green/[0.04]">
+                <h2 className="text-2xl font-bold text-flecto-green mb-8 font-syne uppercase tracking-tight">Lifestyle Features</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {project.amenities.map((amenity, idx) => (
-                    <div key={idx} className="flex items-center gap-3 p-3 bg-[#F8F9FA] rounded-xl">
-                      <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      <span className="text-sm font-medium text-[#4A5568]">{amenity}</span>
+                    <div key={idx} className="flex items-center gap-4 p-5 bg-flecto-cream rounded-[1.25rem] border border-flecto-green/5 group hover:bg-white hover:border-flecto-lime/30 transition-all duration-500">
+                      <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:bg-flecto-green transition-colors">
+                        <CheckCircle2 className="w-4 h-4 text-flecto-lime group-hover:text-flecto-lime" />
+                      </div>
+                      <span className="text-sm font-bold text-flecto-green-light font-syne uppercase tracking-wider">{amenity}</span>
                     </div>
                   ))}
                 </div>
@@ -258,150 +266,133 @@ function ProjectDetailContent() {
             )}
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-6">
               {[
                 { icon: Shield, label: "Verified Project", sub: "RERA Approved" },
-                { icon: Star, label: "Premium Quality", sub: "International Standards" },
-                { icon: Clock, label: "On-Time Delivery", sub: "Track Record" },
+                { icon: Star, label: "Premium Quality", sub: "Global Standards" },
+                { icon: Clock, label: "Timely Delivery", sub: "Proven Track Record" },
               ].map(({ icon: Icon, label, sub }, idx) => (
-                <div key={idx} className="bg-white rounded-2xl border border-[#E5E7EB] p-5 text-center shadow-sm">
-                  <div className="w-10 h-10 bg-[#EBF2FF] rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <Icon className="w-5 h-5 text-[#1E6BFF]" />
+                <div key={idx} className="bg-white rounded-[2rem] border border-flecto-green/5 p-8 text-center shadow-2xl shadow-flecto-green/[0.03] group hover:border-flecto-lime/30 transition-all duration-500">
+                  <div className="w-14 h-14 bg-flecto-cream rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-flecto-green transition-all duration-500">
+                    <Icon className="w-6 h-6 text-flecto-green group-hover:text-flecto-lime transition-colors" />
                   </div>
-                  <p className="text-xs font-bold text-[#1A1A2E]">{label}</p>
-                  <p className="text-[10px] text-[#9CA3AF] mt-0.5">{sub}</p>
+                  <p className="text-xs font-bold text-flecto-green font-syne uppercase tracking-widest mb-1">{label}</p>
+                  <p className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-widest font-inter">{sub}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* RIGHT: Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-8">
 
             {/* Price Summary Card */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-sm">
-              <div className="mb-6">
-                <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Price Range</p>
-                <p className="text-2xl font-black text-[#1E6BFF]">PKR {project.price_label || project.priceLabel}</p>
-                {(project.price_max || project.priceMax) && (
-                  <p className="text-sm text-[#9CA3AF] mt-0.5">Up to PKR {(project.price_max || project.priceMax || 0).toLocaleString()}</p>
+            <div className="bg-flecto-green rounded-[2.5rem] p-10 text-flecto-cream shadow-2xl shadow-flecto-green/20 relative overflow-hidden group">
+              <div className="relative z-10 space-y-8">
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-flecto-cream/40 uppercase tracking-[0.2em] font-inter">Investment Horizon</p>
+                  <p className="text-3xl font-bold font-syne">
+                    <span className="text-xs mr-1 opacity-40 font-inter">PKR</span>
+                    {project.price_label || project.priceLabel}
+                  </p>
+                  {(project.price_max || project.priceMax) && (
+                    <p className="text-xs font-medium text-flecto-cream/60 font-inter">Scalable to PKR {(project.price_max || project.priceMax || 0).toLocaleString()}</p>
+                  )}
+                </div>
+
+                {/* Inquiry Form */}
+                {sent ? (
+                  <div className="text-center py-10 bg-white/5 rounded-[2rem] backdrop-blur-md border border-white/10 animate-in fade-in zoom-in duration-500">
+                    <div className="w-20 h-20 bg-flecto-lime rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl shadow-flecto-lime/40">
+                      <CheckCircle2 className="w-10 h-10 text-flecto-green" />
+                    </div>
+                    <p className="text-xl font-bold font-syne uppercase tracking-tight mb-2">Request Lodged</p>
+                    <p className="text-xs font-medium text-flecto-cream/60 font-inter px-6">Our senior advisors will connect within the business cycle.</p>
+                    <button 
+                      onClick={() => setSent(false)}
+                      className="mt-6 text-[10px] font-bold text-flecto-lime uppercase tracking-[0.2em] hover:underline"
+                    >
+                      New Inquiry
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleInquiry} className="space-y-4">
+                    <h3 className="text-sm font-bold font-syne uppercase tracking-[0.2em] mb-6 text-flecto-lime">Request Prospectus</h3>
+                    <input
+                      type="text"
+                      placeholder="Your Full Name"
+                      value={inquiry.name}
+                      onChange={e => setInquiry(i => ({...i, name: e.target.value}))}
+                      required
+                      className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-sm font-inter focus:bg-white/10 focus:border-flecto-lime/50 outline-none transition-all placeholder:text-white/20"
+                    />
+                    <input
+                      type="tel"
+                      placeholder="Verified Contact Number"
+                      value={inquiry.phone}
+                      onChange={e => setInquiry(i => ({...i, phone: e.target.value}))}
+                      required
+                      className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-sm font-inter focus:bg-white/10 focus:border-flecto-lime/50 outline-none transition-all placeholder:text-white/20"
+                    />
+                    <textarea
+                      placeholder="Specific requirements or questions..."
+                      rows={4}
+                      value={inquiry.message}
+                      onChange={e => setInquiry(i => ({...i, message: e.target.value}))}
+                      className="w-full p-6 bg-white/5 border border-white/10 rounded-2xl text-sm font-inter focus:bg-white/10 focus:border-flecto-lime/50 outline-none transition-all placeholder:text-white/20 resize-none"
+                    />
+                    <button
+                      type="submit"
+                      disabled={sending}
+                      className="w-full h-14 bg-flecto-lime text-flecto-green text-xs font-bold rounded-full hover:bg-white hover:scale-[1.02] transition-all duration-500 flex items-center justify-center gap-3 disabled:opacity-50 font-syne uppercase tracking-widest shadow-2xl shadow-flecto-lime/20"
+                    >
+                      {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <MessageSquare className="w-4 h-4" />}
+                      {sending ? 'Processing...' : 'Engage Advisor'}
+                    </button>
+                    <a
+                      href={`https://wa.me/923001234567?text=Hi, I'm interested in the ${project.name} project.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full h-14 bg-white/10 text-white text-xs font-bold rounded-full hover:bg-white/20 transition-all duration-500 flex items-center justify-center gap-3 font-syne uppercase tracking-widest border border-white/10"
+                    >
+                      <Phone className="w-4 h-4" />
+                      Direct Access
+                    </a>
+                  </form>
                 )}
               </div>
-
-              {/* Inquiry Form */}
-              {sent ? (
-                <div className="text-center py-8">
-                  <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <CheckCircle2 className="w-7 h-7 text-green-500" />
-                  </div>
-                  <p className="font-bold text-[#1A1A2E] mb-1">Inquiry Sent!</p>
-                  <p className="text-xs text-[#9CA3AF]">Our team will contact you within 24 hours.</p>
-                  <button 
-                    onClick={() => setSent(false)}
-                    className="mt-4 text-[10px] font-bold text-[#1E6BFF] hover:underline"
-                  >
-                    Send Another Inquiry
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleInquiry} className="space-y-3">
-                  <h3 className="text-sm font-black text-[#1A1A2E] mb-4">Get More Details</h3>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={inquiry.name}
-                    onChange={e => setInquiry(i => ({...i, name: e.target.value}))}
-                    required
-                    className="w-full h-11 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none"
-                  />
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    value={inquiry.phone}
-                    onChange={e => setInquiry(i => ({...i, phone: e.target.value}))}
-                    required
-                    className="w-full h-11 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email (optional)"
-                    value={inquiry.email}
-                    onChange={e => setInquiry(i => ({...i, email: e.target.value}))}
-                    className="w-full h-11 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none"
-                  />
-                  <textarea
-                    placeholder="Your message..."
-                    rows={3}
-                    value={inquiry.message}
-                    onChange={e => setInquiry(i => ({...i, message: e.target.value}))}
-                    className="w-full p-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none resize-none"
-                  />
-                  <button
-                    type="submit"
-                    disabled={sending}
-                    className="w-full h-12 bg-[#1E6BFF] text-white text-sm font-bold rounded-xl hover:bg-[#1554CC] transition-all flex items-center justify-center gap-2 disabled:opacity-70"
-                  >
-                    {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <MessageSquare className="w-4 h-4" />}
-                    {sending ? 'Sending...' : 'Send Inquiry'}
-                  </button>
-                  <a
-                    href={`https://wa.me/923001234567?text=Hi, I'm interested in ${project.name}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full h-12 bg-green-500 text-white text-sm font-bold rounded-xl hover:bg-green-600 transition-all flex items-center justify-center gap-2"
-                  >
-                    <Phone className="w-4 h-4" />
-                    WhatsApp Us
-                  </a>
-                </form>
-              )}
+              {/* Abstract pattern bg */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-flecto-lime/10 rounded-full blur-[100px] -mr-32 -mt-32" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-flecto-green-light/10 rounded-full blur-[100px] -ml-32 -mb-32" />
             </div>
 
             {/* Developer Info */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-sm">
-              <h3 className="text-sm font-black text-[#1A1A2E] mb-4">Developer</h3>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-[#EBF2FF] rounded-2xl flex items-center justify-center">
-                  <Building2 className="w-6 h-6 text-[#1E6BFF]" />
+            <div className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-10 shadow-2xl shadow-flecto-green/[0.03] group hover:border-flecto-lime/30 transition-all duration-500">
+              <h3 className="text-xs font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-8 font-inter">Project Architect</h3>
+              <div className="flex items-center gap-6 mb-8">
+                <div className="w-16 h-16 bg-flecto-cream rounded-2xl flex items-center justify-center shadow-inner group-hover:bg-flecto-green transition-all duration-500">
+                  <Building2 className="w-8 h-8 text-flecto-green group-hover:text-flecto-lime transition-colors" />
                 </div>
-                <div>
-                  <p className="font-bold text-[#1A1A2E] text-sm">{project.developer}</p>
-                  <p className="text-[10px] text-[#9CA3AF]">Verified Developer</p>
+                <div className="space-y-1">
+                  <p className="font-bold text-flecto-green text-lg font-syne uppercase tracking-wider leading-tight">{project.developer}</p>
+                  <p className="text-[10px] font-bold text-flecto-green-light uppercase tracking-widest font-inter">Certified Developer</p>
                 </div>
               </div>
-              <a 
-                href="https://wa.me/923001234567?text=Hi, I need help with a new project on Pakistan Property Portal"
-                target="_blank"
-                className="flex items-center justify-center gap-2 text-[10px] font-bold text-green-600 bg-green-50 rounded-xl p-3 hover:bg-green-100 transition-colors"
-              >
-                <Shield className="w-3.5 h-3.5" />
-                Trusted & Verified by Pakistan Property Portal
-              </a>
-            </div>
-
-            {/* Need Help Card */}
-            <div className="bg-[#1A1A2E] rounded-3xl p-6 text-white overflow-hidden relative group">
-              <div className="relative z-10">
-                <h4 className="text-lg font-bold mb-2">Need Help?</h4>
-                <p className="text-xs text-white/60 mb-6 leading-relaxed">Our project experts are here to help you find the perfect investment in {project.city}.</p>
-                <a 
-                  href="https://wa.me/923001234567?text=Hi, I need help with a new project on Pakistan Property Portal"
-                  target="_blank"
-                  className="flex items-center justify-center gap-2 text-xs font-bold text-[#1E6BFF] bg-white px-5 py-2.5 rounded-xl group-hover:scale-105 transition-transform"
-                >
-                  Contact Support <ChevronRight className="w-4 h-4" />
-                </a>
+              <div className="bg-flecto-lime/5 rounded-2xl p-5 border border-flecto-lime/10">
+                <div className="flex items-center gap-3 text-[10px] font-bold text-flecto-green font-inter uppercase tracking-[0.1em]">
+                  <Shield className="w-4 h-4 text-flecto-green-light" />
+                  Verified Portfolio Standards
+                </div>
               </div>
-              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#1E6BFF]/20 rounded-full blur-2xl" />
             </div>
 
             {/* Back Link */}
             <Link
               href="/new-projects"
-              className="flex items-center gap-2 text-sm font-bold text-[#1E6BFF] hover:text-[#1554CC] transition-colors"
+              className="flex items-center justify-center gap-3 py-6 text-xs font-bold text-flecto-green-light hover:text-flecto-green transition-all duration-500 font-syne uppercase tracking-[0.2em] group"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to All Projects
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              Return to Catalog
             </Link>
           </div>
         </div>
@@ -413,8 +404,9 @@ function ProjectDetailContent() {
 export default function ProjectDetailPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
-        <Loader2 className="w-10 h-10 text-[#1E6BFF] animate-spin" />
+      <div className="min-h-screen bg-flecto-cream flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 border-4 border-flecto-green/10 border-t-flecto-lime rounded-full animate-spin" />
+        <p className="text-sm font-bold text-flecto-green font-syne uppercase tracking-widest">Securing Connection...</p>
       </div>
     }>
       <ProjectDetailContent />

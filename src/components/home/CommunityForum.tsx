@@ -11,62 +11,76 @@ const icons = {
   "general-discussion": MessageSquare
 }
 
+import RevealWrapper from '@/components/shared/RevealWrapper'
+
+const icons = {
+  "buying-property": MessageCircle,
+  "renting-property": Key,
+  "new-projects": Building,
+  "general-discussion": MessageSquare
+}
+
 const CommunityForum = () => {
   return (
-    <section className="bg-white py-12 sm:py-16 lg:py-20 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader 
-          eyebrow="COMMUNITY"
-          heading="Pakistan Property Forum"
-          sub="Join thousands of buyers, sellers and renters discussing the real estate market"
-        />
+    <section className="bg-flecto-cream-dark py-20 sm:py-24 lg:py-32 relative z-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <RevealWrapper animation="fade-up">
+          <SectionHeader 
+            eyebrow="The Knowledge Hub"
+            heading="Community Discussions"
+            sub="Connect with thousands of property enthusiasts, experts, and real estate professionals across Pakistan."
+          />
+        </RevealWrapper>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {forumData.categories.map((cat) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {forumData.categories.map((cat, idx) => {
             const Icon = icons[cat.slug as keyof typeof icons] || MessageSquare
             return (
-              <Link 
-                key={cat.id} 
-                href={`/forum/${cat.slug}`}
-                className="group p-6 bg-white rounded-2xl border border-[#E5E7EB] shadow-sm hover:shadow-md hover:border-[#1E6BFF]/30 transition-all duration-300 flex flex-col"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-[#EBF2FF] mb-4 flex items-center justify-center group-hover:bg-[#1E6BFF] transition-all duration-300">
-                  <Icon className="w-6 h-6 text-[#1E6BFF] group-hover:text-white transition-colors" />
-                </div>
-                
-                <h3 className="text-base font-bold text-[#1A1A2E] mb-1 group-hover:text-[#1E6BFF] transition-colors">
-                  {cat.name}
-                </h3>
-                
-                <div className="flex items-center gap-3 mt-2 mb-4">
-                  <span className="text-xs text-[#9CA3AF]">
-                    {cat.topicCount.toLocaleString()} Topics
-                  </span>
-                  {cat.newTopics > 0 && (
-                    <span className="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
-                      {cat.newTopics} New
+              <RevealWrapper key={cat.id} animation="fade-up" delay={idx * 0.1}>
+                <Link 
+                  href={`/forum/${cat.slug}`}
+                  className="flecto-card group p-8 bg-white flex flex-col h-full"
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-flecto-green/5 mb-6 flex items-center justify-center group-hover:bg-flecto-green transition-all duration-500">
+                    <Icon className="w-6 h-6 text-flecto-green group-hover:text-flecto-lime transition-colors" />
+                  </div>
+                  
+                  <h3 className="text-lg font-bold text-flecto-green mb-2 font-syne group-hover:text-flecto-green-light transition-colors">
+                    {cat.name}
+                  </h3>
+                  
+                  <div className="flex items-center gap-3 mt-2 mb-8">
+                    <span className="text-xs text-flecto-text-muted font-medium font-inter">
+                      {cat.topicCount.toLocaleString()} Topics
                     </span>
-                  )}
-                </div>
+                    {cat.newTopics > 0 && (
+                      <span className="text-[10px] text-flecto-green font-bold bg-flecto-lime px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-flecto-green animate-pulse" />
+                        {cat.newTopics} New
+                      </span>
+                    )}
+                  </div>
 
-                <div className="flex items-center gap-1.5 mt-auto text-xs font-bold text-[#9CA3AF] group-hover:text-[#1E6BFF] transition-colors">
-                  Browse Discussions <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </div>
-              </Link>
+                  <div className="flex items-center gap-2 mt-auto text-xs font-bold text-flecto-green group-hover:text-flecto-green-light transition-all uppercase tracking-wider font-inter">
+                    Join Discussion <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              </RevealWrapper>
             )
           })}
         </div>
 
-        <div className="mt-12 text-center">
-          <Link 
-            href="/register"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-[#1E6BFF] text-white text-sm font-bold rounded-2xl hover:bg-[#1554CC] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 shadow-button"
-          >
-            <Users className="w-4 h-4" />
-            Join the Community
-          </Link>
-        </div>
+        <RevealWrapper animation="fade-up" delay={0.4}>
+          <div className="mt-16 text-center">
+            <Link 
+              href="/register"
+              className="btn-primary px-10 py-4 text-sm"
+            >
+              <Users className="w-4 h-4 mr-2" />
+              Join the Community
+            </Link>
+          </div>
+        </RevealWrapper>
 
       </div>
     </section>
