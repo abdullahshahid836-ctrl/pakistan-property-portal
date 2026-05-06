@@ -6,12 +6,9 @@ import CommunityForum from '@/components/home/CommunityForum'
 import PopularLocations from '@/components/home/PopularLocations'
 import ListPropertyCTA from '@/components/home/ListPropertyCTA'
 
-import ScrollBackground from '@/components/shared/ScrollBackground'
-
 export default function Home() {
   return (
     <div className="flex flex-col relative">
-      <ScrollBackground />
       <HeroSearch />
       <ExploreTools />
       <FeaturedProjects />

@@ -7,8 +7,11 @@ import { useRouter } from 'next/navigation'
 import { Search, MapPin, Building2, ChevronDown, Settings, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+import ParticleBackground from '@/components/shared/ParticleBackground'
+
 const HeroSearch = () => {
   const router = useRouter()
+  // ... (keeping state logic same)
   const [activeTab, setActiveTab] = useState<'BUY' | 'RENT' | 'PROJECTS'>('BUY')
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -44,10 +47,12 @@ const HeroSearch = () => {
   }
 
   return (
-    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col items-center justify-center bg-transparent overflow-hidden">
-      {/* Background Overlay - Making it transparent to show ScrollBackground */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
+    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col items-center justify-center bg-[#0B1120] overflow-hidden">
+      {/* Background with Particles */}
+      <div className="absolute inset-0 z-0">
+        <ParticleBackground />
+        {/* Dark Overlay for readability */}
+        <div className="absolute inset-0 bg-black/55" />
       </div>
 
       {/* Content */}

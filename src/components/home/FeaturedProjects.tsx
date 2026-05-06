@@ -28,7 +28,7 @@ const FeaturedProjects = () => {
   }, [])
 
   return (
-    <section className="bg-transparent py-12 sm:py-16 lg:py-20 relative z-10">
+    <section className="bg-[#F8F9FA] py-12 sm:py-16 lg:py-20 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader 
           eyebrow="🔥 TRENDING"
@@ -44,7 +44,7 @@ const FeaturedProjects = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading ? (
             Array(3).fill(0).map((_, i) => (
-              <div key={i} className="bg-white/40 backdrop-blur-md rounded-2xl h-[400px] animate-pulse border border-white/20" />
+              <div key={i} className="bg-white rounded-2xl h-[400px] animate-pulse border border-[#E5E7EB]" />
             ))
           ) : (
             projects.map((project) => (
@@ -59,7 +59,7 @@ const FeaturedProjects = () => {
 
 const ProjectCard = ({ project }: { project: Project }) => (
   <Link href={`/new-projects/${project.slug}`}
-    className="group bg-white/60 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+    className="group bg-white rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
     
     <div className="relative h-52 sm:h-56 overflow-hidden">
       <Image 

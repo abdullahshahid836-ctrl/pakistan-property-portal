@@ -56,7 +56,7 @@ const tools = [
 
 const ExploreTools = () => {
   return (
-    <section className="bg-transparent py-12 sm:py-16 lg:py-20 relative z-10">
+    <section className="bg-white py-12 sm:py-16 lg:py-20 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader 
           eyebrow="EXPLORE"
@@ -69,7 +69,7 @@ const ExploreTools = () => {
             <Link 
               key={idx} 
               href={tool.href}
-              className="group flex flex-col items-center text-center p-5 bg-white/60 backdrop-blur-md rounded-2xl border border-white/20 shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(30,107,255,0.1)] hover:border-[#1E6BFF]/30 transition-all duration-300"
+              className="group flex flex-col items-center text-center p-5 bg-white rounded-2xl border border-[#E5E7EB] shadow-sm hover:shadow-md hover:border-[#1E6BFF]/30 transition-all duration-300"
             >
               <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#EBF2FF] mb-4 flex items-center justify-center group-hover:bg-[#1E6BFF] transition-all duration-300">
                 <tool.icon className="w-6 h-6 text-[#1E6BFF] group-hover:text-white transition-colors" />
