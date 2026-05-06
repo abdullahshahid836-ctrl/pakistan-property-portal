@@ -7,8 +7,6 @@ import { useRouter } from 'next/navigation'
 import { Search, MapPin, Building2, ChevronDown, Settings, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-import ParticleBackground from '@/components/shared/ParticleBackground'
-
 const HeroSearch = () => {
   const router = useRouter()
   // ... (keeping state logic same)
@@ -48,14 +46,19 @@ const HeroSearch = () => {
 
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col items-center justify-center bg-[#0B1120] overflow-hidden">
-      {/* Background with Particles */}
-      <div className="absolute inset-0 z-0">
-        <ParticleBackground />
-        {/* Dark Overlay for readability */}
-        <div className="absolute inset-0 bg-black/55" />
-      </div>
+      {/* Static Hero Image */}
+      <Image 
+        src="/hero-bg.png"
+        alt="Premium Pakistan Real Estate"
+        fill
+        className="object-cover opacity-60"
+        priority
+      />
+      
+      {/* Dark Overlay for readability - FIX 3 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-[1]" />
 
-      {/* Content */}
+      {/* Content - z-10 for top layer */}
       <div className="relative z-10 text-center px-4 w-full max-w-5xl mx-auto">
         <span className="inline-block px-3 py-1 mb-4 text-[11px] font-semibold tracking-[0.2em] uppercase bg-[#1E6BFF]/20 text-white border border-[#1E6BFF]/30 rounded-full">
           Pakistan's Premier Property Portal

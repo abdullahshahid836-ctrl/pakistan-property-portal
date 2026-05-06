@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, Globe, Share2, Users, Search, ExternalLink } from 
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1A1A2E] text-white">
+    <footer className="bg-[#1A1A2E] text-white relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-6">
         
         {/* Main Grid */}

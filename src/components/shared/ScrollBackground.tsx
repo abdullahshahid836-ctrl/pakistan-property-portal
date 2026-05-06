@@ -22,7 +22,7 @@ export default function ScrollBackground() {
           if (loadedCount === frameCount) {
             setImages(loadedImages)
             setIsLoaded(true)
-            render(0)
+            render(0, loadedImages)
           }
         }
         loadedImages[i] = img
@@ -31,20 +31,19 @@ export default function ScrollBackground() {
     preload()
   }, [])
 
-  const render = (progress: number) => {
+  const render = (progress: number, imgs: HTMLImageElement[]) => {
     const canvas = canvasRef.current
-    if (!canvas || images.length !== frameCount) return
+    if (!canvas || imgs.length !== frameCount) return
 
     const context = canvas.getContext('2d')
     if (!context) return
 
-    // Calculate frames for interpolation
     const currentFrameIdx = Math.floor(progress * (frameCount - 1))
     const nextFrameIdx = Math.min(currentFrameIdx + 1, frameCount - 1)
     const weight = (progress * (frameCount - 1)) % 1
 
-    const img1 = images[currentFrameIdx]
-    const img2 = images[nextFrameIdx]
+    const img1 = imgs[currentFrameIdx]
+    const img2 = imgs[nextFrameIdx]
 
     if (!img1 || !img2) return
 
@@ -65,11 +64,7 @@ export default function ScrollBackground() {
     }
 
     context.clearRect(0, 0, canvas.width, canvas.height)
-    
-    // Draw current frame (solid)
     draw(img1, 1)
-    
-    // Crossfade next frame based on scroll progress within the frame interval
     if (weight > 0) {
       draw(img2, weight)
     }
@@ -80,29 +75,25 @@ export default function ScrollBackground() {
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
       const scrollTop = window.scrollY
       const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight))
-      
-      requestAnimationFrame(() => render(scrollFraction))
+      requestAnimationFrame(() => render(scrollFraction, images))
     }
 
     const handleResize = () => {
       if (canvasRef.current) {
-        // Handle High DPI screens
         const dpr = window.devicePixelRatio || 1
         canvasRef.current.width = window.innerWidth * dpr
         canvasRef.current.height = window.innerHeight * dpr
         const context = canvasRef.current.getContext('2d')
         if (context) context.scale(dpr, dpr)
-        
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
         const scrollTop = window.scrollY
-        render(Math.max(0, Math.min(1, scrollTop / scrollHeight)))
+        render(Math.max(0, Math.min(1, scrollTop / scrollHeight)), images)
       }
     }
 
     window.addEventListener('scroll', handleScroll)
     window.addEventListener('resize', handleResize)
-    
-    handleResize() // Initial size
+    handleResize()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -112,20 +103,14 @@ export default function ScrollBackground() {
 
   return (
     <div className={cn(
-      "fixed inset-0 -z-10 pointer-events-none transition-opacity duration-1000",
-      isLoaded ? "opacity-70" : "opacity-0"
+      "fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000",
+      isLoaded ? "opacity-40" : "opacity-0"
     )}>
-      <canvas 
-        ref={canvasRef}
-        style={{ width: '100vw', height: '100vh' }}
-      />
-      {/* Dynamic Overlay that gets darker at the bottom for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-white/10 to-[#F8F9FA]/30" />
+      <canvas ref={canvasRef} style={{ width: '100vw', height: '100vh' }} />
     </div>
   )
 }
 
-// Utility to handle class merging without external dependency issues in this scope
 function cn(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
