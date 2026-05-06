@@ -1,47 +1,124 @@
 {
   "categories": [
     {
-      "id": "cat-001", "slug": "buying-property",
+      "id": "cat-001",
+      "slug": "buying-property",
       "name": "Buying Property",
-      "description": "Discuss purchases, documentation and legal processes",
-      "topicCount": 11423, "newTopics": 2,
+      "description": "General discussions, advice and tips for property buyers in Pakistan.",
+      "topicCount": 12450,
+      "newTopics": 124,
       "topics": [
-        { "id":"t-001","title":"Is DHA Phase 6 Lahore still a good investment?",
-          "author":"Ahmed Raza","replies":34,"views":1240,
-          "lastActivity":"2 hours ago","isHot":true },
-        { "id":"t-002","title":"Documents to check before buying in Bahria Town?",
-          "author":"Sara Khan","replies":18,"views":876,
-          "lastActivity":"5 hours ago","isHot":false },
-        { "id":"t-003","title":"Comparing plot prices in B-17 vs G-13 Islamabad",
-          "author":"Tariq Mehmood","replies":42,"views":2100,
-          "lastActivity":"1 day ago","isHot":true }
+        {
+          "id": "topic-101",
+          "title": "Is it a good time to invest in DHA Phase 9 Prism?",
+          "author": "Zeeshan Khan",
+          "replies": 45,
+          "views": 1204,
+          "isHot": true,
+          "lastActivity": "2h ago"
+        },
+        {
+          "id": "topic-102",
+          "title": "Buying 5 Marla vs 10 Marla for long term investment in Bahria Town",
+          "author": "Asim Raza",
+          "replies": 28,
+          "views": 850,
+          "isHot": false,
+          "lastActivity": "5h ago"
+        },
+        {
+          "id": "topic-103",
+          "title": "Legal checklist for buying property in Islamabad - Must read!",
+          "author": "Advocate Ali",
+          "replies": 86,
+          "views": 3200,
+          "isHot": true,
+          "lastActivity": "1h ago"
+        }
       ]
     },
     {
-      "id": "cat-002", "slug": "renting-property",
-      "name": "Renting Property", "topicCount": 556, "newTopics": 2,
+      "id": "cat-002",
+      "slug": "renting-property",
+      "name": "Renting Property",
+      "description": "Find rental advice, discuss tenant rights and share your experiences.",
+      "topicCount": 8320,
+      "newTopics": 45,
       "topics": [
-        { "id":"t-004","title":"Fair rent for 3-bed in Gulberg Lahore?",
-          "author":"Hina Malik","replies":12,"views":430,
-          "lastActivity":"3 hours ago","isHot":false }
+        {
+          "id": "topic-201",
+          "title": "Standard rent increase in Gulberg Lahore for 2025?",
+          "author": "Mariam",
+          "replies": 12,
+          "views": 450,
+          "isHot": false,
+          "lastActivity": "10h ago"
+        },
+        {
+          "id": "topic-202",
+          "title": "Pros and cons of living in a gated community vs open society",
+          "author": "Hamza",
+          "replies": 56,
+          "views": 1800,
+          "isHot": true,
+          "lastActivity": "3h ago"
+        }
       ]
     },
     {
-      "id": "cat-003", "slug": "new-projects",
-      "name": "New Projects", "topicCount": 3241, "newTopics": 5,
+      "id": "cat-003",
+      "slug": "new-projects",
+      "name": "New Projects",
+      "description": "Latest news and updates on upcoming residential and commercial projects.",
+      "topicCount": 15600,
+      "newTopics": 210,
       "topics": [
-        { "id":"t-005","title":"Park Lane Residences — worth investing?",
-          "author":"Kamran Ali","replies":67,"views":3400,
-          "lastActivity":"30 min ago","isHot":true }
+        {
+          "id": "topic-301",
+          "title": "Latest update on Ravi Riverfront City development",
+          "author": "Official_Dev",
+          "replies": 150,
+          "views": 5600,
+          "isHot": true,
+          "lastActivity": "30m ago"
+        },
+        {
+          "id": "topic-302",
+          "title": "Park View City vs Gulberg Greens Islamabad - Which is better?",
+          "author": "Imran_Inv",
+          "replies": 95,
+          "views": 2800,
+          "isHot": true,
+          "lastActivity": "4h ago"
+        }
       ]
     },
     {
-      "id": "cat-004", "slug": "general-discussion",
-      "name": "General Discussion", "topicCount": 8920, "newTopics": 8,
+      "id": "cat-004",
+      "slug": "general-discussion",
+      "name": "General Discussion",
+      "description": "Anything and everything related to Pakistan real estate that doesn't fit elsewhere.",
+      "topicCount": 45000,
+      "newTopics": 520,
       "topics": [
-        { "id":"t-006","title":"Impact of Ring Road on property prices in Southern Lahore",
-          "author":"Bilal Siddiqui","replies":89,"views":5600,
-          "lastActivity":"1 hour ago","isHot":true }
+        {
+          "id": "topic-401",
+          "title": "How the new budget 2025 will affect real estate prices?",
+          "author": "Economist_PK",
+          "replies": 230,
+          "views": 8900,
+          "isHot": true,
+          "lastActivity": "15m ago"
+        },
+        {
+          "id": "topic-402",
+          "title": "Future of high-rise living in Karachi - Seafront developments",
+          "author": "Architect_Saad",
+          "replies": 42,
+          "views": 1500,
+          "isHot": false,
+          "lastActivity": "6h ago"
+        }
       ]
     }
   ]

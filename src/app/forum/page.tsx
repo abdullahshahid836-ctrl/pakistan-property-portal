@@ -17,7 +17,7 @@ const ForumPage = () => {
       <div className="bg-white border-b border-[#E5E7EB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-2">
-            <span>Home</span>
+            <Link href="/" className="hover:text-[#1E6BFF]">Home</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#1A1A2E]">Forum</span>
           </div>
@@ -130,9 +130,12 @@ const ForumPage = () => {
                 <Users className="w-10 h-10 text-[#1E6BFF] mx-auto mb-4" />
                 <h4 className="text-lg font-bold mb-2">Expert Community</h4>
                 <p className="text-xs text-white/50 mb-6 leading-relaxed">Get advice from Pakistan's top real estate experts and experienced investors.</p>
-                <button className="w-full py-3 bg-[#1E6BFF] text-white text-xs font-bold rounded-xl hover:bg-[#1554CC] transition-all">
+                <Link 
+                  href="/register"
+                  className="block w-full py-3 bg-[#1E6BFF] text-white text-xs font-bold rounded-xl hover:bg-[#1554CC] transition-all"
+                >
                   Join the Community
-                </button>
+                </Link>
               </div>
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#1E6BFF]/10 rounded-full blur-2xl" />
             </div>

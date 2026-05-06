@@ -28,7 +28,7 @@ const CommunityForum = () => {
               <Link 
                 key={cat.id} 
                 href={`/forum/${cat.slug}`}
-                className="group p-6 bg-white rounded-2xl border border-[#E5E7EB] shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_30px_rgba(30,107,255,0.08)] hover:border-[#1E6BFF]/30 transition-all duration-300"
+                className="group p-6 bg-white rounded-2xl border border-[#E5E7EB] shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_30px_rgba(30,107,255,0.08)] hover:border-[#1E6BFF]/30 transition-all duration-300 flex flex-col"
               >
                 <div className="w-12 h-12 rounded-2xl bg-[#EBF2FF] mb-4 flex items-center justify-center group-hover:bg-[#1E6BFF] transition-all duration-300">
                   <Icon className="w-6 h-6 text-[#1E6BFF] group-hover:text-white transition-colors" />
@@ -38,7 +38,7 @@ const CommunityForum = () => {
                   {cat.name}
                 </h3>
                 
-                <div className="flex items-center gap-3 mt-2">
+                <div className="flex items-center gap-3 mt-2 mb-4">
                   <span className="text-xs text-[#9CA3AF]">
                     {cat.topicCount.toLocaleString()} Topics
                   </span>
@@ -50,13 +50,24 @@ const CommunityForum = () => {
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 mt-4 text-xs font-bold text-[#9CA3AF] group-hover:text-[#1E6BFF] transition-colors">
+                <div className="flex items-center gap-1.5 mt-auto text-xs font-bold text-[#9CA3AF] group-hover:text-[#1E6BFF] transition-colors">
                   Browse Discussions <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </div>
               </Link>
             )
           })}
         </div>
+
+        <div className="mt-12 text-center">
+          <Link 
+            href="/register"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[#1E6BFF] text-white text-sm font-bold rounded-2xl hover:bg-[#1554CC] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 shadow-button"
+          >
+            <Users className="w-4 h-4" />
+            Join the Community
+          </Link>
+        </div>
+
       </div>
     </section>
   )
