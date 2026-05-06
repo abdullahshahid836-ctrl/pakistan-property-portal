@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { MessageCircle, Key, Building, MessageSquare, ArrowRight } from 'lucide-react'
+import { MessageCircle, Key, Building, MessageSquare, ArrowRight, Users } from 'lucide-react'
 import SectionHeader from '@/components/shared/SectionHeader'
 import forumData from '@/data/forum-topics.json'
 
