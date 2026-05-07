@@ -1,145 +1,198 @@
 'use client'
 
-import React from 'react'
+import React, { useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { CheckCircle2, ShieldCheck, Users, Target, Building2, ChevronRight, ArrowRight } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { CheckCircle2, ShieldCheck, Users, Target, Building2, ChevronRight, ArrowRight, Sparkles, Globe } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import Reveal from '@/components/shared/Reveal'
 
 const AboutPage = () => {
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -400])
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
+
   return (
-    <div className="min-h-screen bg-[#F5F0E8] pb-20">
-      {/* Header */}
-      <div className="bg-[#004737] pt-24 pb-16 relative overflow-hidden">
-        {/* Dot grid texture */}
-        <div className="absolute inset-0 opacity-[0.05]" style={{
-          backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
-          backgroundSize: '32px 32px'
-        }} />
+    <div ref={containerRef} className="min-h-screen bg-[#F5F0E8] overflow-hidden">
+      
+      {/* 1. FLECTO HERO: Overlapping Cards + Parallax */}
+      <section className="relative h-[90vh] flex items-center justify-center pt-24">
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600" 
+            alt="Hero Background" 
+            fill 
+            className="object-cover opacity-20 grayscale"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F0E8] via-transparent to-[#F5F0E8]" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="flex items-center justify-center gap-1.5 text-[11px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.2em] mb-4">
-            <Link href="/" className="hover:underline underline-offset-4">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="opacity-60">About Us</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <Reveal direction="down">
+             <div className="flex justify-center mb-8">
+                <span className="pill-label bg-[#004737] text-[#C8F55A] px-10 py-3 text-xs shadow-2xl">WHO WE ARE</span>
+             </div>
+          </Reveal>
+          
+          <Reveal direction="up" delay={0.2}>
+            <h1 className="font-syne font-black text-5xl sm:text-8xl lg:text-9xl text-[#0D1B17] uppercase tracking-tighter leading-[0.85] mb-12">
+              Pakistan's <br />
+              <span className="text-[#004737] italic">Property</span> <br />
+              Network.
+            </h1>
+          </Reveal>
+
+          <div className="flex flex-wrap justify-center gap-6 mt-16">
+            <Reveal direction="left" delay={0.4}>
+               <div className="flecto-tab-tl bg-white p-10 w-72 text-left shadow-2xl border border-[#DDD8CF]">
+                  <Sparkles className="w-8 h-8 text-[#004737] mb-6" />
+                  <h3 className="font-syne font-black text-xl text-[#0D1B17] uppercase mb-4">Visionary</h3>
+                  <p className="text-xs font-inter text-[#7A9088] leading-relaxed">Redefining the real estate landscape through premium technology.</p>
+               </div>
+            </Reveal>
+            <Reveal direction="right" delay={0.6}>
+               <div className="flecto-tab-tr bg-[#004737] p-10 w-72 text-left shadow-2xl border border-[#0A5A46]">
+                  <Globe className="w-8 h-8 text-[#C8F55A] mb-6" />
+                  <h3 className="font-syne font-black text-xl text-white uppercase mb-4">National</h3>
+                  <p className="text-xs font-inter text-[#A8C4BB] leading-relaxed">A comprehensive ecosystem spanning across major residential hubs.</p>
+               </div>
+            </Reveal>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black font-syne text-white mb-4 uppercase tracking-tight">Our Mission</h1>
-          <p className="text-base text-[#A8C4BB] font-inter max-w-xl mx-auto">
-            Redefining the real estate landscape in Pakistan through transparency, technology and a premium user experience.
-          </p>
         </div>
+      </section>
 
-        {/* Wave divider */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 40L1440 40L1440 10C1200 40 960 0 720 20C480 40 240 0 0 10L0 40Z" fill="#F5F0E8" />
-          </svg>
+      {/* 2. MISSION & CORE: Orbiting Cards Layout */}
+      <section className="flecto-section py-32 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+              <div className="lg:col-span-5 space-y-12">
+                 <Reveal direction="left">
+                    <div className="w-20 h-2 bg-[#C8F55A] mb-10" />
+                    <h2 className="font-syne font-black text-4xl sm:text-6xl text-[#0D1B17] uppercase tracking-tighter leading-[0.9]">
+                      Our Mission <br />
+                      <span className="text-[#004737] italic">Defined.</span>
+                    </h2>
+                    <p className="text-xl font-inter text-[#3D5249] leading-relaxed mt-10">
+                      Founded in 2012, Pakistan Property Portal has evolved from a listing directory into a comprehensive ecosystem for real estate investment and management.
+                    </p>
+                 </Reveal>
+
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-10">
+                    {[
+                      { icon: ShieldCheck, title: 'Integrity First', desc: 'Standards of ethics and transparency in every transaction.' },
+                      { icon: Target, title: 'Innovation', desc: 'Leveraging data and technology to simplify real estate.' }
+                    ].map((val, i) => (
+                      <Reveal key={i} delay={i * 0.2}>
+                         <div className="space-y-4">
+                            <val.icon className="w-6 h-6 text-[#004737]" />
+                            <h4 className="font-syne font-black text-lg text-[#0D1B17] uppercase">{val.title}</h4>
+                            <p className="text-[10px] font-inter text-[#7A9088] uppercase tracking-widest leading-loose">{val.desc}</p>
+                         </div>
+                      </Reveal>
+                    ))}
+                 </div>
+              </div>
+
+              <div className="lg:col-span-7 relative">
+                 <div className="grid grid-cols-2 gap-6">
+                    <Reveal direction="scale" delay={0.3}>
+                       <div className="flecto-tab-tl bg-[#F5F0E8] p-12 aspect-square flex flex-col justify-between">
+                          <p className="text-5xl font-black font-syne text-[#004737]">12+</p>
+                          <p className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.3em]">YEARS EXP</p>
+                       </div>
+                    </Reveal>
+                    <Reveal direction="scale" delay={0.4}>
+                       <div className="flecto-tab-tr bg-[#004737] p-12 aspect-square flex flex-col justify-between text-white">
+                          <p className="text-5xl font-black font-syne text-[#C8F55A]">50K+</p>
+                          <p className="text-[10px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">MEMBERS</p>
+                       </div>
+                    </Reveal>
+                    <div className="col-span-2 relative h-80 rounded-[3rem] overflow-hidden shadow-2xl">
+                       <Image 
+                         src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200" 
+                         alt="Property Concept" 
+                         fill 
+                         className="object-cover" 
+                       />
+                       <div className="absolute inset-0 bg-[#004737]/40 backdrop-blur-sm flex items-center justify-center p-12 text-center">
+                          <p className="text-white font-syne font-black text-2xl uppercase leading-tight italic">
+                             "Property isn't just about square feet — it's about life's biggest milestones."
+                          </p>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-20">
-        
-        {/* Story Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-          <div className="relative">
-            <div className="relative h-[500px] w-full rounded-[3rem] overflow-hidden shadow-2xl">
-              <Image 
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800" 
-                alt="Our Office" 
-                fill 
-                className="object-cover" 
-              />
-              <div className="absolute inset-0 bg-[#004737]/20" />
-            </div>
-            {/* Stats Overlay */}
-            <div className="absolute -bottom-10 -right-10 bg-white rounded-[2rem] p-8 shadow-2xl border border-[#F5F0E8] hidden sm:block">
-              <div className="flex items-center gap-6">
-                <div className="text-center">
-                  <p className="text-3xl font-black font-syne text-[#004737]">12+</p>
-                  <p className="text-[9px] font-black font-syne text-[#7A9088] uppercase tracking-widest">YEARS EXP</p>
-                </div>
-                <div className="w-px h-10 bg-[#F5F0E8]" />
-                <div className="text-center">
-                  <p className="text-3xl font-black font-syne text-[#004737]">50K+</p>
-                  <p className="text-[9px] font-black font-syne text-[#7A9088] uppercase tracking-widest">MEMBERS</p>
+      {/* 3. JOURNEY: Timeline with Double-Tabbed Cards */}
+      <section className="py-32 bg-[#F5F0E8]">
+        <div className="max-w-4xl mx-auto px-4">
+           <div className="text-center mb-24">
+              <Reveal direction="down">
+                 <h2 className="font-syne font-black text-4xl sm:text-6xl text-[#0D1B17] uppercase tracking-tighter">Our Journey</h2>
+              </Reveal>
+           </div>
+
+           <div className="space-y-12">
+              {[
+                { year: '2012', title: 'The Genesis', desc: 'Launched as a pioneering property listing platform with a focus on verified assets.' },
+                { year: '2016', title: 'Market Integration', desc: 'Expanded to include comprehensive market data and specialized area guides.' },
+                { year: '2020', title: 'Tech Overhaul', desc: 'Introduced high-precision analytical tools and a premium user ecosystem.' },
+                { year: 'Present', title: 'National Leader', desc: 'Pakistan\'s most trusted property network with over 50,000 active members.' }
+              ].map((item, i) => (
+                <Reveal key={i} direction={i % 2 === 0 ? 'left' : 'right'} delay={i * 0.1}>
+                   <div className="group flex gap-8 items-center">
+                      <div className="text-3xl font-black font-syne text-[#004737]/20 group-hover:text-[#004737] transition-colors duration-500 w-32 shrink-0">
+                         {item.year}
+                      </div>
+                      <div className="flecto-double-tab bg-white p-10 border border-[#DDD8CF] shadow-xl flex-grow group-hover:shadow-2xl group-hover:border-[#004737]/20 transition-all duration-500">
+                         <h3 className="font-syne font-black text-xl text-[#0D1B17] uppercase mb-4 tracking-tight">{item.title}</h3>
+                         <p className="text-sm font-inter text-[#7A9088] leading-relaxed">{item.desc}</p>
+                      </div>
+                   </div>
+                </Reveal>
+              ))}
+           </div>
+        </div>
+      </section>
+
+      {/* 4. THE "EAR" CTA: Giant Custom Shaped Footer CTA */}
+      <section className="pb-32 bg-[#F5F0E8] relative z-10 px-4 sm:px-10">
+        <Reveal direction="up">
+           <div className="flecto-ear-cta bg-white max-w-7xl mx-auto p-12 sm:p-32 text-center shadow-[0_100px_200px_rgba(0,71,55,0.1)] border-x border-b border-[#DDD8CF] relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-[#F5F0E8] rounded-full blur-3xl -ml-16 -mt-16 opacity-40" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#C8F55A] rounded-full blur-3xl -mr-16 -mt-16 opacity-20" />
+              
+              <div className="relative z-10">
+                <h2 className="font-syne font-black text-4xl sm:text-7xl text-[#0D1B17] uppercase tracking-tighter leading-[0.85] mb-12">
+                   Ready to find <br />
+                   <span className="text-[#004737] italic">your future?</span>
+                </h2>
+                <p className="text-lg sm:text-xl font-inter text-[#3D5249] mb-16 max-w-2xl mx-auto opacity-70">
+                   Join thousands of Pakistanis who trust our platform for their residential and commercial property needs.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                   <Link href="/register" className="w-full sm:w-auto px-12 py-6 bg-[#004737] text-[#C8F55A] text-xs font-black font-syne rounded-2xl hover:bg-black transition-all uppercase tracking-[0.3em] shadow-2xl">
+                      JOIN THE NETWORK
+                   </Link>
+                   <Link href="/contact" className="w-full sm:w-auto px-12 py-6 bg-[#F5F0E8] text-[#004737] text-xs font-black font-syne rounded-2xl border border-[#DDD8CF] hover:bg-white transition-all uppercase tracking-[0.3em]">
+                      CONTACT SUPPORT
+                   </Link>
                 </div>
               </div>
-            </div>
-          </div>
-          
-          <div className="space-y-8">
-            <div className="w-16 h-1 bg-[#C8F55A]" />
-            <h2 className="text-3xl sm:text-4xl font-black font-syne text-[#0D1B17] uppercase tracking-tight leading-tight">
-              PAKISTAN'S MOST TRUSTED <br className="hidden sm:block" /> PROPERTY NETWORK
-            </h2>
-            <p className="text-lg font-inter text-[#3D5249] leading-relaxed">
-              Founded in 2012, Pakistan Property Portal has evolved from a listing directory into a comprehensive ecosystem for real estate investment and management.
-            </p>
-            <p className="text-base font-inter text-[#7A9088] leading-relaxed">
-              We understand that property isn't just about square feet — it's about life's biggest milestones. Our platform combines deep local expertise with world-class technology to ensure every transaction is secure, transparent and efficient.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                'Verified Listings Only',
-                'Transparent Market Data',
-                'Expert Legal Guidance',
-                'Premium User Support'
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#004737]" />
-                  <span className="text-sm font-black font-syne text-[#3D5249] uppercase tracking-wide">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Values Section */}
-        <div className="mb-24">
-           <div className="text-center mb-16">
-              <h2 className="text-3xl font-black font-syne text-[#0D1B17] uppercase tracking-tight">Our Core Values</h2>
-              <div className="w-20 h-1.5 bg-[#C8F55A] mx-auto mt-4 rounded-full" />
            </div>
-           
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { title: 'Integrity First', desc: 'We maintain the highest standards of ethics and transparency in every property listing and transaction.', icon: ShieldCheck },
-                { title: 'Innovation', desc: 'Leveraging data and technology to simplify the complex world of real estate investment.', icon: Target },
-                { title: 'Community', desc: 'Building lasting relationships between buyers, sellers and agents across Pakistan.', icon: Users },
-              ].map((val, idx) => (
-                <div key={idx} className="bg-white rounded-[2.5rem] p-10 border border-[#DDD8CF] shadow-[0_4px_12px_rgba(0,71,55,0.04)] hover:shadow-[0_24px_60px_rgba(0,71,55,0.1)] hover:-translate-y-2 transition-all duration-500 group">
-                  <div className="w-14 h-14 rounded-2xl bg-[#F5F0E8] flex items-center justify-center mb-8 group-hover:bg-[#004737] transition-all duration-500">
-                    <val.icon className="w-7 h-7 text-[#004737] group-hover:text-[#C8F55A] transition-colors" />
-                  </div>
-                  <h3 className="text-xl font-black font-syne text-[#0D1B17] mb-4 uppercase tracking-tight">{val.title}</h3>
-                  <p className="text-sm font-inter text-[#7A9088] leading-relaxed">{val.desc}</p>
-                </div>
-              ))}
-           </div>
-        </div>
+        </Reveal>
+      </section>
 
-        {/* CTA Section */}
-        <div className="bg-[#004737] rounded-[3rem] p-10 sm:p-20 text-white text-center relative overflow-hidden shadow-2xl">
-          <div className="relative z-10">
-            <h2 className="text-3xl sm:text-5xl font-black font-syne mb-6 uppercase tracking-tight">Ready to find your future?</h2>
-            <p className="text-base sm:text-lg font-inter text-[#A8C4BB] mb-10 max-w-2xl mx-auto opacity-80">
-              Join thousands of Pakistanis who trust our platform for their residential and commercial property needs.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/register" className="w-full sm:w-auto px-10 py-5 bg-[#C8F55A] text-[#004737] text-xs font-black font-syne rounded-2xl hover:bg-white transition-all uppercase tracking-widest shadow-xl">
-                JOIN THE NETWORK
-              </Link>
-              <Link href="/contact" className="w-full sm:w-auto px-10 py-5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 text-white text-xs font-black font-syne rounded-2xl transition-all uppercase tracking-widest">
-                CONTACT SUPPORT
-              </Link>
-            </div>
-          </div>
-          {/* Patterns */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#C8F55A]/5 rounded-full blur-3xl" />
-        </div>
-
-      </div>
     </div>
   )
 }

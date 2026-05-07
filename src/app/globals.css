@@ -108,6 +108,27 @@
     contain-intrinsic-size: 1px 1000px;
   }
 
+  /* Flecto Custom Shapes */
+  .flecto-tab-tl {
+    clip-path: polygon(0 40px, 40px 40px, 40px 0, 100% 0, 100% 100%, 0 100%);
+    border-radius: 0 3rem 3rem 3rem;
+  }
+
+  .flecto-tab-tr {
+    clip-path: polygon(0 0, calc(100% - 40px) 0, calc(100% - 40px) 40px, 100% 40px, 100% 100%, 0 100%);
+    border-radius: 3rem 0 3rem 3rem;
+  }
+
+  .flecto-double-tab {
+    clip-path: polygon(0 40px, 40px 40px, 40px 0, calc(100% - 40px) 0, calc(100% - 40px) 40px, 100% 40px, 100% 100%, 0 100%);
+    border-radius: 0 0 3rem 3rem;
+  }
+
+  .flecto-ear-cta {
+    clip-path: polygon(0 80px, 80px 80px, 80px 0, calc(100% - 80px) 0, calc(100% - 80px) 80px, 100% 80px, 100% 100%, 0 100%);
+    border-radius: 0 0 4rem 4rem;
+  }
+
   @media (min-width: 1024px) {
     .flecto-section {
       padding: 10rem 0;
