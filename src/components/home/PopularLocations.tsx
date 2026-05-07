@@ -99,7 +99,7 @@ const PopularLocations = () => {
                         className="group"
                       >
                         <Link href={`/search?city=${cityName}&area=${area}&type=${activeType}`}
-                          className="flex flex-col p-6 bg-white rounded-[2rem] border border-[#DDD8CF] shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(0,71,55,0.08)] hover:border-[#004737]/20 transition-all duration-500 h-full overflow-hidden relative"
+                          className="flex flex-col p-5 sm:p-6 bg-white rounded-[1.5rem] border border-[#DDD8CF] shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(0,71,55,0.08)] hover:border-[#004737]/20 transition-all duration-500 h-full overflow-hidden relative"
                         >
                           <div className="flex items-center justify-between mb-4">
                              <div className="w-10 h-10 rounded-xl bg-[#F5F0E8] flex items-center justify-center group-hover:bg-[#004737] transition-all duration-500">
@@ -110,7 +110,7 @@ const PopularLocations = () => {
                              </div>
                           </div>
                           
-                          <h3 className="text-2xl sm:text-3xl font-black font-syne text-[#0D1B17] uppercase tracking-tight group-hover:text-[#004737] transition-colors mb-2 leading-[0.9] text-balance">
+                          <h3 className="text-lg sm:text-xl font-black font-syne text-[#0D1B17] uppercase tracking-tight group-hover:text-[#004737] transition-colors mb-2 leading-tight break-words">
                             {area}
                           </h3>
                           <p className="text-[9px] font-black font-syne text-[#7A9088] uppercase tracking-widest opacity-60">

@@ -50,7 +50,7 @@ const ExploreTools = () => {
                 className="group relative"
               >
                 <Link href={tool.href}
-                  className="block bg-white rounded-[2.5rem] p-8 border border-[#DDD8CF] shadow-[0_4px_12px_rgba(0,71,55,0.03)] hover:shadow-[0_32px_80px_rgba(0,71,55,0.12)] hover:border-[#004737]/20 transition-all duration-500 h-full overflow-hidden"
+                  className="block bg-white rounded-[2rem] p-6 sm:p-8 border border-[#DDD8CF] shadow-[0_4px_12px_rgba(0,71,55,0.03)] hover:shadow-[0_32px_80px_rgba(0,71,55,0.12)] hover:border-[#004737]/20 transition-all duration-500 h-full overflow-hidden"
                 >
                   {/* Glass background effect */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-[#F5F0E8] rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-[#C8F55A]/20 transition-colors duration-700" />
@@ -68,7 +68,7 @@ const ExploreTools = () => {
                       <tool.icon className="w-7 h-7 text-[#C8F55A]" />
                     </motion.div>
 
-                    <h3 className="font-syne font-black text-3xl sm:text-4xl text-[#0D1B17] mb-2 uppercase tracking-tight group-hover:text-[#004737] transition-colors leading-[0.9] text-balance">
+                    <h3 className="font-syne font-black text-xl sm:text-2xl text-[#0D1B17] mb-2 uppercase tracking-tight group-hover:text-[#004737] transition-colors leading-[1.1] break-words">
                       {tool.name}
                     </h3>
                     <p className="text-xs font-inter text-[#7A9088] leading-relaxed mb-8 opacity-80 group-hover:opacity-100 transition-opacity">
