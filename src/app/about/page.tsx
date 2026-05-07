@@ -41,7 +41,7 @@ const AboutPage = () => {
              </div>
           </Reveal>
           
-          <Reveal direction="up" delay={0.2}>
+          <Reveal direction="line-mask" delay={0.2}>
             <h1 className="font-syne font-black text-5xl sm:text-8xl lg:text-9xl text-[#0D1B17] uppercase tracking-tighter leading-[0.85] mb-12">
               Pakistan's <br />
               <span className="text-[#004737] italic">Property</span> <br />
@@ -50,20 +50,24 @@ const AboutPage = () => {
           </Reveal>
 
           <div className="flex flex-wrap justify-center gap-6 mt-16">
-            <Reveal direction="left" delay={0.4}>
-               <div className="flecto-tab-tl bg-white p-10 w-72 text-left shadow-2xl border border-[#DDD8CF]">
-                  <Sparkles className="w-8 h-8 text-[#004737] mb-6" />
-                  <h3 className="font-syne font-black text-xl text-[#0D1B17] uppercase mb-4">Visionary</h3>
-                  <p className="text-xs font-inter text-[#7A9088] leading-relaxed">Redefining the real estate landscape through premium technology.</p>
-               </div>
-            </Reveal>
-            <Reveal direction="right" delay={0.6}>
-               <div className="flecto-tab-tr bg-[#004737] p-10 w-72 text-left shadow-2xl border border-[#0A5A46]">
-                  <Globe className="w-8 h-8 text-[#C8F55A] mb-6" />
-                  <h3 className="font-syne font-black text-xl text-white uppercase mb-4">National</h3>
-                  <p className="text-xs font-inter text-[#A8C4BB] leading-relaxed">A comprehensive ecosystem spanning across major residential hubs.</p>
-               </div>
-            </Reveal>
+            <motion.div style={{ y: y1 }}>
+              <Reveal direction="scale" delay={0.4}>
+                 <div className="flecto-tab-tl bg-white p-10 w-72 text-left shadow-2xl border border-[#DDD8CF] hover:scale-105 transition-transform duration-500">
+                    <Sparkles className="w-8 h-8 text-[#004737] mb-6" />
+                    <h3 className="font-syne font-black text-xl text-[#0D1B17] uppercase mb-4">Visionary</h3>
+                    <p className="text-xs font-inter text-[#7A9088] leading-relaxed">Redefining the real estate landscape through premium technology.</p>
+                 </div>
+              </Reveal>
+            </motion.div>
+            <motion.div style={{ y: y2 }}>
+              <Reveal direction="scale" delay={0.6}>
+                 <div className="flecto-tab-tr bg-[#004737] p-10 w-72 text-left shadow-2xl border border-[#0A5A46] hover:scale-105 transition-transform duration-500">
+                    <Globe className="w-8 h-8 text-[#C8F55A] mb-6" />
+                    <h3 className="font-syne font-black text-xl text-white uppercase mb-4">National</h3>
+                    <p className="text-xs font-inter text-[#A8C4BB] leading-relaxed">A comprehensive ecosystem spanning across major residential hubs.</p>
+                 </div>
+              </Reveal>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -100,32 +104,44 @@ const AboutPage = () => {
                  </div>
               </div>
 
-              <div className="lg:col-span-7 relative">
-                 <div className="grid grid-cols-2 gap-6">
-                    <Reveal direction="scale" delay={0.3}>
-                       <div className="flecto-tab-tl bg-[#F5F0E8] p-12 aspect-square flex flex-col justify-between">
-                          <p className="text-5xl font-black font-syne text-[#004737]">12+</p>
-                          <p className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.3em]">YEARS EXP</p>
-                       </div>
-                    </Reveal>
-                    <Reveal direction="scale" delay={0.4}>
-                       <div className="flecto-tab-tr bg-[#004737] p-12 aspect-square flex flex-col justify-between text-white">
-                          <p className="text-5xl font-black font-syne text-[#C8F55A]">50K+</p>
-                          <p className="text-[10px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">MEMBERS</p>
-                       </div>
-                    </Reveal>
-                    <div className="col-span-2 relative h-80 rounded-[3rem] overflow-hidden shadow-2xl">
-                       <Image 
-                         src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200" 
-                         alt="Property Concept" 
-                         fill 
-                         className="object-cover" 
-                       />
-                       <div className="absolute inset-0 bg-[#004737]/40 backdrop-blur-sm flex items-center justify-center p-12 text-center">
-                          <p className="text-white font-syne font-black text-2xl uppercase leading-tight italic">
-                             "Property isn't just about square feet — it's about life's biggest milestones."
-                          </p>
-                       </div>
+              <div className="lg:col-span-7 relative h-[600px] flex items-center justify-center">
+                 {/* Orbiting Elements */}
+                 <motion.div 
+                   animate={{ rotate: 360 }}
+                   transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                   className="absolute inset-0 flex items-center justify-center"
+                 >
+                    <motion.div 
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                      className="absolute -top-10 left-10 w-48 h-48 flecto-tab-tl bg-[#F5F0E8] p-8 flex flex-col justify-between shadow-xl"
+                    >
+                       <p className="text-4xl font-black font-syne text-[#004737]">12+</p>
+                       <p className="text-[8px] font-black font-syne text-[#7A9088] uppercase tracking-widest">YEARS EXP</p>
+                    </motion.div>
+                    
+                    <motion.div 
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                      className="absolute -bottom-10 right-10 w-48 h-48 flecto-tab-tr bg-[#004737] p-8 flex flex-col justify-between text-white shadow-xl"
+                    >
+                       <p className="text-4xl font-black font-syne text-[#C8F55A]">50K+</p>
+                       <p className="text-[8px] font-black font-syne text-[#A8C4BB] uppercase tracking-widest">MEMBERS</p>
+                    </motion.div>
+                 </motion.div>
+
+                 {/* Center Concept */}
+                 <div className="relative w-full max-w-lg h-96 rounded-[3rem] overflow-hidden shadow-2xl z-10">
+                    <Image 
+                      src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200" 
+                      alt="Property Concept" 
+                      fill 
+                      className="object-cover" 
+                    />
+                    <div className="absolute inset-0 bg-[#004737]/40 backdrop-blur-sm flex items-center justify-center p-10 text-center">
+                       <p className="text-white font-syne font-black text-xl uppercase leading-tight italic">
+                          "Property isn't just about square feet — it's about life's biggest milestones."
+                       </p>
                     </div>
                  </div>
               </div>
@@ -142,7 +158,13 @@ const AboutPage = () => {
               </Reveal>
            </div>
 
-           <div className="space-y-12">
+           <div className="relative space-y-12">
+              {/* Animated Timeline Line */}
+              <motion.div 
+                className="absolute left-16 top-0 bottom-0 w-1 bg-[#004737]/10 origin-top hidden sm:block"
+                style={{ scaleY: scrollYProgress }}
+              />
+
               {[
                 { year: '2012', title: 'The Genesis', desc: 'Launched as a pioneering property listing platform with a focus on verified assets.' },
                 { year: '2016', title: 'Market Integration', desc: 'Expanded to include comprehensive market data and specialized area guides.' },
@@ -150,8 +172,8 @@ const AboutPage = () => {
                 { year: 'Present', title: 'National Leader', desc: 'Pakistan\'s most trusted property network with over 50,000 active members.' }
               ].map((item, i) => (
                 <Reveal key={i} direction={i % 2 === 0 ? 'left' : 'right'} delay={i * 0.1}>
-                   <div className="group flex gap-8 items-center">
-                      <div className="text-3xl font-black font-syne text-[#004737]/20 group-hover:text-[#004737] transition-colors duration-500 w-32 shrink-0">
+                   <div className="group flex gap-12 items-center relative z-10">
+                      <div className="text-3xl font-black font-syne text-[#004737] w-32 shrink-0 bg-[#F5F0E8] relative z-10 text-center">
                          {item.year}
                       </div>
                       <div className="flecto-double-tab bg-white p-10 border border-[#DDD8CF] shadow-xl flex-grow group-hover:shadow-2xl group-hover:border-[#004737]/20 transition-all duration-500">

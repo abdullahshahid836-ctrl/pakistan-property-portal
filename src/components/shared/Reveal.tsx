@@ -6,7 +6,7 @@ import { motion, useInView, useAnimation, Variant, useReducedMotion } from 'fram
 interface Props {
   children: React.ReactNode
   width?: 'fit-content' | '100%'
-  direction?: 'up' | 'down' | 'left' | 'right' | 'scale' | 'clip'
+  direction?: 'up' | 'down' | 'left' | 'right' | 'scale' | 'clip' | 'line-mask'
   delay?: number
   duration?: number
   className?: string
@@ -43,8 +43,8 @@ const Reveal = ({
 
     const variants: Record<string, Variant> = {
       hidden: {
-        opacity: 0,
-        y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
+        opacity: direction === 'scale' || direction === 'line-mask' ? 0 : 1,
+        y: direction === 'up' ? 40 : direction === 'down' ? -40 : direction === 'line-mask' ? 100 : 0,
         x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0,
         scale: direction === 'scale' ? 0.95 : 1,
         clipPath: direction === 'clip' ? 'inset(0 100% 0 0)' : 'inset(0 0 0 0)',
