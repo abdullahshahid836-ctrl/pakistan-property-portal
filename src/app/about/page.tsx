@@ -2,7 +2,6 @@
 
 import React, { useRef } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { ShieldCheck, Target, Users, Zap, Heart, Compass, ArrowRight, RotateCcw } from 'lucide-react'
 
@@ -124,7 +123,7 @@ const AboutPage = () => {
 
                 <Line delay={0.2} className="mb-2">
                   <h1 className="font-syne font-black text-[clamp(3rem,8vw,7rem)] text-[#0D1B17] uppercase tracking-tighter leading-[0.85]">
-                    Pakistan's
+                    Pakistan&apos;s
                   </h1>
                 </Line>
                 <Line delay={0.3} className="mb-2">
@@ -340,39 +339,9 @@ const AboutPage = () => {
               />
 
               <div className="space-y-24">
-                {journey.map((item, i) => {
-                  const itemRef = useRef(null)
-                  const isInView = useInView(itemRef, { once: true, margin: '-100px' })
-                  return (
-                    <motion.div
-                      key={i}
-                      ref={itemRef}
-                      initial={{ opacity: 0, x: -40 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ duration: 0.8, ease: EASE }}
-                      className="flex items-start gap-10 sm:gap-20 relative z-10"
-                    >
-                      {/* Year Circle */}
-                      <div className="shrink-0 relative">
-                        <motion.div
-                          animate={isInView ? { scale: 1, backgroundColor: '#004737' } : { scale: 0.5, backgroundColor: '#DDD8CF' }}
-                          transition={{ duration: 0.5, ease: EASE }}
-                          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#F5F0E8] bg-[#004737] flex items-center justify-center shadow-xl -ml-0 sm:-ml-2"
-                        >
-                          <span className="text-[#C8F55A] font-syne font-black text-xs leading-none text-center">{item.year}</span>
-                        </motion.div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex-1 pt-3">
-                        <div className="bg-white rounded-[2rem] p-10 border border-[#DDD8CF] shadow-sm hover:shadow-xl hover:border-[#004737]/20 transition-all duration-500">
-                          <h3 className="font-syne font-black text-2xl text-[#0D1B17] uppercase mb-4">{item.title}</h3>
-                          <p className="text-sm font-inter text-[#7A9088] leading-relaxed">{item.desc}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )
-                })}
+                {journey.map((item, i) => (
+                  <JourneyItem key={i} item={item} i={i} />
+                ))}
               </div>
             </div>
           </div>
@@ -449,6 +418,39 @@ const AboutPage = () => {
 
       </div>
     </>
+  )
+}
+
+const JourneyItem = ({ item, i }: { item: any; i: number }) => {
+  const itemRef = useRef(null)
+  const isInView = useInView(itemRef, { once: true, margin: '-100px' })
+  return (
+    <motion.div
+      ref={itemRef}
+      initial={{ opacity: 0, x: -40 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8, ease: EASE }}
+      className="flex items-start gap-10 sm:gap-20 relative z-10"
+    >
+      {/* Year Circle */}
+      <div className="shrink-0 relative">
+        <motion.div
+          animate={isInView ? { scale: 1, backgroundColor: '#004737' } : { scale: 0.5, backgroundColor: '#DDD8CF' }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#F5F0E8] bg-[#004737] flex items-center justify-center shadow-xl -ml-0 sm:-ml-2"
+        >
+          <span className="text-[#C8F55A] font-syne font-black text-xs leading-none text-center">{item.year}</span>
+        </motion.div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 pt-3">
+        <div className="bg-white rounded-[2rem] p-10 border border-[#DDD8CF] shadow-sm hover:shadow-xl hover:border-[#004737]/20 transition-all duration-500">
+          <h3 className="font-syne font-black text-2xl text-[#0D1B17] uppercase mb-4">{item.title}</h3>
+          <p className="text-sm font-inter text-[#7A9088] leading-relaxed">{item.desc}</p>
+        </div>
+      </div>
+    </motion.div>
   )
 }
 
