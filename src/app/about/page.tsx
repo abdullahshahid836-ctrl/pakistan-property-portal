@@ -1,307 +1,455 @@
 'use client'
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion'
-import { ChevronRight, ArrowRight, Sparkles, Globe, ShieldCheck, Target, Users, Zap, Award } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import Reveal from '@/components/shared/Reveal'
+import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import { ShieldCheck, Target, Users, Zap, Heart, Compass, ArrowRight, RotateCcw } from 'lucide-react'
+
+// ─────────────────────────────────────────────
+// EASE: Flecto's signature quintic ease-out
+// ─────────────────────────────────────────────
+const EASE = [0.16, 1, 0.3, 1]
+
+// ─────────────────────────────────────────────
+// LINE-REVEAL: Single text line mask reveal
+// ─────────────────────────────────────────────
+const Line = ({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) => (
+  <div className={`overflow-hidden ${className}`}>
+    <motion.div
+      initial={{ y: '110%' }}
+      whileInView={{ y: '0%' }}
+      viewport={{ once: true, margin: '-20px' }}
+      transition={{ duration: 1, ease: EASE, delay }}
+    >
+      {children}
+    </motion.div>
+  </div>
+)
+
+// ─────────────────────────────────────────────
+// FADE-UP: Generic reveal
+// ─────────────────────────────────────────────
+const FadeUp = ({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-40px' }}
+    transition={{ duration: 0.8, ease: EASE, delay }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+)
+
+// ─────────────────────────────────────────────
+// ORBIT PILL: CSS-based orbit pill (no JS scroll)
+// ─────────────────────────────────────────────
+const OrbitPill = ({ label, startAngle }: { label: string; startAngle: number }) => (
+  <div
+    className="orbit-pill"
+    style={{ '--start-angle': `${startAngle}deg` } as React.CSSProperties}
+  >
+    <span className="px-5 py-2 bg-[#C8F55A] text-[#004737] font-syne font-black text-xs uppercase tracking-widest rounded-full shadow-lg whitespace-nowrap">
+      {label}
+    </span>
+  </div>
+)
 
 const AboutPage = () => {
-  const containerRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
+  const timelineRef = useRef(null)
+  const { scrollYProgress: timelineProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 70%', 'end 30%']
   })
+  const lineHeight = useTransform(timelineProgress, [0, 1], ['0%', '100%'])
 
-  // Hero Parallax
-  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -100])
-  const heroRotate = useTransform(scrollYProgress, [0, 0.2], [0, 5])
-  
-  // Timeline Growth
-  const timelineProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
+  const values = [
+    { icon: Users,      title: 'Teamwork',   desc: 'We value people that empower team-members to grow.' },
+    { icon: Zap,        title: 'Innovation', desc: 'We trust everyone to identify major improvement opportunities.' },
+    { icon: Heart,      title: 'Impact',     desc: 'We promote a sustainable and healthy mentality with positive spirit.' },
+    { icon: Compass,    title: 'Freedom',    desc: 'Total independence & maximum accountability. Freedom to decide how, when, why.' },
+    { icon: ShieldCheck,title: 'Resilience', desc: 'Persistence, constant improvement and growth mentality is highly promoted.' },
+  ]
+
+  const journey = [
+    { year: '2012', title: 'The Launch',       desc: 'Started as Pakistan\'s first verified property listing directory.' },
+    { year: '2016', title: 'Data Era',         desc: 'Expanded with market analytics, area guides, and price transparency.' },
+    { year: '2020', title: 'Full Ecosystem',   desc: 'Transformed into a full-scale platform for rental and sales management.' },
+    { year: 'Now',  title: 'National Leader',  desc: 'Pakistan\'s most trusted property network — 50K+ members and growing.' },
+  ]
 
   return (
-    <div ref={containerRef} className="flecto-noise min-h-screen bg-[#F5F0E8] overflow-hidden selection:bg-[#B5FFD9] selection:text-[#002B1B]">
-      
-      {/* 1. HERO SECTION: 1:1 Parity with Flecto */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 px-4 overflow-hidden">
-        {/* Background Grain/Parallax */}
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600" 
-            alt="Hero Background" 
-            fill 
-            className="object-cover opacity-10 grayscale contrast-125 scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#F5F0E8] via-transparent to-[#F5F0E8]" />
-        </div>
+    <>
+      {/* ─── CSS for orbit animation ─── */}
+      <style>{`
+        @keyframes orbit {
+          from { transform: rotate(var(--start-angle, 0deg)) translateX(180px) rotate(calc(-1 * var(--start-angle, 0deg))); }
+          to   { transform: rotate(calc(var(--start-angle, 0deg) + 360deg)) translateX(180px) rotate(calc(-1 * (var(--start-angle, 0deg) + 360deg))); }
+        }
+        .orbit-pill {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          animation: orbit 8s linear infinite;
+        }
+        .orbit-pill span { transform: translateX(-50%) translateY(-50%); display:block; }
+      `}</style>
 
-        <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="flex flex-col items-center text-center">
-            <Reveal direction="down">
-               <div className="mb-8">
-                  <span className="px-6 py-2 bg-[#002B1B] text-[#B5FFD9] font-syne font-black text-[10px] uppercase tracking-[0.4em] rounded-full shadow-2xl">
-                    Pakistan Property Portal
+      <div className="bg-[#F5F0E8] min-h-screen overflow-x-hidden">
+
+        {/* ═══════════════════════════════════════════════════
+            1. HERO — Two overlapping "ear-tab" cards
+        ═══════════════════════════════════════════════════ */}
+        <section className="relative min-h-screen bg-[#F5F0E8] flex items-center justify-center pt-28 pb-20 overflow-hidden">
+
+          {/* Background subtle dot grid */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{
+            backgroundImage: 'radial-gradient(circle, #004737 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }} />
+
+          <div className="max-w-7xl mx-auto px-6 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+
+              {/* Left: Headline */}
+              <div>
+                <FadeUp delay={0.1}>
+                  <span className="inline-block mb-10 px-5 py-2 bg-[#004737] text-[#C8F55A] font-syne font-black text-[10px] uppercase tracking-[0.3em] rounded-full">
+                    About Us
                   </span>
-               </div>
-            </Reveal>
+                </FadeUp>
 
-            <Reveal direction="line-mask" delay={0.2}>
-               <h1 className="font-syne font-black text-[12vw] lg:text-[10vw] text-[#002B1B] leading-[0.8] tracking-tighter uppercase mb-16">
-                  Unlocking <br />
-                  <span className="italic font-normal font-syne">Real Estate.</span>
-               </h1>
-            </Reveal>
+                <Line delay={0.2} className="mb-2">
+                  <h1 className="font-syne font-black text-[clamp(3rem,8vw,7rem)] text-[#0D1B17] uppercase tracking-tighter leading-[0.85]">
+                    Pakistan's
+                  </h1>
+                </Line>
+                <Line delay={0.3} className="mb-2">
+                  <h1 className="font-syne font-black text-[clamp(3rem,8vw,7rem)] text-[#004737] italic uppercase tracking-tighter leading-[0.85]">
+                    Most Trusted
+                  </h1>
+                </Line>
+                <Line delay={0.4}>
+                  <h1 className="font-syne font-black text-[clamp(3rem,8vw,7rem)] text-[#0D1B17] uppercase tracking-tighter leading-[0.85]">
+                    Network.
+                  </h1>
+                </Line>
 
-            {/* Overlapping Floating Cards */}
-            <div className="relative w-full h-[400px] mt-12">
-               <motion.div 
-                 style={{ y: heroY, rotate: -2 }}
-                 className="absolute left-0 top-0 w-72 h-80 flecto-notch-tl bg-white p-10 shadow-[0_50px_100px_rgba(0,43,27,0.1)] border border-[#DDD8CF] z-20"
-               >
-                  <Sparkles className="w-10 h-10 text-[#002B1B] mb-8" />
-                  <h3 className="font-syne font-black text-2xl text-[#002B1B] uppercase mb-4 leading-none">Visionary <br /> Tech</h3>
-                  <p className="text-xs font-inter text-[#7A9088] leading-relaxed">Pioneering the digital landscape of property investment since 2012.</p>
-               </motion.div>
+                <FadeUp delay={0.6}>
+                  <p className="mt-10 text-lg text-[#3D5249] font-inter leading-relaxed max-w-lg opacity-70">
+                    Redefining the real estate landscape in Pakistan through transparency, technology, and a premium user experience.
+                  </p>
+                </FadeUp>
+              </div>
 
-               <motion.div 
-                 style={{ y: useTransform(scrollYProgress, [0, 0.2], [0, -200]), rotate: 2 }}
-                 className="absolute right-0 bottom-0 w-80 h-96 flecto-notch-tr bg-[#002B1B] p-12 shadow-[0_50px_100px_rgba(0,43,27,0.2)] border border-[#0A5A46] z-30"
-               >
-                  <Globe className="w-10 h-10 text-[#B5FFD9] mb-8" />
-                  <h3 className="font-syne font-black text-2xl text-white uppercase mb-4 leading-none italic">National <br /> Reach</h3>
-                  <p className="text-xs font-inter text-[#A8C4BB] leading-relaxed">The most comprehensive ecosystem for verified residential and commercial assets in Pakistan.</p>
-                  <div className="mt-12 flex gap-4">
-                     <div className="w-8 h-1 bg-[#B5FFD9]" />
-                     <div className="w-8 h-1 bg-white/20" />
+              {/* Right: Two Stacked/Overlapping Cards with Ear-Tab */}
+              <div className="relative h-[500px] sm:h-[600px]">
+
+                {/* MISSION CARD — dark green, ear at top-right */}
+                <motion.div
+                  initial={{ opacity: 0, y: 60, rotate: 3 }}
+                  animate={{ opacity: 1, y: 0, rotate: 3 }}
+                  transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
+                  className="absolute top-0 right-0 w-72 sm:w-80 z-10"
+                >
+                  {/* Ear Tab */}
+                  <div className="absolute -top-0 right-8 w-24 h-8 bg-[#004737] rounded-t-2xl flex items-center justify-center">
+                    <span className="text-[#C8F55A] font-syne font-black text-[9px] uppercase tracking-widest">Mission</span>
                   </div>
-               </motion.div>
+                  <div className="bg-[#004737] rounded-[2.5rem] rounded-tr-none p-10 shadow-2xl">
+                    <p className="text-[#C8F55A] font-syne font-black text-3xl uppercase leading-tight mb-6">
+                      Our Mission Defined.
+                    </p>
+                    <p className="text-[#A8C4BB] font-inter text-sm leading-relaxed">
+                      Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate investment.
+                    </p>
+                    <div className="mt-8 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#C8F55A] flex items-center justify-center">
+                        <ShieldCheck className="w-5 h-5 text-[#004737]" />
+                      </div>
+                      <span className="text-[#A8C4BB] font-syne font-black text-xs uppercase tracking-widest">Verified Platform</span>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* VISION CARD — lime green, ear at top-left */}
+                <motion.div
+                  initial={{ opacity: 0, y: 100, rotate: -3 }}
+                  animate={{ opacity: 1, y: 140, rotate: -3 }}
+                  transition={{ duration: 1.2, ease: EASE, delay: 0.6 }}
+                  className="absolute bottom-0 left-0 w-72 sm:w-80 z-20"
+                >
+                  {/* Ear Tab */}
+                  <div className="absolute -top-0 left-8 w-24 h-8 bg-[#C8F55A] rounded-t-2xl flex items-center justify-center">
+                    <span className="text-[#004737] font-syne font-black text-[9px] uppercase tracking-widest">Vision</span>
+                  </div>
+                  <div className="bg-[#C8F55A] rounded-[2.5rem] rounded-tl-none p-10 shadow-2xl">
+                    <p className="text-[#004737] font-syne font-black text-3xl uppercase leading-tight mb-6">
+                      12+ Years Experience.
+                    </p>
+                    <p className="text-[#004737]/70 font-inter text-sm leading-relaxed">
+                      50,000+ active members trust Pakistan Property Portal for their biggest life milestones.
+                    </p>
+                    <div className="mt-8 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#004737] flex items-center justify-center">
+                        <Target className="w-5 h-5 text-[#C8F55A]" />
+                      </div>
+                      <span className="text-[#004737] font-syne font-black text-xs uppercase tracking-widest">Market Leader</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 2. CIRCULAR ECONOMY: Looping Orbit Section */}
-      <section className="py-40 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-           <div className="space-y-12 relative z-10">
-              <Reveal direction="left">
-                 <h2 className="font-syne font-black text-5xl lg:text-7xl text-[#002B1B] uppercase tracking-tighter leading-[0.9]">
-                    Our Circular <br />
-                    <span className="italic font-normal">Mission.</span>
-                 </h2>
-                 <p className="text-xl font-inter text-[#3D5249] leading-relaxed max-w-lg mt-10">
-                    We've evolved into a complete ecosystem that protects, connects, and empowers every stakeholder in the property journey.
-                 </p>
-              </Reveal>
-              
-              <div className="flex gap-12">
-                 <div className="space-y-2">
-                    <p className="text-4xl font-black font-syne text-[#002B1B]">12+</p>
-                    <p className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.3em]">YEARS</p>
-                 </div>
-                 <div className="space-y-2">
-                    <p className="text-4xl font-black font-syne text-[#002B1B]">50K+</p>
-                    <p className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.3em]">USERS</p>
-                 </div>
-              </div>
-           </div>
+        {/* ═══════════════════════════════════════════════════
+            2. CIRCULAR ECONOMY — CSS Orbit, no JS scroll
+        ═══════════════════════════════════════════════════ */}
+        <section className="relative bg-[#004737] py-40 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+            <FadeUp>
+              <span className="inline-block mb-8 px-5 py-2 border border-[#C8F55A]/30 text-[#C8F55A] font-syne font-black text-[10px] uppercase tracking-[0.3em] rounded-full">
+                Circular Economy
+              </span>
+            </FadeUp>
+            <Line>
+              <h2 className="font-syne font-black text-[clamp(2.5rem,6vw,6rem)] text-white uppercase tracking-tighter leading-none">
+                Connecting Buyers,
+              </h2>
+            </Line>
+            <Line delay={0.1}>
+              <h2 className="font-syne font-black text-[clamp(2.5rem,6vw,6rem)] text-[#C8F55A] italic uppercase tracking-tighter leading-none">
+                Sellers & Renters.
+              </h2>
+            </Line>
 
-           <div className="relative h-[600px] flex items-center justify-center">
-              {/* Continuous Orbit Container */}
-              <motion.div 
-                animate={{ rotate: 360 }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[500px] h-[500px] border border-dashed border-[#DDD8CF] rounded-full"
-              >
-                 {/* Orbiting Card 1 */}
-                 <motion.div 
-                   animate={{ rotate: -360 }}
-                   transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                   className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 flecto-notch-tl bg-[#F5F5DC] p-8 flex flex-col justify-between shadow-xl"
-                 >
-                    <ShieldCheck className="w-8 h-8 text-[#002B1B]" />
-                    <div>
-                       <p className="font-syne font-black text-sm uppercase mb-1">Integrity</p>
-                       <p className="text-[8px] font-inter text-[#7A9088] leading-tight">100% verified listings and transparent documentation.</p>
-                    </div>
-                 </motion.div>
+            {/* Orbit Ring */}
+            <FadeUp delay={0.3} className="mt-24">
+              <div className="relative w-[400px] h-[400px] mx-auto">
+                {/* SVG Circle Path */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
+                  <circle
+                    cx="200" cy="200" r="180"
+                    fill="none"
+                    stroke="#C8F55A"
+                    strokeWidth="1"
+                    strokeDasharray="6 8"
+                    opacity="0.3"
+                  />
+                </svg>
 
-                 {/* Orbiting Card 2 */}
-                 <motion.div 
-                   animate={{ rotate: -360 }}
-                   transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                   className="absolute top-1/2 -right-16 -translate-y-1/2 w-48 h-48 flecto-notch-tr bg-[#002B1B] p-8 flex flex-col justify-between text-white shadow-xl"
-                 >
-                    <Target className="w-8 h-8 text-[#B5FFD9]" />
-                    <div>
-                       <p className="font-syne font-black text-sm uppercase mb-1 italic">Innovation</p>
-                       <p className="text-[8px] font-inter text-[#A8C4BB] leading-tight">AI-driven market analysis and construction estimates.</p>
-                    </div>
-                 </motion.div>
-              </motion.div>
-
-              {/* Center Portrait */}
-              <div className="relative w-80 h-[450px] rounded-[3rem] overflow-hidden shadow-2xl z-20 group">
-                 <Image 
-                   src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200" 
-                   alt="Center Mission" 
-                   fill 
-                   className="object-cover group-hover:scale-110 transition-transform duration-1000" 
-                 />
-                 <div className="absolute inset-0 bg-[#002B1B]/40 flex items-end p-10">
-                    <p className="text-white font-syne font-black text-2xl uppercase leading-none tracking-tighter italic">
-                       Impact <br /> Focused.
-                    </p>
-                 </div>
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* 3. VALUES: The Massive Notch Card */}
-      <section className="py-40 bg-[#F5F5DC]">
-         <div className="max-w-5xl mx-auto px-4">
-            <Reveal direction="up">
-               <div className="flecto-notch-tl bg-white p-12 sm:p-24 shadow-2xl border border-[#DDD8CF] relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-[#B5FFD9]/10 rounded-full blur-3xl" />
-                  
-                  <div className="relative z-10 max-w-2xl">
-                     <h2 className="font-syne font-black text-4xl sm:text-6xl text-[#002B1B] uppercase tracking-tighter leading-[0.9] mb-12">
-                        Everything we do <br />
-                        <span className="italic font-normal">Starts with trust.</span>
-                     </h2>
-                     <div className="space-y-8">
-                        {[
-                          'Verified Listings Only - No duplicates, no fakes.',
-                          'Transparent Market Data - Real-time pricing index.',
-                          'Expert Legal Guidance - Protecting your investments.',
-                          'Premium User Support - 24/7 dedicated assistance.'
-                        ].map((text, i) => (
-                           <div key={i} className="flex gap-6 items-start">
-                              <CheckCircle2 className="w-6 h-6 text-[#002B1B] shrink-0 mt-1" />
-                              <p className="text-lg font-inter text-[#3D5249]">{text}</p>
-                           </div>
-                        ))}
-                     </div>
+                {/* Center Icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full bg-[#C8F55A]/10 border border-[#C8F55A]/30 flex items-center justify-center">
+                    <RotateCcw className="w-10 h-10 text-[#C8F55A]" />
                   </div>
-               </div>
-            </Reveal>
-         </div>
-      </section>
+                </div>
 
-      {/* 4. TIMELINE: Painting Dotted Line */}
-      <section className="py-40 bg-[#F5F5DC]">
-        <div className="max-w-4xl mx-auto px-4">
-           <div className="relative">
-              {/* Dotted Background Line */}
-              <div className="absolute left-8 top-0 bottom-0 w-px border-l-2 border-dashed border-[#002B1B]/20" />
-              {/* Growing Solid Line */}
-              <motion.div 
-                className="absolute left-8 top-0 w-px border-l-2 border-[#002B1B] origin-top"
-                style={{ scaleY: timelineProgress }}
+                {/* Orbiting Pills */}
+                <OrbitPill label="Property Listed" startAngle={0} />
+                <OrbitPill label="Buyer Connected" startAngle={180} />
+              </div>
+            </FadeUp>
+
+            <FadeUp delay={0.5} className="mt-16">
+              <p className="text-[#A8C4BB] font-inter text-lg max-w-2xl mx-auto opacity-70 leading-relaxed">
+                Our platform enables a higher turnover of property transactions, creating a sustainable cycle that benefits buyers, sellers, and the national economy.
+              </p>
+            </FadeUp>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════
+            3. VALUES — Large Cream Card with Ear Tab (top-right)
+        ═══════════════════════════════════════════════════ */}
+        <section className="relative bg-[#004737] pb-40">
+          <div className="max-w-7xl mx-auto px-6 relative">
+
+            {/* Ear Notch at top-right of the cream card */}
+            <div className="absolute top-0 right-6 sm:right-24 w-32 h-16 bg-[#F5F0E8] rounded-b-3xl z-10" />
+
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: EASE }}
+              className="bg-[#F5F0E8] rounded-[3rem] rounded-tr-none pt-32 pb-24 px-10 sm:px-24 relative overflow-hidden shadow-2xl"
+            >
+              {/* Subtle lime accent */}
+              <div className="absolute top-0 left-0 w-64 h-64 bg-[#C8F55A]/10 rounded-full blur-[80px] -ml-32 -mt-32" />
+
+              <div className="relative z-10">
+                <Line>
+                  <h2 className="font-syne font-black text-[clamp(2.5rem,5vw,5rem)] text-[#0D1B17] uppercase tracking-tighter leading-none mb-6">
+                    We stand for
+                  </h2>
+                </Line>
+                <Line delay={0.1}>
+                  <h2 className="font-syne font-black text-[clamp(2.5rem,5vw,5rem)] text-[#004737] italic uppercase tracking-tighter leading-none mb-20">
+                    Core Values.
+                  </h2>
+                </Line>
+
+                <div className="space-y-0 divide-y divide-[#DDD8CF]">
+                  {values.map((v, i) => (
+                    <FadeUp key={i} delay={i * 0.1}>
+                      <div className="flex items-start gap-10 py-10 group cursor-default">
+                        <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center shrink-0 group-hover:bg-[#004737] transition-all duration-500 shadow-sm">
+                          <v.icon className="w-6 h-6 text-[#004737] group-hover:text-[#C8F55A] transition-colors" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-syne font-black text-2xl text-[#0D1B17] uppercase group-hover:text-[#004737] transition-colors">{v.title}</h3>
+                            <ArrowRight className="w-5 h-5 text-[#004737]/20 group-hover:text-[#004737] group-hover:translate-x-1 transition-all duration-300" />
+                          </div>
+                          <p className="text-sm font-inter text-[#7A9088] leading-relaxed">{v.desc}</p>
+                        </div>
+                      </div>
+                    </FadeUp>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════
+            4. JOURNEY TIMELINE — Dotted line, circle markers
+        ═══════════════════════════════════════════════════ */}
+        <section className="py-40 bg-[#F5F0E8]" ref={timelineRef}>
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-32">
+              <Line>
+                <h2 className="font-syne font-black text-[clamp(2.5rem,6vw,6rem)] text-[#0D1B17] uppercase tracking-tighter">
+                  Our Journey.
+                </h2>
+              </Line>
+            </div>
+
+            <div className="relative">
+              {/* Static dotted line */}
+              <div className="absolute left-8 sm:left-16 top-0 bottom-0 w-px border-l-2 border-dashed border-[#004737]/20" />
+              {/* Growing solid line overlay */}
+              <motion.div
+                style={{ height: lineHeight }}
+                className="absolute left-8 sm:left-16 top-0 w-px bg-[#004737] origin-top"
               />
 
               <div className="space-y-24">
-                 {[
-                   { year: '2012', title: 'The Genesis', desc: 'Launched as a pioneering property listing platform with a focus on verified assets.' },
-                   { year: '2016', title: 'Market Integration', desc: 'Expanded to include comprehensive market data and specialized area guides.' },
-                   { year: '2020', title: 'Tech Overhaul', desc: 'Introduced high-precision analytical tools and a premium user ecosystem.' },
-                   { year: 'Present', title: 'National Leader', desc: 'Pakistan\'s most trusted property network with over 50,000 active members.' }
-                 ].map((item, i) => (
-                    <Reveal key={i} direction="up" delay={i * 0.1}>
-                       <div className="flex gap-16 items-start relative pl-2">
-                          <div className="w-12 h-12 bg-[#002B1B] rounded-full flex items-center justify-center shrink-0 z-10 shadow-xl">
-                             <div className="w-2 h-2 bg-[#B5FFD9] rounded-full" />
-                          </div>
-                          <div className="space-y-4 pt-1">
-                             <div className="font-syne font-black text-4xl text-[#002B1B] opacity-10 leading-none">{item.year}</div>
-                             <h3 className="font-syne font-black text-2xl text-[#002B1B] uppercase tracking-tight">{item.title}</h3>
-                             <p className="text-lg font-inter text-[#7A9088] leading-relaxed max-w-lg">{item.desc}</p>
-                          </div>
-                       </div>
-                    </Reveal>
-                 ))}
+                {journey.map((item, i) => {
+                  const itemRef = useRef(null)
+                  const isInView = useInView(itemRef, { once: true, margin: '-100px' })
+                  return (
+                    <motion.div
+                      key={i}
+                      ref={itemRef}
+                      initial={{ opacity: 0, x: -40 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.8, ease: EASE }}
+                      className="flex items-start gap-10 sm:gap-20 relative z-10"
+                    >
+                      {/* Year Circle */}
+                      <div className="shrink-0 relative">
+                        <motion.div
+                          animate={isInView ? { scale: 1, backgroundColor: '#004737' } : { scale: 0.5, backgroundColor: '#DDD8CF' }}
+                          transition={{ duration: 0.5, ease: EASE }}
+                          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#F5F0E8] bg-[#004737] flex items-center justify-center shadow-xl -ml-0 sm:-ml-2"
+                        >
+                          <span className="text-[#C8F55A] font-syne font-black text-xs leading-none text-center">{item.year}</span>
+                        </motion.div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 pt-3">
+                        <div className="bg-white rounded-[2rem] p-10 border border-[#DDD8CF] shadow-sm hover:shadow-xl hover:border-[#004737]/20 transition-all duration-500">
+                          <h3 className="font-syne font-black text-2xl text-[#0D1B17] uppercase mb-4">{item.title}</h3>
+                          <p className="text-sm font-inter text-[#7A9088] leading-relaxed">{item.desc}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+                })}
               </div>
-           </div>
-        </div>
-      </section>
-
-      {/* 5. TEAM: Side-Notched Cards Grid */}
-      <section className="py-40 bg-white">
-         <div className="max-w-7xl mx-auto px-4">
-            <Reveal direction="down" className="mb-24">
-               <h2 className="font-syne font-black text-5xl lg:text-7xl text-[#002B1B] uppercase tracking-tighter leading-none text-center">
-                  The <span className="italic font-normal font-syne">Visionaries.</span>
-               </h2>
-            </Reveal>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-               {[
-                 { name: 'Abdullah Shahid', role: 'Founder & CEO', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800' },
-                 { name: 'Sarah Ahmed', role: 'Operations Director', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800' },
-                 { name: 'Zain Malik', role: 'Lead Architect', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800' }
-               ].map((member, i) => (
-                  <Reveal key={i} direction="scale" delay={i * 0.1}>
-                     <div className="group relative overflow-hidden">
-                        <div className="flecto-notch-side relative h-[500px] w-full overflow-hidden shadow-xl">
-                           <Image src={member.img} alt={member.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                           <div className="absolute inset-0 bg-gradient-to-t from-[#002B1B]/80 to-transparent flex flex-col justify-end p-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                              <h4 className="font-syne font-black text-xl text-white uppercase">{member.name}</h4>
-                              <p className="text-[10px] font-black font-syne text-[#B5FFD9] uppercase tracking-widest mt-2">{member.role}</p>
-                           </div>
-                        </div>
-                        <div className="mt-8 text-center sm:text-left group-hover:translate-x-2 transition-transform duration-500">
-                           <p className="font-syne font-black text-lg text-[#002B1B] uppercase">{member.name}</p>
-                           <p className="text-xs font-inter text-[#7A9088]">{member.role}</p>
-                        </div>
-                     </div>
-                  </Reveal>
-               ))}
             </div>
-         </div>
-      </section>
+          </div>
+        </section>
 
-      {/* 6. SIGNATURE FOOTER CTA: Double-Notch */}
-      <section className="pb-40 px-4 sm:px-10">
-         <Reveal direction="up">
-            <div className="flecto-double-notch bg-white max-w-7xl mx-auto p-12 sm:p-32 text-center shadow-[0_100px_200px_rgba(0,43,27,0.15)] border-x border-b border-[#DDD8CF] relative overflow-hidden group">
-               <div className="absolute top-0 left-0 w-64 h-64 bg-[#F5F5DC] rounded-full blur-3xl -ml-32 -mt-32 opacity-40 group-hover:bg-[#B5FFD9]/30 transition-colors duration-700" />
-               
-               <div className="relative z-10">
-                  <h2 className="font-syne font-black text-5xl sm:text-8xl text-[#002B1B] uppercase tracking-tighter leading-[0.8] mb-12">
-                     Ready to <br />
-                     <span className="italic font-normal">Scale?</span>
-                  </h2>
-                  <p className="text-xl font-inter text-[#3D5249] mb-16 max-w-xl mx-auto opacity-70">
-                     Join thousands of investors and homeowners who trust the digital standard of Pakistan real estate.
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-                     <Link href="/register" className="group/btn relative px-12 py-6 bg-[#002B1B] text-[#B5FFD9] text-[10px] font-black font-syne rounded-2xl overflow-hidden shadow-2xl">
-                        <span className="relative z-10 tracking-[0.4em]">JOIN THE NETWORK</span>
-                        <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
-                        <span className="absolute inset-0 z-20 flex items-center justify-center text-[#002B1B] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 tracking-[0.4em]">JOIN THE NETWORK</span>
-                     </Link>
-                     <Link href="/contact" className="px-12 py-6 bg-[#F5F5DC] text-[#002B1B] text-[10px] font-black font-syne rounded-2xl border border-[#DDD8CF] hover:bg-white transition-all uppercase tracking-[0.4em]">
-                        CONTACT SUPPORT
-                     </Link>
-                  </div>
-               </div>
+        {/* ═══════════════════════════════════════════════════
+            5. "MEET US" FOOTER CTA — Dual-notch cream card
+        ═══════════════════════════════════════════════════ */}
+        <section className="bg-[#004737]">
+          {/* Dual ear notches at top */}
+          <div className="relative flex justify-between px-6 sm:px-24">
+            <div className="w-28 h-14 bg-[#F5F0E8] rounded-b-3xl" />
+            <div className="w-28 h-14 bg-[#F5F0E8] rounded-b-3xl" />
+          </div>
+
+          <div className="bg-[#F5F0E8] mx-6 sm:mx-24 rounded-[3rem] p-16 sm:p-32 text-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#C8F55A]/20 rounded-full blur-[100px] -mr-32 -mt-32" />
+
+            <div className="relative z-10">
+              <Line>
+                <h2 className="font-syne font-black text-[clamp(2.5rem,6vw,6rem)] text-[#0D1B17] uppercase tracking-tighter leading-none mb-4">
+                  Ready to find
+                </h2>
+              </Line>
+              <Line delay={0.1}>
+                <h2 className="font-syne font-black text-[clamp(2.5rem,6vw,6rem)] text-[#004737] italic uppercase tracking-tighter leading-none mb-12">
+                  your future?
+                </h2>
+              </Line>
+
+              <FadeUp delay={0.3}>
+                <p className="text-lg font-inter text-[#3D5249] max-w-xl mx-auto opacity-70 mb-16 leading-relaxed">
+                  Join thousands of Pakistanis who trust our platform for their residential and commercial property needs.
+                </p>
+              </FadeUp>
+
+              <FadeUp delay={0.4} className="flex flex-col sm:flex-row justify-center gap-6">
+                <Link
+                  href="/register"
+                  className="group flex items-center justify-center gap-3 px-10 py-5 bg-[#004737] text-[#C8F55A] font-syne font-black text-xs uppercase tracking-[0.3em] rounded-2xl hover:bg-black transition-all shadow-xl"
+                >
+                  JOIN THE NETWORK
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="flex items-center justify-center px-10 py-5 bg-white text-[#0D1B17] border border-[#DDD8CF] font-syne font-black text-xs uppercase tracking-[0.3em] rounded-2xl hover:bg-[#004737] hover:text-white hover:border-transparent transition-all"
+                >
+                  CONTACT SUPPORT
+                </Link>
+              </FadeUp>
+
+              {/* Partner Logos / Trust Signals */}
+              <FadeUp delay={0.6} className="mt-20 pt-16 border-t border-[#DDD8CF]">
+                <p className="text-[10px] font-syne font-black text-[#7A9088] uppercase tracking-[0.3em] mb-8">Trusted Across Pakistan</p>
+                <div className="flex flex-wrap justify-center gap-8 opacity-30 grayscale">
+                  {['Lahore', 'Karachi', 'Islamabad', 'Rawalpindi', 'Faisalabad'].map((city) => (
+                    <span key={city} className="font-syne font-black text-sm text-[#004737] uppercase tracking-widest">{city}</span>
+                  ))}
+                </div>
+              </FadeUp>
             </div>
-         </Reveal>
-      </section>
+          </div>
 
-    </div>
+          {/* Bottom bar */}
+          <div className="mx-6 sm:mx-24 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-syne font-black text-white/20 uppercase tracking-widest">
+            <span>© 2026 Pakistan Property Portal</span>
+            <div className="flex gap-8">
+              <Link href="/privacy" className="hover:text-[#C8F55A] transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-[#C8F55A] transition-colors">Terms & Conditions</Link>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </>
   )
 }
-
-const CheckCircle2 = ({ className }: { className?: string }) => (
-  <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-    <polyline points="22 4 12 14.01 9 11.01" />
-  </svg>
-)
 
 export default AboutPage
