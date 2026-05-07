@@ -55,7 +55,7 @@ const HeroSearch = () => {
       {/* Parallax Background Layer */}
       <motion.div 
         style={{ y, scale, opacity }}
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hidden sm:block"
       >
         <div className="absolute inset-0 opacity-10" 
           style={{ backgroundImage: 'radial-gradient(circle, #C8F55A 1.5px, transparent 1.5px)', backgroundSize: '60px 60px' }} 
@@ -82,7 +82,7 @@ const HeroSearch = () => {
         </Reveal>
 
         <Reveal direction="up" delay={0.3}>
-          <p className="text-xl text-[#A8C4BB] max-w-2xl mx-auto mb-16 font-medium leading-relaxed">
+          <p className="text-lg sm:text-xl text-[#A8C4BB] max-w-2xl mx-auto mb-10 sm:mb-16 font-medium leading-relaxed">
             Discover a curated collection of verified high-value assets across Pakistan's most prestigious sectors.
           </p>
         </Reveal>
@@ -106,29 +106,31 @@ const HeroSearch = () => {
             </div>
 
             {/* Search Box */}
-            <div className="bg-[#F5F0E8] rounded-[3rem] rounded-tl-none p-6 sm:p-10 shadow-[0_60px_120px_rgba(0,0,0,0.4)] border-8 border-white/5">
-               <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-                  <div className="lg:col-span-6 relative">
+            <div className="bg-[#F5F0E8] rounded-[2rem] sm:rounded-[3rem] sm:rounded-tl-none p-5 sm:p-10 shadow-[0_60px_120px_rgba(0,0,0,0.4)] border-4 sm:border-8 border-white/5">
+               <form onSubmit={handleSearchSubmit} className="flex flex-col gap-4 sm:gap-5">
+                  <div className="relative">
                     <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-[#004737] opacity-40" />
                     <input
                       value={searchQuery}
                       onChange={handleSearchChange}
                       placeholder="IDENTIFY SECTOR OR AREA..."
-                      className="w-full h-18 pl-14 pr-6 bg-white border border-[#DDD8CF] rounded-2xl text-[11px] font-black font-syne uppercase tracking-widest text-[#0D1B17] focus:outline-none focus:border-[#004737] transition-all shadow-inner"
+                      className="w-full h-14 sm:h-18 pl-14 pr-6 bg-white border border-[#DDD8CF] rounded-2xl text-[10px] sm:text-[11px] font-black font-syne uppercase tracking-widest text-[#0D1B17] focus:outline-none focus:border-[#004737] transition-all shadow-inner"
                     />
                   </div>
-                  <div className="lg:col-span-3 relative">
-                     <select className="w-full h-18 px-6 bg-white border border-[#DDD8CF] rounded-2xl text-[11px] font-black font-syne uppercase tracking-widest text-[#0D1B17] focus:outline-none appearance-none cursor-pointer shadow-inner">
-                        <option>ALL ASSETS</option>
-                        <option>HOMES</option>
-                        <option>PLOTS</option>
-                        <option>COMMERCIAL</option>
-                     </select>
-                     <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#004737] opacity-40" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                    <div className="relative">
+                       <select className="w-full h-14 sm:h-18 px-6 bg-white border border-[#DDD8CF] rounded-2xl text-[10px] sm:text-[11px] font-black font-syne uppercase tracking-widest text-[#0D1B17] focus:outline-none appearance-none cursor-pointer shadow-inner">
+                          <option>ALL ASSETS</option>
+                          <option>HOMES</option>
+                          <option>PLOTS</option>
+                          <option>COMMERCIAL</option>
+                       </select>
+                       <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#004737] opacity-40" />
+                    </div>
+                    <button type="submit" className="h-14 sm:h-18 bg-[#004737] text-[#C8F55A] rounded-2xl text-[10px] sm:text-[11px] font-black font-syne uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:bg-black transition-all shadow-xl">
+                      <Search className="w-4 h-4" /> INITIATE
+                    </button>
                   </div>
-                  <button type="submit" className="lg:col-span-3 h-18 bg-[#004737] text-[#C8F55A] rounded-2xl text-[11px] font-black font-syne uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:bg-black transition-all shadow-xl">
-                    <Search className="w-4 h-4" /> INITIATE
-                  </button>
                </form>
             </div>
           </div>

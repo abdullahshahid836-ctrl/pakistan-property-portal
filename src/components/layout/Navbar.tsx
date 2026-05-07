@@ -36,10 +36,10 @@ const Navbar = () => {
       )}
     >
       <div className={cn(
-        "max-w-[1800px] mx-auto transition-all duration-500 ease-[0.22,1,0.36,1] rounded-[2rem] border flex items-center justify-between px-8",
+        "max-w-[1800px] mx-auto transition-all duration-500 ease-[0.22,1,0.36,1] rounded-[1.5rem] sm:rounded-[2rem] border flex items-center justify-between px-6 sm:px-8",
         scrolled 
-          ? 'bg-white border-[#DDD8CF] shadow-[0_20px_50px_rgba(0,71,55,0.08)] h-16' 
-          : 'bg-[#004737] border-[#0A5A46] h-20 shadow-2xl'
+          ? 'bg-white border-[#DDD8CF] shadow-[0_20px_50px_rgba(0,71,55,0.08)] h-14 sm:h-16' 
+          : 'bg-[#004737] border-[#0A5A46] h-16 sm:h-20 shadow-2xl'
       )}>
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
@@ -47,7 +47,7 @@ const Navbar = () => {
              <Home className="w-5 h-5 text-[#C8F55A]" />
           </div>
           <span className={cn(
-            "font-syne font-black text-xl uppercase tracking-tighter transition-colors duration-500",
+            "font-syne font-black text-lg sm:text-xl uppercase tracking-tighter transition-colors duration-500",
             scrolled ? "text-[#0D1B17]" : "text-[#F5F0E8]"
           )}>
             Pakistan <span className={scrolled ? "text-[#004737]" : "text-[#C8F55A]"}>Property</span>

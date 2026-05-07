@@ -52,10 +52,10 @@ const Footer = () => {
           <Reveal direction="left">
             <div className="max-w-xl">
               <div className="flex items-center gap-4 mb-10 group">
-                <div className="w-14 h-14 bg-[#C8F55A] rounded-2xl flex items-center justify-center shadow-2xl group-hover:rotate-12 transition-transform duration-500">
-                  <Home className="w-7 h-7 text-[#004737]" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#C8F55A] rounded-2xl flex items-center justify-center shadow-2xl group-hover:rotate-12 transition-transform duration-500">
+                  <Home className="w-6 h-6 sm:w-7 sm:h-7 text-[#004737]" />
                 </div>
-                <span className="font-syne font-black text-3xl text-white uppercase tracking-tighter">
+                <span className="font-syne font-black text-2xl sm:text-3xl text-white uppercase tracking-tighter">
                    Pakistan <span className="text-[#C8F55A]">Property</span>
                 </span>
               </div>
@@ -96,32 +96,32 @@ const Footer = () => {
         </div>
 
         {/* Global Connection Points */}
-        <div className="py-12 border-t border-white/5 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="py-12 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
            <div className="flex items-center gap-5">
-             <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#C8F55A]">
+             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#C8F55A]">
                <Phone className="w-5 h-5" />
              </div>
              <div>
-               <p className="text-[9px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">Direct Protocol</p>
-               <p className="text-sm font-black font-syne text-white uppercase tracking-tighter">+92 300 123 4567</p>
+               <p className="text-[8px] sm:text-[9px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">Direct Protocol</p>
+               <p className="text-xs sm:text-sm font-black font-syne text-white uppercase tracking-tighter">+92 300 123 4567</p>
              </div>
            </div>
            <div className="flex items-center gap-5">
-             <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#C8F55A]">
+             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#C8F55A]">
                <Mail className="w-5 h-5" />
              </div>
              <div>
-               <p className="text-[9px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">Official Channel</p>
-               <p className="text-sm font-black font-syne text-white uppercase tracking-tighter">hello@official.pk</p>
+               <p className="text-[8px] sm:text-[9px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">Official Channel</p>
+               <p className="text-xs sm:text-sm font-black font-syne text-white uppercase tracking-tighter">hello@official.pk</p>
              </div>
            </div>
            <div className="flex items-center gap-5">
-             <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#C8F55A]">
+             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#C8F55A]">
                <MapPin className="w-5 h-5" />
              </div>
              <div>
-               <p className="text-[9px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">Central Hub</p>
-               <p className="text-sm font-black font-syne text-white uppercase tracking-tighter">DHA Phase 6, Lahore</p>
+               <p className="text-[8px] sm:text-[9px] font-black font-syne text-[#A8C4BB] uppercase tracking-[0.3em]">Central Hub</p>
+               <p className="text-xs sm:text-sm font-black font-syne text-white uppercase tracking-tighter">DHA Phase 6, Lahore</p>
              </div>
            </div>
         </div>

@@ -31,7 +31,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-[#F5F0E8] overflow-x-hidden text-rendering-optimizeLegibility`}>
         <Navbar />
         <main
-          className="min-h-screen pt-32 sm:pt-40 transition-opacity duration-500 ease-in-out"
+          className="min-h-screen pt-24 sm:pt-40 transition-opacity duration-500 ease-in-out"
           style={{ contain: 'content' }}
         >
           {children}

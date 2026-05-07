@@ -59,9 +59,9 @@
     text-transform: uppercase !important;
   }
 
-  h1 { font-size: clamp(3.5rem, 10vw, 8rem) !important; }
-  h2 { font-size: clamp(2.5rem, 7vw, 5rem) !important; }
-  h3 { font-size: clamp(1.5rem, 4vw, 3rem) !important; }
+  h1 { font-size: clamp(2.25rem, 8vw, 8rem) !important; }
+  h2 { font-size: clamp(1.75rem, 6vw, 5rem) !important; }
+  h3 { font-size: clamp(1.25rem, 4vw, 3rem) !important; }
 
   p {
     font-family: var(--font-inter), system-ui, sans-serif;
@@ -81,18 +81,32 @@
 @layer utilities {
   .flecto-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
     width: 100%;
     max-width: 1800px;
     margin: 0 auto;
-    padding: 0 4rem;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .flecto-grid {
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2rem;
+      padding: 0 4rem;
+    }
   }
 
   .flecto-section {
-    padding: 10rem 0;
+    padding: 5rem 0;
     position: relative;
     contain: paint; /* Isolate re-renders */
+  }
+
+  @media (min-width: 1024px) {
+    .flecto-section {
+      padding: 10rem 0;
+    }
   }
 
   .gpu-accelerated {

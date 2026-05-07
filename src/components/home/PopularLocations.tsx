@@ -16,7 +16,7 @@ const PopularLocations = () => {
   const cities = ['Lahore', 'Karachi', 'Islamabad']
 
   return (
-    <section className="py-24 sm:py-32 bg-[#F5F0E8] relative z-10 overflow-hidden">
+    <section className="py-16 sm:py-32 bg-[#F5F0E8] relative z-10 overflow-hidden">
       {/* Dynamic Background */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-[120px] -mr-64 -mt-64 opacity-50" />
       
@@ -39,22 +39,19 @@ const PopularLocations = () => {
 
         {/* High-Fidelity Filter System */}
         <Reveal direction="up" delay={0.4} className="flex flex-col items-center gap-6 mb-16">
-          <div className="bg-white p-2 rounded-3xl border border-[#DDD8CF] shadow-xl flex gap-1">
+          <div className="bg-white p-2 rounded-[2rem] border border-[#DDD8CF] shadow-xl flex flex-wrap justify-center sm:flex-nowrap gap-1">
             {types.map(type => (
               <button 
                 key={type} 
                 onClick={() => setActiveType(type)}
                 className={cn(
-                  'px-8 py-3 text-[10px] font-black font-syne uppercase tracking-widest rounded-2xl transition-all duration-500 relative overflow-hidden',
+                  'px-6 sm:px-8 py-3 text-[9px] sm:text-[10px] font-black font-syne uppercase tracking-widest rounded-2xl transition-all duration-500 relative overflow-hidden',
                   activeType === type
                     ? 'bg-[#004737] text-[#C8F55A] shadow-lg'
                     : 'text-[#7A9088] hover:bg-[#F5F0E8]'
                 )}
               >
                 {type}
-                {activeType === type && (
-                  <motion.div layoutId="type-blob" className="absolute inset-0 bg-[#004737] -z-10" />
-                )}
               </button>
             ))}
           </div>
@@ -78,7 +75,7 @@ const PopularLocations = () => {
         </Reveal>
 
         {/* Cinematic List Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8">
           <AnimatePresence mode="wait">
             {cities.map((cityName, ci) => {
               const city = locationsData.cities.find(c => c.name === cityName)
