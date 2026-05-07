@@ -36,10 +36,10 @@ const Navbar = () => {
       )}
     >
       <div className={cn(
-        "max-w-[1800px] mx-auto transition-all duration-700 ease-[0.22,1,0.36,1] rounded-[2rem] border flex items-center justify-between px-8",
+        "max-w-[1800px] mx-auto transition-all duration-500 ease-[0.22,1,0.36,1] rounded-[2rem] border flex items-center justify-between px-8",
         scrolled 
-          ? 'bg-white/80 backdrop-blur-2xl border-[#DDD8CF] shadow-[0_20px_50px_rgba(0,71,55,0.08)] h-16' 
-          : 'bg-transparent border-transparent h-20'
+          ? 'bg-white border-[#DDD8CF] shadow-[0_20px_50px_rgba(0,71,55,0.08)] h-16' 
+          : 'bg-[#004737] border-[#0A5A46] h-20 shadow-2xl'
       )}>
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
