@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, ArrowUpRight, Sparkles, Globe } from 'lucide-react'
+import { MessageCircle as Facebook, Camera as Instagram, Briefcase as Linkedin, Send as X, Mail, Phone, MapPin, ArrowUpRight, Sparkles, Globe } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Reveal from '@/components/shared/Reveal'
 
@@ -42,7 +42,7 @@ const Footer = () => {
               The nation's most sophisticated real estate ecosystem, bridging the gap between elite assets and global investors.
             </p>
             <div className="flex gap-4">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
+              {[Facebook, X, Instagram, Linkedin].map((Icon, i) => (
                 <motion.a 
                   key={i} 
                   whileHover={{ y: -5, scale: 1.1 }}

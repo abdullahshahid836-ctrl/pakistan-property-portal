@@ -58,7 +58,7 @@ const HeroSearch = () => {
     visible: { 
       y: 0, 
       opacity: 1,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }
     }
   }
 
@@ -104,7 +104,7 @@ const HeroSearch = () => {
       <motion.div 
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
         className="absolute left-12 top-1/3 hidden xl:block z-20"
       >
         <motion.div 
@@ -137,7 +137,7 @@ const HeroSearch = () => {
       <motion.div 
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.2, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1.2, delay: 1, ease: [0.22, 1, 0.36, 1] as any }}
         className="absolute right-12 top-1/2 hidden xl:block z-20"
       >
         <motion.div 
@@ -336,7 +336,7 @@ const HeroSearch = () => {
               "M0 100L1440 100L1440 40C1200 90 960 -10 720 40C480 90 240 -10 0 40L0 100Z",
               "M0 100L1440 100L1440 50C1200 100 960 0 720 50C480 100 240 0 0 50L0 100Z"
             ]}}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" as any }}
             fill="#F5F0E8" 
           />
         </svg>

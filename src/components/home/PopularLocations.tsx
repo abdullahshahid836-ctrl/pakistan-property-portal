@@ -90,7 +90,7 @@ const PopularLocations = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -30 }}
-                  transition={{ duration: 0.6, delay: ci * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.6, delay: ci * 0.1, ease: [0.22, 1, 0.36, 1] as any }}
                   className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6"
                 >
                   {city.areas.slice(0, 12).map((area, idx) => {

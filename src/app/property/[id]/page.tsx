@@ -156,7 +156,7 @@ const PropertyDetailPage = () => {
                       initial={{ opacity: 0, scale: 1.1 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 1.1 }}
-                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
                       className="absolute inset-0"
                     >
                       <Image 

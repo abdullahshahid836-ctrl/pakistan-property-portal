@@ -48,7 +48,7 @@ const Reveal = ({
       transition: {
         duration,
         delay,
-        ease: [0.25, 0.1, 0.25, 1], // Custom cubic bezier for Flecto-style smoothness
+        ease: [0.25, 0.1, 0.25, 1] as any, // Custom cubic bezier for Flecto-style smoothness
         staggerChildren: staggerChildren ? 0.1 : 0
       },
     }

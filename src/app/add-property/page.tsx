@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Check, ChevronRight, ChevronLeft, Building2, Home, Landmark, Warehouse, Bed, Bath, Move, DollarSign, Loader2, X, Plus, UploadCloud, MapPin, Type, List, Image as ImageIcon, Contact, Sparkles } from 'lucide-react'
+import { Check, ChevronRight, ChevronLeft, ChevronDown, Building2, Home, Landmark, Warehouse, Bed, Bath, Move, DollarSign, Loader2, X, Plus, UploadCloud, MapPin, Type, List, Image as ImageIcon, Contact, Sparkles } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
@@ -143,7 +143,7 @@ function AddPropertyContent() {
 
   const stepVariants = {
     hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any } },
     exit: { opacity: 0, x: -50, transition: { duration: 0.4 } }
   }
 
@@ -190,7 +190,7 @@ function AddPropertyContent() {
                 "M0 40L1440 40L1440 5C1200 35 960 -5 720 15C480 35 240 -5 0 5L0 40Z",
                 "M0 40L1440 40L1440 10C1200 40 960 0 720 20C480 40 240 0 0 10L0 40Z"
               ]}}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" as any }}
               fill="#F5F0E8" 
             />
           </svg>
@@ -233,7 +233,7 @@ function AddPropertyContent() {
                    <motion.div 
                     initial={{ width: '0%' }}
                     animate={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
-                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as any }}
                     className="h-full bg-[#C8F55A]"
                    />
                 </div>
