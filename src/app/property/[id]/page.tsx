@@ -4,11 +4,13 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { MapPin, Bed, Bath, Move, CheckCircle2, Phone, Mail, MessageCircle, Heart, Share2, ArrowLeft, ChevronRight, Star, Calendar, Eye, ShieldCheck, Loader2 } from 'lucide-react'
+import { MapPin, Bed, Bath, Move, CheckCircle2, Phone, Mail, MessageCircle, Heart, Share2, ArrowLeft, ChevronRight, Star, Calendar, Eye, ShieldCheck, Loader2, Sparkles } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { Property, Agent } from '@/types'
 import { formatPrice } from '@/lib/formatters'
 import { useWishlist } from '@/hooks/useWishlist'
+import Reveal from '@/components/shared/Reveal'
 
 const PropertyDetailPage = () => {
   const params = useParams()
@@ -65,10 +67,17 @@ const PropertyDetailPage = () => {
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-[#F5F0E8]">
-      <div className="flex flex-col items-center gap-4">
-        <Loader2 className="w-10 h-10 text-[#004737] animate-spin" />
-        <span className="font-syne font-bold text-[#004737] tracking-widest text-xs uppercase">Loading Property...</span>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col items-center gap-6"
+      >
+        <div className="relative">
+           <Loader2 className="w-12 h-12 text-[#004737] animate-spin" />
+           <div className="absolute inset-0 bg-[#004737]/10 rounded-full blur-xl" />
+        </div>
+        <span className="font-syne font-black text-[#004737] tracking-[0.3em] text-[10px] uppercase">Deciphering Asset Data...</span>
+      </motion.div>
     </div>
   )
 
@@ -78,230 +87,297 @@ const PropertyDetailPage = () => {
   const images = property.images || property.property_images || []
 
   return (
-    <div className="min-h-screen bg-[#F5F0E8] pb-20">
-      {/* Header / Breadcrumb Bar */}
-      <div className="bg-[#004737] text-white pt-24 pb-8 overflow-hidden relative">
-         {/* Dot grid texture */}
-         <div className="absolute inset-0 opacity-[0.05]" style={{
-          backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
-          backgroundSize: '32px 32px'
-        }} />
+    <div className="min-h-screen bg-[#F5F0E8] pb-24">
+      {/* Cinematic Header */}
+      <div className="bg-[#004737] text-white pt-32 pb-16 overflow-hidden relative">
+         {/* Animated Background */}
+         <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.05 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}
+        />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex items-center gap-1.5 text-[11px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.2em] mb-4">
-            <Link href="/" className="hover:underline underline-offset-4">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="opacity-60">{property.city}</span>
-            <ChevronRight className="w-3 h-3" />
-            <span className="opacity-60">{property.area}</span>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-white line-clamp-1">{property.title}</span>
-          </div>
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-syne leading-tight mb-4">
-                {property.title}
-              </h1>
-              <div className="flex items-center gap-2 text-[#A8C4BB] font-inter">
-                <MapPin className="w-4 h-4 text-[#C8F55A]" />
-                {property.address}
+          <Reveal direction="down">
+            <div className="flex items-center gap-2 text-[10px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.3em] mb-6">
+              <Link href="/" className="hover:underline underline-offset-8">CENTRAL</Link>
+              <ChevronRight className="w-3 h-3 opacity-40" />
+              <span className="opacity-60">{property.city}</span>
+              <ChevronRight className="w-3 h-3 opacity-40" />
+              <span className="opacity-60 truncate max-w-[150px]">{property.title}</span>
+            </div>
+            
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+              <div className="max-w-4xl">
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black font-syne uppercase leading-[0.9] tracking-tighter mb-6">
+                  {property.title}
+                </h1>
+                <div className="flex items-center gap-3 text-[#A8C4BB] font-inter font-medium">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-[#C8F55A]" />
+                  </div>
+                  {property.address}
+                </div>
               </div>
+              <motion.div 
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="flex items-baseline gap-3 bg-white/5 backdrop-blur-2xl border border-white/10 px-10 py-6 rounded-[2.5rem] shadow-2xl shadow-black/20"
+              >
+                <span className="text-[11px] font-black font-syne text-[#C8F55A] uppercase tracking-widest">PKR</span>
+                <span className="text-4xl sm:text-5xl font-black font-syne uppercase tracking-tighter">
+                  {property.price_label || property.priceLabel}
+                </span>
+              </motion.div>
             </div>
-            <div className="flex items-baseline gap-2 bg-white/10 backdrop-blur-md border border-white/10 px-6 py-4 rounded-[2rem]">
-              <span className="text-xs font-black font-syne text-[#C8F55A] uppercase">PKR</span>
-              <span className="text-3xl sm:text-4xl font-black font-syne">
-                {property.price_label || property.priceLabel}
-              </span>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-10">
+          {/* Main Visual Component */}
+          <div className="lg:col-span-2 space-y-12">
             
-            {/* Gallery */}
-            <div className="space-y-4">
-              <div className="relative h-[300px] sm:h-[450px] lg:h-[550px] rounded-[3rem] overflow-hidden shadow-[0_20px_50px_rgba(0,71,55,0.15)] group border-4 border-white">
-                <Image 
-                  src={images[activeImage] || images[0] || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200'} 
-                  alt={property.title || 'Property Image'}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 66vw"
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute top-6 left-6 flex gap-2">
-                  <span className={cn(
-                    "px-5 py-2 text-[10px] font-black font-syne text-white rounded-2xl shadow-xl backdrop-blur-md uppercase tracking-widest",
-                    (property.purpose || 'Sale') === 'Sale' ? "bg-[#004737]/80" : "bg-[#006B55]/80"
-                  )}>
-                    FOR {(property.purpose || 'Sale').toUpperCase()}
-                  </span>
-                </div>
-                <div className="absolute top-6 right-6 flex gap-3">
-                  <button 
-                    onClick={() => toggleWishlist()}
-                    disabled={wishlistLoading}
-                    className="w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xl hover:bg-white transition-all group/icon"
-                  >
-                    {wishlistLoading ? (
-                      <Loader2 className="w-5 h-5 text-[#004737] animate-spin" />
-                    ) : (
-                      <Heart className={cn("w-5 h-5 transition-colors", isInWishlist ? "fill-red-500 text-red-500" : "text-[#4A5568] group-hover/icon:text-red-500")} />
-                    )}
-                  </button>
-                  <button className="w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xl hover:bg-white transition-all">
-                    <Share2 className="w-5 h-5 text-[#4A5568]" />
-                  </button>
-                </div>
-              </div>
+            {/* Immersive Gallery */}
+            <div className="space-y-6">
+              <Reveal direction="scale" delay={0.5}>
+                <motion.div className="relative h-[400px] sm:h-[600px] rounded-[3.5rem] overflow-hidden shadow-[0_40px_100px_rgba(0,71,55,0.2)] group border-8 border-white">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeImage}
+                      initial={{ opacity: 0, scale: 1.1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.1 }}
+                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-0"
+                    >
+                      <Image 
+                        src={images[activeImage] || images[0] || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200'} 
+                        alt={property.title || 'Property Image'}
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  <div className="absolute top-8 left-8 flex gap-3">
+                    <span className={cn(
+                      "px-6 py-2.5 text-[10px] font-black font-syne text-white rounded-2xl shadow-2xl backdrop-blur-xl uppercase tracking-[0.2em] border border-white/20",
+                      (property.purpose || 'Sale') === 'Sale' ? "bg-[#004737]/80" : "bg-[#006B55]/80"
+                    )}>
+                      FOR {(property.purpose || 'Sale').toUpperCase()}
+                    </span>
+                  </div>
+
+                  <div className="absolute top-8 right-8 flex gap-4">
+                    <motion.button 
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => toggleWishlist()}
+                      disabled={wishlistLoading}
+                      className="w-14 h-14 rounded-2xl bg-white/90 backdrop-blur-xl flex items-center justify-center shadow-2xl hover:bg-white transition-all group/icon"
+                    >
+                      {wishlistLoading ? (
+                        <Loader2 className="w-6 h-6 text-[#004737] animate-spin" />
+                      ) : (
+                        <Heart className={cn("w-6 h-6 transition-colors duration-500", isInWishlist ? "fill-red-500 text-red-500" : "text-[#0D1B17] group-hover/icon:text-red-500")} />
+                      )}
+                    </motion.button>
+                    <motion.button whileHover={{ scale: 1.1 }} className="w-14 h-14 rounded-2xl bg-white/90 backdrop-blur-xl flex items-center justify-center shadow-2xl hover:bg-white transition-all">
+                      <Share2 className="w-6 h-6 text-[#0D1B17]" />
+                    </motion.button>
+                  </div>
+                  
+                  {/* Progress Indicator */}
+                  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2">
+                     {images.map((_: any, i: number) => (
+                       <div key={i} className={cn("h-1.5 rounded-full transition-all duration-500", activeImage === i ? "w-8 bg-[#C8F55A] shadow-[0_0_15px_#C8F55A]" : "w-2 bg-white/50")} />
+                     ))}
+                  </div>
+                </motion.div>
+              </Reveal>
               
-              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide px-2">
+              <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide px-2">
                 {images.map((img: string, idx: number) => (
-                  <button 
+                  <motion.button 
                     key={idx}
+                    whileHover={{ y: -5 }}
                     onClick={() => setActiveImage(idx)}
                     className={cn(
-                      "relative h-24 w-32 shrink-0 rounded-2xl overflow-hidden border-4 transition-all duration-300",
-                      activeImage === idx ? "border-[#004737] scale-105 shadow-lg" : "border-white hover:border-[#004737]/30"
+                      "relative h-28 w-40 shrink-0 rounded-[1.5rem] overflow-hidden border-4 transition-all duration-500",
+                      activeImage === idx ? "border-[#004737] scale-105 shadow-2xl" : "border-white hover:border-[#004737]/30"
                     )}
                   >
-                    <Image src={img} alt={`Thumb ${idx}`} fill sizes="128px" className="object-cover" />
-                  </button>
+                    <Image src={img} alt={`Thumb ${idx}`} fill className="object-cover" />
+                  </motion.button>
                 ))}
               </div>
             </div>
 
-            {/* Basic Info Chips */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <SpecChip icon={<Bed className="w-5 h-5" />} value={property.bedrooms} label="Bedrooms" />
-              <SpecChip icon={<Bath className="w-5 h-5" />} value={property.bathrooms} label="Bathrooms" />
-              <SpecChip icon={<Move className="w-5 h-5" />} value={property.area_size || property.areaSize} label={property.area_unit || property.areaUnit} />
-              <SpecChip icon={<Eye className="w-5 h-5" />} value={property.views} label="Total Views" />
+            {/* Performance Chips */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              <SpecChip icon={<Bed className="w-6 h-6" />} value={property.bedrooms} label="Bedrooms" delay={0.1} />
+              <SpecChip icon={<Bath className="w-6 h-6" />} value={property.bathrooms} label="Bathrooms" delay={0.2} />
+              <SpecChip icon={<Move className="w-6 h-6" />} value={property.area_size || property.areaSize} label={property.area_unit || property.areaUnit} delay={0.3} />
+              <SpecChip icon={<Eye className="w-6 h-6" />} value={property.views} label="Total Views" delay={0.4} />
             </div>
 
-            {/* Description Card */}
-            <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 sm:p-12 shadow-[0_4px_12px_rgba(0,71,55,0.04)]">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-2xl bg-[#004737] flex items-center justify-center">
-                  <ShieldCheck className="w-5 h-5 text-[#C8F55A]" />
-                </div>
-                <h3 className="text-xl font-black font-syne text-[#0D1B17]">About This Property</h3>
-              </div>
-              <p className="text-[#3D5249] text-base sm:text-lg leading-relaxed whitespace-pre-line font-inter">
-                {property.description}
-              </p>
-            </div>
-
-            {/* Features Card */}
-            <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 sm:p-12 shadow-[0_4px_12px_rgba(0,71,55,0.04)]">
-              <div className="flex items-center gap-3 mb-10">
-                <div className="w-10 h-10 rounded-2xl bg-[#004737] flex items-center justify-center">
-                  <Star className="w-5 h-5 text-[#C8F55A]" />
-                </div>
-                <h3 className="text-xl font-black font-syne text-[#0D1B17]">Features & Amenities</h3>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8">
-                {(property.features || []).map((feature: string, idx: number) => (
-                  <div key={idx} className="flex items-center gap-4 group">
-                    <div className="w-8 h-8 rounded-xl bg-[#F5F0E8] flex items-center justify-center group-hover:bg-[#004737] transition-all duration-300">
-                      <CheckCircle2 className="w-4 h-4 text-[#004737] group-hover:text-[#C8F55A] transition-colors" />
-                    </div>
-                    <span className="text-sm font-bold font-syne text-[#3D5249] group-hover:text-[#0D1B17] transition-colors">{feature}</span>
+            {/* Description & Narrative */}
+            <Reveal direction="up" className="w-full">
+              <div className="bg-white rounded-[3.5rem] border border-[#DDD8CF] p-10 sm:p-16 shadow-[0_4px_12px_rgba(0,71,55,0.03)] relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#F5F0E8] rounded-full blur-3xl -mr-32 -mt-32" />
+                <div className="flex items-center gap-4 mb-10 relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-[#004737] flex items-center justify-center shadow-xl">
+                    <ShieldCheck className="w-6 h-6 text-[#C8F55A]" />
                   </div>
-                ))}
+                  <h3 className="text-2xl font-black font-syne text-[#0D1B17] uppercase tracking-tight">Narrative & Insight</h3>
+                </div>
+                <p className="text-[#3D5249] text-base sm:text-xl leading-[1.8] whitespace-pre-line font-inter relative z-10 font-medium opacity-80">
+                  {property.description}
+                </p>
               </div>
-            </div>
+            </Reveal>
+
+            {/* Features Ecosystem */}
+            <Reveal direction="up" className="w-full">
+              <div className="bg-white rounded-[3.5rem] border border-[#DDD8CF] p-10 sm:p-16 shadow-[0_4px_12px_rgba(0,71,55,0.03)]">
+                <div className="flex items-center gap-4 mb-12">
+                  <div className="w-12 h-12 rounded-2xl bg-[#004737] flex items-center justify-center shadow-xl">
+                    <Star className="w-6 h-6 text-[#C8F55A]" />
+                  </div>
+                  <h3 className="text-2xl font-black font-syne text-[#0D1B17] uppercase tracking-tight">Features & Amenities</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-12">
+                  {(property.features || []).map((feature: string, idx: number) => (
+                    <motion.div 
+                      key={idx} 
+                      whileHover={{ x: 8 }}
+                      className="flex items-center gap-5 group"
+                    >
+                      <div className="w-10 h-10 rounded-2xl bg-[#F5F0E8] flex items-center justify-center group-hover:bg-[#004737] transition-all duration-500">
+                        <CheckCircle2 className="w-5 h-5 text-[#004737] group-hover:text-[#C8F55A] transition-colors" />
+                      </div>
+                      <span className="text-[11px] font-black font-syne text-[#3D5249] uppercase tracking-widest group-hover:text-[#0D1B17] transition-colors">{feature}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-8">
+          {/* Expert Sidebar */}
+          <div className="space-y-12">
             
-            {/* Agent Contact Card */}
-            <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 shadow-[0_20px_50px_rgba(0,71,55,0.12)] sticky top-24">
-              <div className="flex items-center gap-5 mb-8">
-                <div className="relative w-20 h-20 rounded-[1.5rem] overflow-hidden border-4 border-[#F5F0E8]">
-                  <Image src={agent.photo_url || agent.photo || 'https://via.placeholder.com/100'} alt={agent.name || 'Agent Photo'} fill sizes="80px" className="object-cover" />
-                </div>
-                <div>
-                  <h4 className="font-black font-syne text-[#0D1B17] text-lg leading-tight mb-1">{agent.name || 'Portal Agent'}</h4>
-                  <p className="text-[11px] font-black font-syne text-[#7A9088] uppercase tracking-widest">{agent.agency || 'Verified Partner'}</p>
-                  <div className="flex items-center gap-1.5 mt-2 bg-[#F5F0E8] w-fit px-2 py-1 rounded-lg">
-                    <Star className="w-3 h-3 text-[#004737] fill-[#004737]" />
-                    <span className="text-[10px] font-black font-syne text-[#004737]">{agent.rating || 5.0} · {agent.review_count || 0}</span>
+            {/* High-Fidelity Agent Card */}
+            <Reveal direction="left" delay={0.6}>
+              <div className="bg-white rounded-[3rem] border border-[#DDD8CF] p-10 shadow-[0_40px_100px_rgba(0,71,55,0.1)] sticky top-28 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#F5F0E8] rounded-full blur-3xl -mr-16 -mt-16" />
+                
+                <div className="flex flex-col items-center text-center mb-10 relative z-10">
+                  <div className="relative w-32 h-32 rounded-[2.5rem] overflow-hidden border-8 border-[#F5F0E8] shadow-xl mb-6">
+                    <Image src={agent.photo_url || agent.photo || 'https://via.placeholder.com/200'} alt={agent.name || 'Agent Photo'} fill className="object-cover" />
+                  </div>
+                  <h4 className="font-black font-syne text-[#0D1B17] text-2xl leading-none mb-2 uppercase tracking-tight">{agent.name || 'Portal Agent'}</h4>
+                  <p className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.3em] mb-4">{agent.agency || 'Verified Partner'}</p>
+                  <div className="flex items-center gap-2 bg-[#F5F0E8] px-4 py-2 rounded-2xl">
+                    <Star className="w-4 h-4 text-[#004737] fill-[#004737]" />
+                    <span className="text-[11px] font-black font-syne text-[#004737]">{agent.rating || 5.0} · {agent.review_count || 0} REVIEWS</span>
                   </div>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-3 mb-8">
-                <a href={`tel:${agent.phone}`} className="flex flex-col items-center justify-center gap-2 h-20 bg-[#004737] text-[#C8F55A] rounded-2xl hover:bg-[#003329] transition-all group">
-                  <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-black font-syne uppercase tracking-wider">Call Agent</span>
-                </a>
-                <a href={`https://wa.me/${agent.whatsapp}`} target="_blank" className="flex flex-col items-center justify-center gap-2 h-20 bg-[#006B55] text-white rounded-2xl hover:bg-[#005544] transition-all group">
-                  <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span className="text-[10px] font-black font-syne uppercase tracking-wider">WhatsApp</span>
-                </a>
-              </div>
-
-              <div className="h-px bg-[#DDD8CF] mb-8" />
-
-              <h5 className="text-[11px] font-black font-syne text-[#7A9088] uppercase tracking-[0.2em] mb-6">Quick Inquiry</h5>
-              {inquirySent ? (
-                <div className="bg-[#004737] text-white p-8 rounded-[1.5rem] text-center">
-                  <div className="w-12 h-12 bg-[#C8F55A] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 className="w-6 h-6 text-[#004737]" />
-                  </div>
-                  <p className="text-sm font-black font-syne uppercase tracking-wider">Message Sent!</p>
-                  <p className="text-[11px] mt-2 text-[#A8C4BB] font-inter">The agent will contact you soon.</p>
-                  <button 
-                    onClick={() => setInquirySent(false)}
-                    className="mt-6 text-[10px] font-black font-syne text-[#C8F55A] hover:underline underline-offset-4 uppercase"
+                <div className="grid grid-cols-1 gap-4 mb-10 relative z-10">
+                  <motion.a 
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    href={`tel:${agent.phone}`} 
+                    className="flex items-center justify-center gap-4 h-16 bg-[#004737] text-[#C8F55A] rounded-2xl hover:bg-black transition-all shadow-xl shadow-[#004737]/10"
                   >
-                    Send Another
-                  </button>
+                    <Phone className="w-5 h-5" />
+                    <span className="text-[10px] font-black font-syne uppercase tracking-[0.2em]">AUDIO CONNECTION</span>
+                  </motion.a>
+                  <motion.a 
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    href={`https://wa.me/${agent.whatsapp}`} 
+                    target="_blank" 
+                    className="flex items-center justify-center gap-4 h-16 bg-[#006B55] text-white rounded-2xl hover:bg-[#005544] transition-all shadow-xl shadow-[#006B55]/10"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    <span className="text-[10px] font-black font-syne uppercase tracking-[0.2em]">DIRECT WHATSAPP</span>
+                  </motion.a>
                 </div>
-              ) : (
-                <form className="space-y-4" onSubmit={handleInquiry}>
-                  <div className="space-y-3">
-                    <input name="name" type="text" required placeholder="Your Full Name" className="w-full h-12 px-5 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter" />
-                    <input name="phone" type="tel" required placeholder="Phone Number" className="w-full h-12 px-5 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter" />
-                    <input name="email" type="email" required placeholder="Email Address" className="w-full h-12 px-5 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter" />
-                    <textarea name="message" required placeholder="Your Message..." rows={4} className="w-full px-5 py-4 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter resize-none" defaultValue={`I'm interested in ${property.title}. Please contact me.`}></textarea>
-                  </div>
-                  <button type="submit" disabled={inquiryLoading} className="w-full py-4.5 bg-[#004737] text-[#C8F55A] text-xs font-black font-syne rounded-2xl hover:bg-black transition-all flex items-center justify-center gap-2 uppercase tracking-[0.1em] h-14">
-                    {inquiryLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'SEND ENQUIRY'}
-                  </button>
-                </form>
-              )}
-            </div>
 
-            {/* Expert Support Card */}
-            <div className="bg-[#004737] rounded-[2.5rem] p-10 text-white overflow-hidden relative group">
-              {/* Dot grid */}
-              <div className="absolute inset-0 opacity-[0.05]" style={{
-                backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
-                backgroundSize: '24px 24px'
-              }} />
-              
-              <div className="relative z-10">
-                <h4 className="text-2xl font-black font-syne mb-3">Need Expert Advice?</h4>
-                <p className="text-sm text-[#A8C4BB] mb-8 leading-relaxed font-inter">Our specialized consultants are here to guide you through the process in {property.city}.</p>
-                <a 
-                  href="https://wa.me/923001234567"
-                  target="_blank"
-                  className="flex items-center justify-center gap-3 text-xs font-black font-syne text-[#004737] bg-[#C8F55A] px-6 py-4 rounded-2xl group-hover:scale-105 transition-all shadow-[0_8px_30px_rgba(200,245,90,0.3)] uppercase tracking-wider"
-                >
-                  <MessageCircle className="w-5 h-5" /> CHAT WITH EXPERT
-                </a>
+                <div className="h-px bg-[#F5F0E8] mb-10 relative z-10" />
+
+                <h5 className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.3em] mb-8 text-center relative z-10">Intel Inquiry</h5>
+                {inquirySent ? (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="bg-[#004737] text-white p-10 rounded-[2rem] text-center shadow-2xl relative z-10"
+                  >
+                    <div className="w-16 h-16 bg-[#C8F55A] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                      <CheckCircle2 className="w-8 h-8 text-[#004737]" />
+                    </div>
+                    <p className="text-[11px] font-black font-syne uppercase tracking-[0.3em] mb-3">DISPATCHED SUCCESSFUL</p>
+                    <p className="text-xs font-inter text-[#A8C4BB] leading-relaxed opacity-80">The strategic advisor will initiate contact shortly.</p>
+                  </motion.div>
+                ) : (
+                  <form className="space-y-6 relative z-10" onSubmit={handleInquiry}>
+                    <input name="name" type="text" required placeholder="IDENTIFIER (NAME)" className="w-full h-14 px-6 text-[10px] font-black font-syne uppercase tracking-widest bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] shadow-inner" />
+                    <input name="phone" type="tel" required placeholder="CONTACT NUMBER" className="w-full h-14 px-6 text-[10px] font-black font-syne uppercase tracking-widest bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] shadow-inner" />
+                    <textarea name="message" required rows={4} className="w-full px-6 py-5 text-[10px] font-black font-syne uppercase tracking-widest bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] shadow-inner resize-none" defaultValue={`I'm expressing interest in this asset. Provide data.`}></textarea>
+                    <motion.button 
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      type="submit" 
+                      disabled={inquiryLoading} 
+                      className="w-full py-6 bg-[#004737] text-[#C8F55A] text-[10px] font-black font-syne rounded-2xl hover:bg-black transition-all flex items-center justify-center gap-3 uppercase tracking-[0.3em] shadow-xl"
+                    >
+                      {inquiryLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'INITIALIZE INQUIRY'}
+                    </motion.button>
+                  </form>
+                )}
               </div>
-              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-[#C8F55A]/10 rounded-full blur-[60px]" />
-            </div>
+            </Reveal>
+
+            {/* Strategic Insight Card */}
+            <Reveal direction="left" delay={0.8}>
+              <div className="bg-[#004737] rounded-[3rem] p-12 text-white overflow-hidden relative group shadow-2xl">
+                <div className="absolute inset-0 opacity-[0.05]" style={{
+                  backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
+                  backgroundSize: '24px 24px'
+                }} />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-6">
+                     <Sparkles className="w-6 h-6 text-[#C8F55A]" />
+                     <span className="text-[10px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.3em]">EXPERT COUNCIL</span>
+                  </div>
+                  <h4 className="text-3xl font-black font-syne mb-6 uppercase tracking-tight leading-none">Consult <br />the Elite.</h4>
+                  <p className="text-sm text-[#A8C4BB] mb-10 leading-relaxed font-inter font-medium opacity-80">Our specialized acquisitions team is ready to facilitate your investment in {property.city}.</p>
+                  <motion.a 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://wa.me/923001234567"
+                    target="_blank"
+                    className="flex items-center justify-center gap-4 text-[10px] font-black font-syne text-[#004737] bg-[#C8F55A] px-8 py-5 rounded-2xl hover:bg-white transition-all shadow-2xl shadow-[#C8F55A]/20 uppercase tracking-[0.2em]"
+                  >
+                    <MessageCircle className="w-5 h-5" /> START CONSULTATION
+                  </motion.a>
+                </div>
+                <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-[#C8F55A]/10 rounded-full blur-[80px]" />
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
@@ -309,12 +385,17 @@ const PropertyDetailPage = () => {
   )
 }
 
-const SpecChip = ({ icon, value, label }: { icon: React.ReactNode, value: any, label: string }) => (
-  <div className="bg-white border border-[#DDD8CF] rounded-3xl p-5 flex flex-col items-center justify-center text-center shadow-[0_2px_8px_rgba(0,71,55,0.04)] hover:shadow-lg transition-all duration-300">
-    <div className="text-[#004737] mb-2">{icon}</div>
-    <div className="text-lg font-black font-syne text-[#0D1B17]">{value || 0}</div>
-    <div className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.1em] mt-1">{label}</div>
-  </div>
+const SpecChip = ({ icon, value, label, delay }: { icon: React.ReactNode, value: any, label: string, delay: number }) => (
+  <Reveal direction="up" delay={delay}>
+    <motion.div 
+      whileHover={{ scale: 1.05, y: -5 }}
+      className="bg-white border border-[#DDD8CF] rounded-[2.5rem] p-8 flex flex-col items-center justify-center text-center shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_24px_60px_rgba(0,71,55,0.1)] transition-all duration-500"
+    >
+      <div className="text-[#004737] mb-4 bg-[#F5F0E8] w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">{icon}</div>
+      <div className="text-2xl font-black font-syne text-[#0D1B17] uppercase tracking-tighter">{value || 0}</div>
+      <div className="text-[9px] font-black font-syne text-[#7A9088] uppercase tracking-[0.3em] mt-2 opacity-60">{label}</div>
+    </motion.div>
+  </Reveal>
 )
 
 export default PropertyDetailPage

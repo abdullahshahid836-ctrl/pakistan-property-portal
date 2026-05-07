@@ -1,6 +1,10 @@
+'use client'
+
 import { Syne, Inter } from 'next/font/google'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import { motion, AnimatePresence } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 import './globals.css'
 
 const syne = Syne({
@@ -15,23 +19,29 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-export const metadata = {
-  title: 'Pakistan Property Portal — Buy, Sell & Rent Properties',
-  description: "Pakistan's trusted real estate portal. Find 50,000+ verified properties for sale and rent across Lahore, Karachi, Islamabad and 25+ cities.",
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname()
+
   return (
     <html lang="en" className={`${syne.variable} ${inter.variable}`}>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-[#F5F0E8] overflow-x-hidden`}>
         <Navbar />
-        <main className="min-h-screen pt-16 bg-[#F5F0E8]">
-          {children}
-        </main>
+        <AnimatePresence mode="wait">
+          <motion.main
+            key={pathname}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="min-h-screen pt-16"
+          >
+            {children}
+          </motion.main>
+        </AnimatePresence>
         <Footer />
       </body>
     </html>
