@@ -101,11 +101,14 @@
     padding: 5rem 0;
     position: relative;
     contain: paint; /* Isolate re-renders */
+    content-visibility: auto; /* Performance optimization */
+    contain-intrinsic-size: 1px 1000px;
   }
 
   @media (min-width: 1024px) {
     .flecto-section {
       padding: 10rem 0;
+      content-visibility: auto;
     }
   }
 

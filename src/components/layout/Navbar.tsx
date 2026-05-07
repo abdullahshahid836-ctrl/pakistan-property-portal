@@ -77,14 +77,14 @@ const Navbar = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <button className={cn(
+          <Link href="/login" className={cn(
             "hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-sm",
             scrolled 
               ? "bg-[#004737] text-[#C8F55A] hover:bg-black" 
               : "bg-[#F5F0E8] text-[#004737] hover:bg-[#C8F55A]"
           )}>
             <User className="w-4 h-4" /> LOGIN
-          </button>
+          </Link>
           
           <Link href="/add-property" className={cn(
             "hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest border transition-all duration-500",
@@ -124,9 +124,9 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="h-px bg-[#F5F0E8] my-4" />
-              <button className="w-full py-5 bg-[#004737] text-[#C8F55A] rounded-2xl font-black font-syne uppercase tracking-widest text-xs">
+              <Link href="/login" className="w-full py-5 bg-[#004737] text-[#C8F55A] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
                 LOGIN / REGISTER
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

@@ -58,7 +58,15 @@ const ExploreTools = () => {
                   <div className="relative z-10">
                     <motion.div 
                       whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.8 }}
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ 
+                        rotate: {
+                          duration: 20,
+                          repeat: Infinity,
+                          ease: "linear"
+                        },
+                        duration: 0.8 // for hover
+                      }}
                       className="w-16 h-16 rounded-2xl bg-[#004737] flex items-center justify-center mb-8 shadow-xl shadow-[#004737]/10"
                     >
                       <tool.icon className="w-7 h-7 text-[#C8F55A]" />

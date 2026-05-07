@@ -154,16 +154,15 @@ const HeroSearch = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
-      >
-        <div className="w-px h-20 bg-gradient-to-b from-transparent via-[#C8F55A] to-transparent opacity-40" />
-        <span className="text-[8px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.4em] rotate-90 origin-left">SCROLL</span>
-      </motion.div>
-
+      {/* Cinematic Wave Divider */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
+          <path 
+            d="M0 100L1440 100L1440 50C1200 100 960 0 720 50C480 100 240 0 0 50L0 100Z"
+            fill="#F5F0E8" 
+          />
+        </svg>
+      </div>
     </section>
   )
 }
