@@ -8,7 +8,6 @@ import { MapPin, Bed, Bath, Move, CheckCircle2, Phone, Mail, MessageCircle, Hear
 import { cn } from '@/lib/utils'
 import { Property, Agent } from '@/types'
 import { formatPrice } from '@/lib/formatters'
-
 import { useWishlist } from '@/hooks/useWishlist'
 
 const PropertyDetailPage = () => {
@@ -65,43 +64,69 @@ const PropertyDetailPage = () => {
   }
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA]">
-      <Loader2 className="w-10 h-10 text-[#1E6BFF] animate-spin" />
+    <div className="min-h-screen flex items-center justify-center bg-[#F5F0E8]">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 className="w-10 h-10 text-[#004737] animate-spin" />
+        <span className="font-syne font-bold text-[#004737] tracking-widest text-xs uppercase">Loading Property...</span>
+      </div>
     </div>
   )
 
-  if (!property) return <div className="p-20 text-center">Property not found</div>
+  if (!property) return <div className="p-20 text-center font-syne text-[#0D1B17]">Property not found</div>
 
   const agent = property.agents || {}
-
   const images = property.images || property.property_images || []
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-12">
-      {/* Breadcrumb Bar */}
-      <div className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest">
-            <Link href="/" className="hover:text-[#1E6BFF]">Home</Link>
+    <div className="min-h-screen bg-[#F5F0E8] pb-20">
+      {/* Header / Breadcrumb Bar */}
+      <div className="bg-[#004737] text-white pt-24 pb-8 overflow-hidden relative">
+         {/* Dot grid texture */}
+         <div className="absolute inset-0 opacity-[0.05]" style={{
+          backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
+          backgroundSize: '32px 32px'
+        }} />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex items-center gap-1.5 text-[11px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.2em] mb-4">
+            <Link href="/" className="hover:underline underline-offset-4">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="hover:text-[#1E6BFF] cursor-pointer">{property.city}</span>
+            <span className="opacity-60">{property.city}</span>
             <ChevronRight className="w-3 h-3" />
-            <span className="hover:text-[#1E6BFF] cursor-pointer">{property.area}</span>
+            <span className="opacity-60">{property.area}</span>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1A1A2E] line-clamp-1">{property.title}</span>
+            <span className="text-white line-clamp-1">{property.title}</span>
+          </div>
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-3xl">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-syne leading-tight mb-4">
+                {property.title}
+              </h1>
+              <div className="flex items-center gap-2 text-[#A8C4BB] font-inter">
+                <MapPin className="w-4 h-4 text-[#C8F55A]" />
+                {property.address}
+              </div>
+            </div>
+            <div className="flex items-baseline gap-2 bg-white/10 backdrop-blur-md border border-white/10 px-6 py-4 rounded-[2rem]">
+              <span className="text-xs font-black font-syne text-[#C8F55A] uppercase">PKR</span>
+              <span className="text-3xl sm:text-4xl font-black font-syne">
+                {property.price_label || property.priceLabel}
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-10">
             
             {/* Gallery */}
             <div className="space-y-4">
-              <div className="relative h-[300px] sm:h-[450px] lg:h-[500px] rounded-3xl overflow-hidden shadow-card group">
+              <div className="relative h-[300px] sm:h-[450px] lg:h-[550px] rounded-[3rem] overflow-hidden shadow-[0_20px_50px_rgba(0,71,55,0.15)] group border-4 border-white">
                 <Image 
                   src={images[activeImage] || images[0] || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200'} 
                   alt={property.title || 'Property Image'}
@@ -110,99 +135,84 @@ const PropertyDetailPage = () => {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute top-4 left-4 flex gap-2">
+                <div className="absolute top-6 left-6 flex gap-2">
                   <span className={cn(
-                    "px-4 py-1.5 text-xs font-bold text-white rounded-xl shadow-lg backdrop-blur-md",
-                    (property.purpose || 'Sale') === 'Sale' ? "bg-[#1E6BFF]/80" : "bg-green-500/80"
+                    "px-5 py-2 text-[10px] font-black font-syne text-white rounded-2xl shadow-xl backdrop-blur-md uppercase tracking-widest",
+                    (property.purpose || 'Sale') === 'Sale' ? "bg-[#004737]/80" : "bg-[#006B55]/80"
                   )}>
                     FOR {(property.purpose || 'Sale').toUpperCase()}
                   </span>
                 </div>
-                <div className="absolute top-4 right-4 flex gap-2">
+                <div className="absolute top-6 right-6 flex gap-3">
                   <button 
                     onClick={() => toggleWishlist()}
                     disabled={wishlistLoading}
-                    className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-lg hover:bg-white transition-all group/icon"
+                    className="w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xl hover:bg-white transition-all group/icon"
                   >
                     {wishlistLoading ? (
-                      <Loader2 className="w-5 h-5 text-[#1E6BFF] animate-spin" />
+                      <Loader2 className="w-5 h-5 text-[#004737] animate-spin" />
                     ) : (
                       <Heart className={cn("w-5 h-5 transition-colors", isInWishlist ? "fill-red-500 text-red-500" : "text-[#4A5568] group-hover/icon:text-red-500")} />
                     )}
                   </button>
-                  <button className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-lg hover:bg-white transition-all">
+                  <button className="w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xl hover:bg-white transition-all">
                     <Share2 className="w-5 h-5 text-[#4A5568]" />
                   </button>
                 </div>
               </div>
               
-              <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-6 gap-3">
+              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide px-2">
                 {images.map((img: string, idx: number) => (
                   <button 
                     key={idx}
                     onClick={() => setActiveImage(idx)}
                     className={cn(
-                      "relative h-20 rounded-xl overflow-hidden border-2 transition-all",
-                      activeImage === idx ? "border-[#1E6BFF] scale-95 shadow-md" : "border-transparent hover:border-[#1E6BFF]/50"
+                      "relative h-24 w-32 shrink-0 rounded-2xl overflow-hidden border-4 transition-all duration-300",
+                      activeImage === idx ? "border-[#004737] scale-105 shadow-lg" : "border-white hover:border-[#004737]/30"
                     )}
                   >
-                    <Image src={img} alt={`Thumb ${idx}`} fill sizes="80px" className="object-cover" />
+                    <Image src={img} alt={`Thumb ${idx}`} fill sizes="128px" className="object-cover" />
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Basic Info Card */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 sm:p-8 mt-8 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                <div>
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-sm font-semibold text-[#9CA3AF]">PKR</span>
-                    <h2 className="text-3xl sm:text-4xl font-black text-[#1A1A2E]">
-                      {property.price_label || property.priceLabel}
-                    </h2>
-                  </div>
-                  <h1 className="text-xl sm:text-2xl font-bold text-[#1A1A2E] mb-2">
-                    {property.title}
-                  </h1>
-                  <div className="flex items-center gap-2 text-sm text-[#4A5568]">
-                    <MapPin className="w-4 h-4 text-[#1E6BFF]" />
-                    {property.address}
-                  </div>
-                </div>
-                {property.is_verified && (
-                  <div className="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 text-xs font-bold rounded-xl border border-green-100 self-start">
-                    <ShieldCheck className="w-4 h-4" /> Verified Listing
-                  </div>
-                )}
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-[#F8F9FA] rounded-2xl border border-[#F3F4F6]">
-                <SpecItem icon={<Bed className="w-5 h-5" />} value={property.bedrooms} label="Bedrooms" />
-                <SpecItem icon={<Bath className="w-5 h-5" />} value={property.bathrooms} label="Bathrooms" />
-                <SpecItem icon={<Move className="w-5 h-5" />} value={property.area_size || property.areaSize} label={property.area_unit || property.areaUnit} />
-                <SpecItem icon={<Eye className="w-5 h-5" />} value={property.views} label="Views" />
-              </div>
+            {/* Basic Info Chips */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <SpecChip icon={<Bed className="w-5 h-5" />} value={property.bedrooms} label="Bedrooms" />
+              <SpecChip icon={<Bath className="w-5 h-5" />} value={property.bathrooms} label="Bathrooms" />
+              <SpecChip icon={<Move className="w-5 h-5" />} value={property.area_size || property.areaSize} label={property.area_unit || property.areaUnit} />
+              <SpecChip icon={<Eye className="w-5 h-5" />} value={property.views} label="Total Views" />
             </div>
 
-            {/* Description */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 sm:p-8 mt-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-              <h3 className="text-lg font-bold text-[#1A1A2E] mb-4">About This Property</h3>
-              <p className="text-[#4A5568] text-sm sm:text-base leading-relaxed whitespace-pre-line">
+            {/* Description Card */}
+            <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 sm:p-12 shadow-[0_4px_12px_rgba(0,71,55,0.04)]">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 rounded-2xl bg-[#004737] flex items-center justify-center">
+                  <ShieldCheck className="w-5 h-5 text-[#C8F55A]" />
+                </div>
+                <h3 className="text-xl font-black font-syne text-[#0D1B17]">About This Property</h3>
+              </div>
+              <p className="text-[#3D5249] text-base sm:text-lg leading-relaxed whitespace-pre-line font-inter">
                 {property.description}
               </p>
             </div>
 
-            {/* Features */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 sm:p-8 mt-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-              <h3 className="text-lg font-bold text-[#1A1A2E] mb-6">Features & Amenities</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6">
+            {/* Features Card */}
+            <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 sm:p-12 shadow-[0_4px_12px_rgba(0,71,55,0.04)]">
+              <div className="flex items-center gap-3 mb-10">
+                <div className="w-10 h-10 rounded-2xl bg-[#004737] flex items-center justify-center">
+                  <Star className="w-5 h-5 text-[#C8F55A]" />
+                </div>
+                <h3 className="text-xl font-black font-syne text-[#0D1B17]">Features & Amenities</h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8">
                 {(property.features || []).map((feature: string, idx: number) => (
-                  <div key={idx} className="flex items-center gap-3 group">
-                    <div className="w-6 h-6 rounded-full bg-[#EBF2FF] flex items-center justify-center group-hover:bg-[#1E6BFF] transition-colors">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#1E6BFF] group-hover:text-white transition-colors" />
+                  <div key={idx} className="flex items-center gap-4 group">
+                    <div className="w-8 h-8 rounded-xl bg-[#F5F0E8] flex items-center justify-center group-hover:bg-[#004737] transition-all duration-300">
+                      <CheckCircle2 className="w-4 h-4 text-[#004737] group-hover:text-[#C8F55A] transition-colors" />
                     </div>
-                    <span className="text-sm font-medium text-[#4A5568]">{feature}</span>
+                    <span className="text-sm font-bold font-syne text-[#3D5249] group-hover:text-[#0D1B17] transition-colors">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -210,75 +220,87 @@ const PropertyDetailPage = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             
-            {/* Agent Card */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-card">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#EBF2FF]">
-                  <Image src={agent.photo_url || agent.photo || 'https://via.placeholder.com/100'} alt={agent.name || 'Agent Photo'} fill sizes="64px" className="object-cover" />
+            {/* Agent Contact Card */}
+            <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 shadow-[0_20px_50px_rgba(0,71,55,0.12)] sticky top-24">
+              <div className="flex items-center gap-5 mb-8">
+                <div className="relative w-20 h-20 rounded-[1.5rem] overflow-hidden border-4 border-[#F5F0E8]">
+                  <Image src={agent.photo_url || agent.photo || 'https://via.placeholder.com/100'} alt={agent.name || 'Agent Photo'} fill sizes="80px" className="object-cover" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#1A1A2E]">{agent.name || 'Portal Agent'}</h4>
-                  <p className="text-xs text-[#9CA3AF] font-medium">{agent.agency || 'Verified Partner'}</p>
-                  <div className="flex items-center gap-1 mt-1">
-                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                    <span className="text-[10px] font-bold text-[#4A5568]">{agent.rating || 5.0} · {agent.review_count || agent.reviewCount || 0} reviews</span>
+                  <h4 className="font-black font-syne text-[#0D1B17] text-lg leading-tight mb-1">{agent.name || 'Portal Agent'}</h4>
+                  <p className="text-[11px] font-black font-syne text-[#7A9088] uppercase tracking-widest">{agent.agency || 'Verified Partner'}</p>
+                  <div className="flex items-center gap-1.5 mt-2 bg-[#F5F0E8] w-fit px-2 py-1 rounded-lg">
+                    <Star className="w-3 h-3 text-[#004737] fill-[#004737]" />
+                    <span className="text-[10px] font-black font-syne text-[#004737]">{agent.rating || 5.0} · {agent.review_count || 0}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-3 mb-6">
-                <a href={`tel:${agent.phone}`} className="flex items-center justify-center gap-2 w-full py-3 bg-[#1E6BFF] text-white text-xs font-bold rounded-xl shadow-button hover:bg-[#1554CC] transition-all">
-                  <Phone className="w-4 h-4" /> Call Agent
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                <a href={`tel:${agent.phone}`} className="flex flex-col items-center justify-center gap-2 h-20 bg-[#004737] text-[#C8F55A] rounded-2xl hover:bg-[#003329] transition-all group">
+                  <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] font-black font-syne uppercase tracking-wider">Call Agent</span>
                 </a>
-                <a href={`https://wa.me/${agent.whatsapp}`} target="_blank" className="flex items-center justify-center gap-2 w-full py-3 bg-green-500 text-white text-xs font-bold rounded-xl shadow-button hover:bg-green-600 transition-all">
-                  <MessageCircle className="w-4 h-4" /> WhatsApp
+                <a href={`https://wa.me/${agent.whatsapp}`} target="_blank" className="flex flex-col items-center justify-center gap-2 h-20 bg-[#006B55] text-white rounded-2xl hover:bg-[#005544] transition-all group">
+                  <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <span className="text-[10px] font-black font-syne uppercase tracking-wider">WhatsApp</span>
                 </a>
               </div>
 
-              <div className="h-px bg-[#F3F4F6] mb-6" />
+              <div className="h-px bg-[#DDD8CF] mb-8" />
 
-              <h5 className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-4">Quick Inquiry</h5>
+              <h5 className="text-[11px] font-black font-syne text-[#7A9088] uppercase tracking-[0.2em] mb-6">Quick Inquiry</h5>
               {inquirySent ? (
-                <div className="bg-green-50 border border-green-100 text-green-700 p-4 rounded-2xl text-center">
-                  <CheckCircle2 className="w-8 h-8 mx-auto mb-2" />
-                  <p className="text-xs font-bold">Inquiry Sent Successfully!</p>
-                  <p className="text-[10px] mt-1 opacity-80">The agent will contact you soon.</p>
+                <div className="bg-[#004737] text-white p-8 rounded-[1.5rem] text-center">
+                  <div className="w-12 h-12 bg-[#C8F55A] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-6 h-6 text-[#004737]" />
+                  </div>
+                  <p className="text-sm font-black font-syne uppercase tracking-wider">Message Sent!</p>
+                  <p className="text-[11px] mt-2 text-[#A8C4BB] font-inter">The agent will contact you soon.</p>
                   <button 
                     onClick={() => setInquirySent(false)}
-                    className="mt-4 text-[10px] font-bold text-[#1E6BFF] hover:underline"
+                    className="mt-6 text-[10px] font-black font-syne text-[#C8F55A] hover:underline underline-offset-4 uppercase"
                   >
-                    Send Another Inquiry
+                    Send Another
                   </button>
                 </div>
               ) : (
-                <form className="space-y-3" onSubmit={handleInquiry}>
-                  <input name="name" type="text" required placeholder="Your Name" className="w-full h-11 px-4 text-xs bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF]" />
-                  <input name="phone" type="tel" required placeholder="Phone Number" className="w-full h-11 px-4 text-xs bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF]" />
-                  <input name="email" type="email" required placeholder="Email Address" className="w-full h-11 px-4 text-xs bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF]" />
-                  <textarea name="message" required placeholder="Message" rows={3} className="w-full px-4 py-3 text-xs bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF] resize-none" defaultValue={`I'm interested in this property. Please contact me.`}></textarea>
-                  <button type="submit" disabled={inquiryLoading} className="w-full py-3.5 bg-[#1A1A2E] text-white text-xs font-bold rounded-xl hover:bg-black transition-all flex items-center justify-center gap-2">
-                    {inquiryLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Send Inquiry'}
+                <form className="space-y-4" onSubmit={handleInquiry}>
+                  <div className="space-y-3">
+                    <input name="name" type="text" required placeholder="Your Full Name" className="w-full h-12 px-5 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter" />
+                    <input name="phone" type="tel" required placeholder="Phone Number" className="w-full h-12 px-5 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter" />
+                    <input name="email" type="email" required placeholder="Email Address" className="w-full h-12 px-5 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter" />
+                    <textarea name="message" required placeholder="Your Message..." rows={4} className="w-full px-5 py-4 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter resize-none" defaultValue={`I'm interested in ${property.title}. Please contact me.`}></textarea>
+                  </div>
+                  <button type="submit" disabled={inquiryLoading} className="w-full py-4.5 bg-[#004737] text-[#C8F55A] text-xs font-black font-syne rounded-2xl hover:bg-black transition-all flex items-center justify-center gap-2 uppercase tracking-[0.1em] h-14">
+                    {inquiryLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'SEND ENQUIRY'}
                   </button>
                 </form>
               )}
             </div>
 
-            {/* Support Promo */}
-            <div className="bg-[#1A1A2E] rounded-3xl p-6 text-white overflow-hidden relative group">
+            {/* Expert Support Card */}
+            <div className="bg-[#004737] rounded-[2.5rem] p-10 text-white overflow-hidden relative group">
+              {/* Dot grid */}
+              <div className="absolute inset-0 opacity-[0.05]" style={{
+                backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
+                backgroundSize: '24px 24px'
+              }} />
+              
               <div className="relative z-10">
-                <h4 className="text-lg font-bold mb-2">Need Help?</h4>
-                <p className="text-xs text-white/60 mb-6 leading-relaxed">Our property experts are here to help you find the perfect home in {property.city}.</p>
+                <h4 className="text-2xl font-black font-syne mb-3">Need Expert Advice?</h4>
+                <p className="text-sm text-[#A8C4BB] mb-8 leading-relaxed font-inter">Our specialized consultants are here to guide you through the process in {property.city}.</p>
                 <a 
-                  href="https://wa.me/923001234567?text=Hi, I need help with a property on Pakistan Property Portal"
+                  href="https://wa.me/923001234567"
                   target="_blank"
-                  className="flex items-center justify-center gap-2 text-xs font-bold text-[#1E6BFF] bg-white px-5 py-2.5 rounded-xl group-hover:scale-105 transition-transform"
+                  className="flex items-center justify-center gap-3 text-xs font-black font-syne text-[#004737] bg-[#C8F55A] px-6 py-4 rounded-2xl group-hover:scale-105 transition-all shadow-[0_8px_30px_rgba(200,245,90,0.3)] uppercase tracking-wider"
                 >
-                  Contact Support <ChevronRight className="w-4 h-4" />
+                  <MessageCircle className="w-5 h-5" /> CHAT WITH EXPERT
                 </a>
               </div>
-              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#1E6BFF]/20 rounded-full blur-2xl" />
+              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-[#C8F55A]/10 rounded-full blur-[60px]" />
             </div>
           </div>
         </div>
@@ -287,13 +309,12 @@ const PropertyDetailPage = () => {
   )
 }
 
-const SpecItem = ({ icon, value, label }: { icon: React.ReactNode, value: any, label: string }) => (
-  <div className="flex flex-col items-center justify-center text-center">
-    <div className="text-[#1E6BFF] mb-1.5">{icon}</div>
-    <div className="text-sm font-bold text-[#1A1A2E]">{value || 0}</div>
-    <div className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mt-0.5">{label}</div>
+const SpecChip = ({ icon, value, label }: { icon: React.ReactNode, value: any, label: string }) => (
+  <div className="bg-white border border-[#DDD8CF] rounded-3xl p-5 flex flex-col items-center justify-center text-center shadow-[0_2px_8px_rgba(0,71,55,0.04)] hover:shadow-lg transition-all duration-300">
+    <div className="text-[#004737] mb-2">{icon}</div>
+    <div className="text-lg font-black font-syne text-[#0D1B17]">{value || 0}</div>
+    <div className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.1em] mt-1">{label}</div>
   </div>
 )
 
 export default PropertyDetailPage
-

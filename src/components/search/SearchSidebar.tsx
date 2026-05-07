@@ -25,13 +25,13 @@ const SearchSidebar = () => {
 
   return (
     <aside className="hidden md:block w-64 lg:w-72 shrink-0">
-      <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-6 sticky top-24">
+      <div className="bg-white rounded-2xl border border-[#DDD8CF] shadow-[0_2px_8px_rgba(0,71,55,0.06)] p-6 sticky top-24">
         
         <div className="flex items-center justify-between mb-6">
-          <span className="text-sm font-bold text-[#1A1A2E]">Filters</span>
+          <span className="text-sm font-bold font-syne text-[#0D1B17]">Filters</span>
           <button 
             onClick={() => router.push('/search')}
-            className="text-[11px] font-bold text-[#1E6BFF] uppercase tracking-wider hover:underline"
+            className="text-[11px] font-bold text-[#004737] uppercase tracking-wider hover:underline font-syne"
           >
             Clear all
           </button>
@@ -40,7 +40,7 @@ const SearchSidebar = () => {
         <div className="space-y-8">
           {/* PURPOSE */}
           <div>
-            <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-3">
+            <label className="text-[11px] font-bold text-[#7A9088] uppercase tracking-[0.12em] block mb-3 font-syne">
               Purpose
             </label>
             <div className="flex gap-2">
@@ -49,8 +49,10 @@ const SearchSidebar = () => {
                   key={p}
                   onClick={() => updateFilters('purpose', p)}
                   className={cn(
-                    "flex-1 py-2 text-xs font-bold border rounded-xl transition-all",
-                    currentPurpose === p ? "bg-[#1E6BFF] text-white border-[#1E6BFF]" : "bg-white text-[#4A5568] border-[#E5E7EB] hover:border-[#1E6BFF]"
+                    "flex-1 py-2 text-xs font-bold font-syne border rounded-xl transition-all",
+                    currentPurpose === p 
+                      ? "bg-[#004737] text-[#C8F55A] border-[#004737]" 
+                      : "bg-white text-[#3D5249] border-[#DDD8CF] hover:border-[#004737]"
                   )}
                 >
                   {p}
@@ -59,11 +61,11 @@ const SearchSidebar = () => {
             </div>
           </div>
 
-          <div className="h-px bg-[#F3F4F6]" />
+          <div className="h-px bg-[#DDD8CF]" />
 
           {/* PROPERTY TYPE */}
           <div>
-            <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-3">
+            <label className="text-[11px] font-bold text-[#7A9088] uppercase tracking-[0.12em] block mb-3 font-syne">
               Property Type
             </label>
             <div className="space-y-2">
@@ -75,21 +77,26 @@ const SearchSidebar = () => {
                       name="type" 
                       checked={currentType === type}
                       onChange={() => updateFilters('type', type)}
-                      className="peer appearance-none w-5 h-5 border-2 border-[#E5E7EB] rounded-full checked:border-[#1E6BFF] transition-all" 
+                      className="peer appearance-none w-5 h-5 border-2 border-[#DDD8CF] rounded-full checked:border-[#004737] transition-all" 
                     />
-                    <div className="absolute w-2 h-2 bg-[#1E6BFF] rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                    <div className="absolute w-2 h-2 bg-[#004737] rounded-full scale-0 peer-checked:scale-100 transition-transform" />
                   </div>
-                  <span className={cn("text-sm transition-colors", currentType === type ? "text-[#1A1A2E] font-bold" : "text-[#4A5568] group-hover:text-[#1A1A2E]")}>{type}</span>
+                  <span className={cn(
+                    "text-sm transition-colors font-inter", 
+                    currentType === type ? "text-[#0D1B17] font-bold" : "text-[#4A5568] group-hover:text-[#0D1B17]"
+                  )}>
+                    {type}
+                  </span>
                 </label>
               ))}
             </div>
           </div>
 
-          <div className="h-px bg-[#F3F4F6]" />
+          <div className="h-px bg-[#DDD8CF]" />
 
           {/* BEDROOMS */}
           <div>
-            <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-3">
+            <label className="text-[11px] font-bold text-[#7A9088] uppercase tracking-[0.12em] block mb-3 font-syne">
               Bedrooms
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -98,8 +105,10 @@ const SearchSidebar = () => {
                   key={bed}
                   onClick={() => updateFilters('bedrooms', bed)}
                   className={cn(
-                    "h-10 text-xs font-bold border rounded-xl transition-all",
-                    currentBeds === bed ? "bg-[#1E6BFF] text-white border-[#1E6BFF]" : "bg-white text-[#4A5568] border-[#E5E7EB] hover:border-[#1E6BFF] hover:text-[#1E6BFF]"
+                    "h-10 text-xs font-bold font-inter border rounded-xl transition-all",
+                    currentBeds === bed 
+                      ? "bg-[#004737] text-[#C8F55A] border-[#004737]" 
+                      : "bg-white text-[#3D5249] border-[#DDD8CF] hover:border-[#004737] hover:text-[#004737]"
                   )}
                 >
                   {bed}
@@ -108,11 +117,11 @@ const SearchSidebar = () => {
             </div>
           </div>
 
-          <div className="h-px bg-[#F3F4F6]" />
+          <div className="h-px bg-[#DDD8CF]" />
 
           {/* PRICE RANGE */}
           <div>
-            <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-3">
+            <label className="text-[11px] font-bold text-[#7A9088] uppercase tracking-[0.12em] block mb-3 font-syne">
               Price Range (PKR)
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -121,32 +130,32 @@ const SearchSidebar = () => {
                 placeholder="Min" 
                 defaultValue={searchParams.get('minPrice') || ''}
                 onBlur={(e) => updateFilters('minPrice', e.target.value)}
-                className="w-full h-10 px-3 text-xs bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF]" 
+                className="w-full h-10 px-3 text-xs bg-white border border-[#DDD8CF] rounded-xl focus:outline-none focus:border-[#004737] font-inter" 
               />
               <input 
                 type="number" 
                 placeholder="Max" 
                 defaultValue={searchParams.get('maxPrice') || ''}
                 onBlur={(e) => updateFilters('maxPrice', e.target.value)}
-                className="w-full h-10 px-3 text-xs bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF]" 
+                className="w-full h-10 px-3 text-xs bg-white border border-[#DDD8CF] rounded-xl focus:outline-none focus:border-[#004737] font-inter" 
               />
             </div>
           </div>
         </div>
 
         {/* PROMO BOX */}
-        <div className="bg-[#EBF2FF] rounded-2xl p-5 mt-8 border border-[#1E6BFF]/20 relative overflow-hidden">
+        <div className="bg-[#004737] rounded-2xl p-5 mt-8 relative overflow-hidden">
           <div className="relative z-10">
-            <h4 className="text-sm font-bold text-[#1A1A2E] mb-1">Post your ad free</h4>
-            <p className="text-[11px] text-[#4A5568] leading-relaxed mb-4">Reach thousands of buyers instantly</p>
+            <h4 className="text-sm font-bold font-syne text-[#F5F0E8] mb-1">Post your ad free</h4>
+            <p className="text-[11px] text-[#A8C4BB] leading-relaxed mb-4 font-inter">Reach thousands of buyers instantly</p>
             <button 
               onClick={() => router.push('/add-property')}
-              className="w-full py-2.5 bg-[#1E6BFF] text-white text-[11px] font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm hover:bg-[#1554CC] transition-all"
+              className="w-full py-2.5 bg-[#C8F55A] text-[#004737] text-xs font-black font-syne rounded-xl flex items-center justify-center gap-2 hover:bg-[#B8E84A] transition-all"
             >
               <Plus className="w-3.5 h-3.5" /> ADD PROPERTY
             </button>
           </div>
-          <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-[#1E6BFF]/10 rounded-full blur-xl" />
+          <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-[#C8F55A]/10 rounded-full blur-xl" />
         </div>
       </div>
     </aside>
@@ -154,4 +163,3 @@ const SearchSidebar = () => {
 }
 
 export default SearchSidebar
-

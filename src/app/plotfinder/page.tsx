@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Map, Search, MapPin, ChevronRight, Filter, Building2, Grid, Loader2, X, Home, Bed, Bath, Move, SlidersHorizontal } from 'lucide-react'
+import { Map, Search, MapPin, ChevronRight, Filter, Building2, Grid, Loader2, X, Home, Bed, Bath, Move, SlidersHorizontal, ArrowRight, TrendingUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Property } from '@/types'
 
@@ -16,8 +16,6 @@ const SOCIETIES = [
   { name: 'Bahria Town Phase 8', city: 'Rawalpindi', plots: '2,100+', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800', priceFrom: '1.4 Cr' },
   { name: 'Gulberg Residencia', city: 'Islamabad', plots: '850+', image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800', priceFrom: '3.8 Cr' },
   { name: 'DHA City', city: 'Karachi', plots: '3,400+', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800', priceFrom: '95 Lac' },
-  { name: 'Bahria Town Karachi', city: 'Karachi', plots: '4,800+', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800', priceFrom: '1.1 Cr' },
-  { name: 'DHA Multan', city: 'Multan', plots: '620+', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800', priceFrom: '85 Lac' },
 ]
 
 const PLOT_TYPES = [
@@ -27,8 +25,6 @@ const PLOT_TYPES = [
   { label: '1 Kanal', icon: '🏗️', size: '1 Kanal' },
   { label: '2 Kanal', icon: '🏰', size: '2 Kanal' },
   { label: 'Commercial', icon: '🏢', size: 'Commercial' },
-  { label: 'Files', icon: '📄', size: 'File' },
-  { label: 'Agricultural', icon: '🌾', size: 'Agricultural' },
 ]
 
 function formatPrice(price: number): string {
@@ -67,14 +63,12 @@ export default function PlotFinderPage() {
       const data = await res.json()
       let results: Property[] = data.properties || []
 
-      // Client-side filter for search query and plot size
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase()
         results = results.filter(p =>
           p.title?.toLowerCase().includes(q) ||
           p.area?.toLowerCase().includes(q) ||
-          p.city?.toLowerCase().includes(q) ||
-          p.address?.toLowerCase().includes(q)
+          p.city?.toLowerCase().includes(q)
         )
       }
       if (plotSize !== 'All Sizes') {
@@ -100,14 +94,6 @@ export default function PlotFinderPage() {
     setTimeout(() => fetchPlots(), 100)
   }
 
-  const handlePlotTypeClick = (size: string) => {
-    if (size === 'Commercial') {
-      window.location.href = '/commercial'
-      return
-    }
-    setPlotSize(prev => prev === size ? 'All Sizes' : size)
-  }
-
   const clearFilters = () => {
     setSearchQuery('')
     setCity('All Cities')
@@ -122,203 +108,233 @@ export default function PlotFinderPage() {
   const hasActiveFilters = city !== 'All Cities' || purpose !== 'All' || plotSize !== 'All Sizes' || minPrice || maxPrice
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-20">
+    <div className="min-h-screen bg-[#F5F0E8] pb-20">
       {/* Header */}
-      <div className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-2">
-            <Link href="/" className="hover:text-[#1E6BFF]">Home</Link>
+      <div className="bg-[#004737] pt-24 pb-16 relative overflow-hidden">
+        {/* Dot grid texture */}
+        <div className="absolute inset-0 opacity-[0.05]" style={{
+          backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
+          backgroundSize: '32px 32px'
+        }} />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="flex items-center justify-center gap-1.5 text-[11px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.2em] mb-4">
+            <Link href="/" className="hover:underline underline-offset-4">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1A1A2E]">Plot Finder</span>
+            <span className="opacity-60">Plot Finder</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-[#1A1A2E]">Plot Finder & Society Maps</h1>
-          <p className="text-sm text-[#9CA3AF] mt-1">Search residential and commercial plots across Pakistan's top societies</p>
+          <h1 className="text-3xl sm:text-5xl font-black font-syne text-white mb-4 uppercase tracking-tight">Find Your Perfect Plot</h1>
+          <p className="text-base text-[#A8C4BB] font-inter max-w-xl mx-auto">
+            Search residential and commercial plots across Pakistan's most prestigious societies and gated communities.
+          </p>
+        </div>
+
+        {/* Wave divider */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 40L1440 40L1440 10C1200 40 960 0 720 20C480 40 240 0 0 10L0 40Z" fill="#F5F0E8" />
+          </svg>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-20">
 
-        {/* Search Bar */}
-        <form onSubmit={handleSearch} className="bg-white rounded-3xl border border-[#E5E7EB] p-4 mb-6 shadow-sm">
-          <div className="flex flex-col md:flex-row gap-3">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF]" />
+        {/* Premium Search Bar */}
+        <form onSubmit={handleSearch} className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-4 sm:p-6 mb-12 shadow-[0_20px_50px_rgba(0,71,55,0.06)]">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="relative flex-1 group">
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#004737]/40 group-focus-within:text-[#004737]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search by area, society or city..."
-                className="w-full h-12 pl-12 pr-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl focus:outline-none focus:border-[#1E6BFF] text-sm"
+                placeholder="Search society, city or area..."
+                className="w-full h-14 pl-14 pr-6 bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] text-sm font-inter transition-all"
               />
             </div>
 
-            <select
-              value={city}
-              onChange={e => setCity(e.target.value)}
-              className="h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl text-sm focus:border-[#1E6BFF] outline-none min-w-[140px]"
-            >
-              {CITIES.map(c => <option key={c}>{c}</option>)}
-            </select>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <select
+                value={city}
+                onChange={e => setCity(e.target.value)}
+                className="h-14 px-5 bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl text-[11px] font-black font-syne uppercase tracking-wider focus:border-[#004737] outline-none min-w-[140px] appearance-none"
+              >
+                {CITIES.map(c => <option key={c}>{c}</option>)}
+              </select>
 
-            <select
-              value={purpose}
-              onChange={e => setPurpose(e.target.value)}
-              className="h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl text-sm focus:border-[#1E6BFF] outline-none min-w-[110px]"
-            >
-              {PURPOSES.map(p => <option key={p}>{p}</option>)}
-            </select>
+              <select
+                value={purpose}
+                onChange={e => setPurpose(e.target.value)}
+                className="h-14 px-5 bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl text-[11px] font-black font-syne uppercase tracking-wider focus:border-[#004737] outline-none min-w-[110px] appearance-none"
+              >
+                {PURPOSES.map(p => <option key={p} value={p}>{p === 'All' ? 'ANY PURPOSE' : `FOR ${p.toUpperCase()}`}</option>)}
+              </select>
 
-            <button
-              type="button"
-              onClick={() => setShowFilters(f => !f)}
-              className={cn("h-12 px-5 border rounded-2xl text-sm font-bold flex items-center gap-2 transition-all", showFilters || hasActiveFilters ? "bg-[#EBF2FF] border-[#1E6BFF] text-[#1E6BFF]" : "bg-white border-[#E5E7EB] text-[#4A5568] hover:border-[#1E6BFF]")}
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              Filters {hasActiveFilters && <span className="w-2 h-2 bg-[#1E6BFF] rounded-full" />}
-            </button>
+              <button
+                type="button"
+                onClick={() => setShowFilters(f => !f)}
+                className={cn(
+                  "h-14 px-6 border-2 rounded-2xl text-[11px] font-black font-syne uppercase tracking-wider flex items-center justify-center gap-3 transition-all", 
+                  showFilters || hasActiveFilters ? "bg-[#004737] text-[#C8F55A] border-[#004737]" : "bg-white border-[#DDD8CF] text-[#3D5249] hover:border-[#004737]"
+                )}
+              >
+                <SlidersHorizontal className="w-4 h-4" />
+                Filters
+              </button>
+            </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="h-12 px-8 bg-[#1E6BFF] text-white text-sm font-bold rounded-2xl hover:bg-[#1554CC] transition-all shadow-lg shadow-blue-200 flex items-center gap-2 disabled:opacity-70"
+              className="h-14 px-10 bg-[#004737] text-[#C8F55A] text-xs font-black font-syne rounded-2xl hover:bg-black transition-all shadow-xl flex items-center justify-center gap-3 disabled:opacity-70 uppercase tracking-widest"
             >
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
-              Find Plots
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Search className="w-5 h-5" />}
+              FIND PLOTS
             </button>
           </div>
 
           {/* Advanced Filters */}
           {showFilters && (
-            <div className="mt-4 pt-4 border-t border-[#F3F4F6] grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="mt-8 pt-8 border-t border-[#F5F0E8] grid grid-cols-1 sm:grid-cols-3 gap-8">
               <div>
-                <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-2">Plot Size</label>
+                <label className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.2em] block mb-3 ml-1">PLOT SIZE</label>
                 <select
                   value={plotSize}
                   onChange={e => setPlotSize(e.target.value)}
-                  className="w-full h-10 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none"
+                  className="w-full h-12 px-5 bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-xl text-sm font-inter focus:border-[#004737] outline-none appearance-none"
                 >
                   {PLOT_SIZES.map(s => <option key={s}>{s}</option>)}
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-2">Min Price (PKR)</label>
+                <label className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.2em] block mb-3 ml-1">MIN PRICE (PKR)</label>
                 <input
                   type="number"
                   value={minPrice}
                   onChange={e => setMinPrice(e.target.value)}
-                  placeholder="e.g. 5000000"
-                  className="w-full h-10 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none"
+                  placeholder="e.g. 5,000,000"
+                  className="w-full h-12 px-5 bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-xl text-sm font-inter focus:border-[#004737] outline-none"
                 />
               </div>
               <div>
-                <label className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest block mb-2">Max Price (PKR)</label>
+                <label className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.2em] block mb-3 ml-1">MAX PRICE (PKR)</label>
                 <input
                   type="number"
                   value={maxPrice}
                   onChange={e => setMaxPrice(e.target.value)}
-                  placeholder="e.g. 50000000"
-                  className="w-full h-10 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none"
+                  placeholder="e.g. 50,000,000"
+                  className="w-full h-12 px-5 bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-xl text-sm font-inter focus:border-[#004737] outline-none"
                 />
               </div>
               {hasActiveFilters && (
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="sm:col-span-3 flex items-center gap-1.5 text-xs font-bold text-red-500 hover:text-red-700 transition-colors"
+                  className="sm:col-span-3 flex items-center gap-2 text-[10px] font-black font-syne text-red-500 hover:text-red-700 transition-colors uppercase tracking-widest"
                 >
-                  <X className="w-3.5 h-3.5" /> Clear all filters
+                  <X className="w-4 h-4" /> Clear all filters
                 </button>
               )}
             </div>
           )}
         </form>
 
-        {/* Plot Size Quick Filters */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        {/* Quick Type Selection */}
+        <div className="flex flex-wrap gap-3 mb-12">
           {PLOT_TYPES.map((t, idx) => (
             <button
               key={idx}
-              onClick={() => handlePlotTypeClick(t.size)}
+              onClick={() => setPlotSize(prev => prev === t.size ? 'All Sizes' : t.size)}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold transition-all",
-                plotSize === t.size ? "bg-[#1E6BFF] text-white border-[#1E6BFF]" : "bg-white text-[#4A5568] border-[#E5E7EB] hover:border-[#1E6BFF] hover:text-[#1E6BFF]"
+                "flex items-center gap-3 px-6 py-3 rounded-xl border-2 text-[11px] font-black font-syne transition-all uppercase tracking-wider",
+                plotSize === t.size 
+                  ? "bg-[#004737] text-[#C8F55A] border-[#004737] shadow-lg" 
+                  : "bg-white text-[#3D5249] border-[#DDD8CF] hover:border-[#004737]/30"
               )}
             >
-              <span>{t.icon}</span> {t.label}
+              <span className="text-lg">{t.icon}</span> {t.label}
             </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          {/* Main Content Area */}
+          <div className="lg:col-span-2 space-y-10">
 
-            {/* Search Results */}
+            {/* Results Section */}
             {searched && (
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-base font-black text-[#1A1A2E]">
-                    {loading ? 'Searching...' : `${plots.length} Plots Found`}
-                    {city !== 'All Cities' && <span className="text-[#9CA3AF] font-normal"> in {city}</span>}
+              <div className="stagger-children">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-xl font-black font-syne text-[#0D1B17] uppercase tracking-tight">
+                    {loading ? 'Scanning Market...' : `${plots.length} verified plots found`}
                   </h2>
                   {!loading && plots.length > 0 && searched && (
-                    <button onClick={clearFilters} className="text-xs font-bold text-[#9CA3AF] hover:text-red-500 flex items-center gap-1">
-                      <X className="w-3 h-3" /> Clear
+                    <button onClick={clearFilters} className="text-[10px] font-black font-syne text-[#7A9088] hover:text-red-500 flex items-center gap-2 uppercase tracking-widest border-b border-[#DDD8CF]">
+                      <X className="w-3.5 h-3.5" /> Clear Search
                     </button>
                   )}
                 </div>
 
                 {loading ? (
-                  <div className="flex items-center justify-center h-40">
-                    <Loader2 className="w-8 h-8 text-[#1E6BFF] animate-spin" />
+                  <div className="flex flex-col items-center justify-center py-20 gap-4">
+                    <Loader2 className="w-10 h-10 text-[#004737] animate-spin" />
+                    <span className="font-syne font-bold text-[#004737] tracking-widest text-[10px] uppercase">Retrieving Listings...</span>
                   </div>
                 ) : plots.length === 0 ? (
-                  <div className="bg-white rounded-3xl border border-[#E5E7EB] p-12 text-center">
-                    <div className="w-16 h-16 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Map className="w-8 h-8 text-[#9CA3AF]" />
+                  <div className="bg-white rounded-[3rem] border border-[#DDD8CF] p-24 text-center">
+                    <div className="w-16 h-16 bg-[#F5F0E8] rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <Map className="w-8 h-8 text-[#004737]/30" />
                     </div>
-                    <h3 className="font-bold text-[#1A1A2E] mb-2">No plots found</h3>
-                    <p className="text-sm text-[#9CA3AF] mb-6">Try adjusting your filters or search a different area.</p>
-                    <button onClick={clearFilters} className="px-6 py-3 bg-[#1E6BFF] text-white text-sm font-bold rounded-xl hover:bg-[#1554CC] transition-all">
+                    <h3 className="text-xl font-black font-syne text-[#0D1B17] mb-3 uppercase tracking-tight">No plots found</h3>
+                    <p className="text-sm font-inter text-[#7A9088] mb-10 max-w-sm mx-auto">Try broadening your search or adjusting the price filters to find available inventory.</p>
+                    <button onClick={clearFilters} className="px-10 py-4 bg-[#004737] text-[#C8F55A] text-xs font-black font-syne rounded-2xl hover:bg-black transition-all shadow-lg uppercase tracking-widest">
                       Reset Search
                     </button>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {plots.map(plot => (
                       <Link
                         key={plot.id}
                         href={`/property/${plot.id}`}
-                        className="flex bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden hover:shadow-lg transition-all group"
+                        className="flex flex-col sm:flex-row bg-white rounded-[2.5rem] border border-[#DDD8CF] overflow-hidden hover:shadow-[0_24px_60px_rgba(0,71,55,0.12)] transition-all duration-500 group"
                       >
-                        <div className="relative w-40 flex-shrink-0">
+                        <div className="relative w-full sm:w-52 h-52 flex-shrink-0">
                           <Image
                             src={plot.images?.[0] || plot.property_images?.[0] || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400'}
                             alt={plot.title}
                             fill
-                            sizes="160px"
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="208px"
+                            className="object-cover group-hover:scale-110 transition-transform duration-1000"
                           />
-                          <div className="absolute top-2 left-2">
-                            <span className={cn("px-2 py-0.5 text-[9px] font-bold text-white rounded-lg", plot.purpose === 'Sale' ? "bg-[#1E6BFF]" : "bg-green-500")}>
-                              {plot.purpose}
+                          <div className="absolute top-4 left-4">
+                            <span className={cn(
+                              "px-3 py-1 text-[9px] font-black font-syne uppercase tracking-widest text-white rounded-lg border border-white/20", 
+                              plot.purpose === 'Sale' ? "bg-[#004737]/80" : "bg-green-600/80"
+                            )}>
+                              FOR {plot.purpose.toUpperCase()}
                             </span>
                           </div>
                         </div>
-                        <div className="flex-1 p-5">
-                          <h3 className="font-bold text-[#1A1A2E] group-hover:text-[#1E6BFF] transition-colors mb-1 line-clamp-1">{plot.title}</h3>
-                          <div className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-3">
-                            <MapPin className="w-3 h-3 text-[#1E6BFF]" />
-                            {plot.area}, {plot.city}
+                        <div className="flex-1 p-8 flex flex-col justify-between">
+                          <div>
+                            <h3 className="text-lg font-black font-syne text-[#0D1B17] group-hover:text-[#004737] transition-colors mb-2 line-clamp-1 uppercase tracking-tight">{plot.title}</h3>
+                            <div className="flex items-center gap-2 text-xs font-inter text-[#7A9088] mb-4">
+                              <MapPin className="w-4 h-4 text-[#004737]" />
+                              {plot.area}, {plot.city}
+                            </div>
+                            <div className="flex items-center gap-6 text-[10px] font-black font-syne text-[#3D5249] uppercase tracking-widest">
+                              <span className="flex items-center gap-2">
+                                <Move className="w-4 h-4 text-[#004737]/40" /> {plot.area_size} {plot.area_unit}
+                              </span>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-4 text-xs text-[#9CA3AF]">
-                            <span className="flex items-center gap-1">
-                              <Move className="w-3 h-3" /> {plot.area_size} {plot.area_unit}
-                            </span>
-                          </div>
-                          <div className="mt-3 pt-3 border-t border-[#F3F4F6]">
-                            <span className="text-base font-black text-[#1E6BFF]">PKR {formatPrice(plot.price)}</span>
+                          <div className="mt-6 pt-6 border-t border-[#F5F0E8] flex items-center justify-between">
+                            <span className="text-xl font-black font-syne text-[#0D1B17]">PKR {formatPrice(plot.price)}</span>
+                            <div className="w-10 h-10 bg-[#F5F0E8] rounded-xl flex items-center justify-center group-hover:bg-[#004737] transition-all duration-300">
+                               <ArrowRight className="w-4 h-4 text-[#004737] group-hover:text-[#C8F55A] group-hover:translate-x-1 transition-all" />
+                            </div>
                           </div>
                         </div>
                       </Link>
@@ -328,39 +344,42 @@ export default function PlotFinderPage() {
               </div>
             )}
 
-            {/* Featured Societies */}
+            {/* Default State: Featured Content */}
             {!searched && (
-              <div>
-                <h2 className="text-lg font-black text-[#1A1A2E] flex items-center gap-2 mb-6">
-                  <Map className="w-5 h-5 text-[#1E6BFF]" /> Featured Societies
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="stagger-children">
+                <div className="flex items-center gap-3 mb-8">
+                   <div className="w-10 h-10 rounded-xl bg-[#004737] flex items-center justify-center">
+                      <Map className="w-5 h-5 text-[#C8F55A]" />
+                   </div>
+                   <h2 className="text-xl font-black font-syne text-[#0D1B17] uppercase tracking-tight">Prime Societies</h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   {SOCIETIES.map((society, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleSocietyClick(society)}
-                      className="text-left group bg-white rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-sm hover:shadow-xl transition-all duration-500"
+                      className="text-left group bg-white rounded-[2.5rem] overflow-hidden border border-[#DDD8CF] shadow-[0_4px_12px_rgba(0,71,55,0.04)] hover:shadow-[0_24px_60px_rgba(0,71,55,0.12)] hover:-translate-y-2 transition-all duration-700"
                     >
-                      <div className="relative h-44 overflow-hidden">
-                        <Image src={society.image} alt={society.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                        <div className="absolute bottom-4 left-4">
-                          <h3 className="text-white font-bold text-base">{society.name}</h3>
-                          <p className="text-white/70 text-xs flex items-center gap-1">
-                            <MapPin className="w-3 h-3" /> {society.city}
+                      <div className="relative h-48 overflow-hidden">
+                        <Image src={society.image} alt={society.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-110 transition-transform duration-1000" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#004737]/90 via-[#004737]/20 to-transparent" />
+                        <div className="absolute bottom-6 left-6">
+                          <h3 className="text-white font-black font-syne text-lg uppercase tracking-tight mb-1">{society.name}</h3>
+                          <p className="text-[#A8C4BB] text-[10px] font-black font-syne uppercase tracking-widest flex items-center gap-2">
+                            <MapPin className="w-3.5 h-3.5 text-[#C8F55A]" /> {society.city}
                           </p>
                         </div>
-                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-[#1E6BFF] text-[10px] font-bold px-2.5 py-1 rounded-lg">
-                          From {society.priceFrom}
+                        <div className="absolute top-4 right-4 bg-[#C8F55A] text-[#004737] text-[9px] font-black font-syne px-3 py-1.5 rounded-xl shadow-xl uppercase tracking-widest border border-white/20">
+                          FROM {society.priceFrom}
                         </div>
                       </div>
-                      <div className="p-5 flex items-center justify-between">
+                      <div className="p-8 flex items-center justify-between">
                         <div>
-                          <span className="text-[10px] text-[#9CA3AF] font-bold uppercase tracking-widest block mb-1">Available Plots</span>
-                          <span className="text-sm font-bold text-[#1A1A2E]">{society.plots} Listings</span>
+                          <span className="text-[9px] font-black font-syne text-[#7A9088] uppercase tracking-[0.2em] block mb-2">Available Supply</span>
+                          <span className="text-sm font-black font-syne text-[#0D1B17] uppercase">{society.plots} ACTIVE ADS</span>
                         </div>
-                        <div className="flex items-center gap-2 px-4 py-2 bg-[#EBF2FF] text-[#1E6BFF] text-xs font-bold rounded-xl group-hover:bg-[#1E6BFF] group-hover:text-white transition-all">
-                          Search Plots <ChevronRight className="w-3.5 h-3.5" />
+                        <div className="w-12 h-12 bg-[#F5F0E8] rounded-2xl flex items-center justify-center group-hover:bg-[#004737] transition-all duration-500">
+                          <ArrowRight className="w-5 h-5 text-[#004737] group-hover:text-[#C8F55A] group-hover:translate-x-1 transition-all" />
                         </div>
                       </div>
                     </button>
@@ -370,60 +389,59 @@ export default function PlotFinderPage() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Quick links */}
-            <div className="bg-[#1A1A2E] rounded-3xl p-7 text-white relative overflow-hidden">
+          {/* Sidebar Navigation */}
+          <div className="space-y-8">
+            <div className="bg-[#004737] rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl">
               <div className="relative z-10">
-                <div className="w-10 h-10 bg-[#1E6BFF]/20 rounded-2xl flex items-center justify-center mb-4">
-                  <Map className="w-5 h-5 text-[#1E6BFF]" />
+                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 border border-white/10">
+                  <Building2 className="w-7 h-7 text-[#C8F55A]" />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Browse by City</h3>
-                <p className="text-xs text-white/50 mb-5 leading-relaxed">Find plots in Pakistan's top cities instantly.</p>
+                <h3 className="text-2xl font-black font-syne mb-3 uppercase tracking-tight leading-tight">Hot Spots By City</h3>
+                <p className="text-sm font-inter text-[#A8C4BB] mb-8 leading-relaxed">Instantly access verified plot inventory in major Pakistani hubs.</p>
                 <div className="space-y-2">
-                  {CITIES.slice(1).map(c => (
+                  {CITIES.slice(1, 6).map(c => (
                     <button
                       key={c}
                       onClick={() => { setCity(c); fetchPlots(c) }}
-                      className="w-full flex items-center justify-between py-2.5 px-4 bg-white/5 hover:bg-white/10 rounded-xl text-sm font-medium transition-all"
+                      className="w-full flex items-center justify-between py-4 px-6 bg-white/5 hover:bg-[#C8F55A] hover:text-[#004737] rounded-2xl text-[11px] font-black font-syne uppercase tracking-widest transition-all group/city"
                     >
                       <span>{c}</span>
-                      <ChevronRight className="w-4 h-4 text-white/40" />
+                      <ChevronRight className="w-4 h-4 text-white/40 group-hover/city:text-[#004737] transition-colors" />
                     </button>
                   ))}
                 </div>
               </div>
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#1E6BFF]/10 rounded-full blur-3xl" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#C8F55A]/5 rounded-full blur-3xl" />
             </div>
 
-            {/* Plot Size Guide */}
-            <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 shadow-sm">
-              <h3 className="text-sm font-black text-[#1A1A2E] mb-5">Plot Size Guide</h3>
-              <div className="space-y-3">
+            <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 shadow-[0_20px_50px_rgba(0,71,55,0.06)]">
+              <div className="flex items-center gap-3 mb-8">
+                 <TrendingUp className="w-5 h-5 text-[#004737]" />
+                 <h3 className="text-xs font-black font-syne text-[#0D1B17] uppercase tracking-[0.2em]">Plot Size Guide</h3>
+              </div>
+              <div className="space-y-4">
                 {[
-                  { size: '3 Marla', sqft: '675 Sq. Ft.', bestFor: 'Budget Homes' },
-                  { size: '5 Marla', sqft: '1,125 Sq. Ft.', bestFor: 'Small Families' },
-                  { size: '10 Marla', sqft: '2,250 Sq. Ft.', bestFor: 'Medium Families' },
-                  { size: '1 Kanal', sqft: '4,500 Sq. Ft.', bestFor: 'Large Families' },
-                  { size: '2 Kanal', sqft: '9,000 Sq. Ft.', bestFor: 'Luxury Homes' },
+                  { size: '5 Marla', sqft: '1,125 SQ.FT.', bestFor: 'FAMILY HOMES' },
+                  { size: '10 Marla', sqft: '2,250 SQ.FT.', bestFor: 'LARGE VILLAS' },
+                  { size: '1 Kanal', sqft: '4,500 SQ.FT.', bestFor: 'ESTATE LIVING' },
+                  { size: '2 Kanal', sqft: '9,000 SQ.FT.', bestFor: 'LUXURY MANORS' },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center justify-between py-2 border-b border-[#F3F4F6] last:border-0">
+                  <div key={idx} className="flex items-center justify-between py-4 border-b border-[#F5F0E8] last:border-0 last:pb-0">
                     <div>
-                      <p className="text-sm font-bold text-[#1A1A2E]">{item.size}</p>
-                      <p className="text-[10px] text-[#9CA3AF]">{item.sqft}</p>
+                      <p className="text-sm font-black font-syne text-[#0D1B17] uppercase tracking-tight">{item.size}</p>
+                      <p className="text-[9px] font-inter text-[#7A9088] font-bold mt-1 tracking-widest">{item.sqft}</p>
                     </div>
-                    <span className="text-[10px] font-bold text-[#1E6BFF] bg-[#EBF2FF] px-2 py-1 rounded-lg">{item.bestFor}</span>
+                    <span className="text-[9px] font-black font-syne text-[#004737] bg-[#C8F55A] px-3 py-1.5 rounded-lg uppercase tracking-widest">{item.bestFor}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* CTA */}
-            <div className="bg-gradient-to-br from-[#1E6BFF] to-[#1554CC] rounded-3xl p-7 text-white">
-              <h3 className="font-bold text-lg mb-2">List Your Plot</h3>
-              <p className="text-xs text-white/70 mb-5 leading-relaxed">Reach thousands of buyers across Pakistan. List your plot for free today.</p>
-              <Link href="/add-property" className="w-full flex items-center justify-center h-11 bg-white text-[#1E6BFF] text-sm font-bold rounded-xl hover:bg-[#F8F9FA] transition-all">
-                + Add Your Plot
+            <div className="bg-[#C8F55A] rounded-[2.5rem] p-10 text-[#004737] text-center shadow-xl">
+              <h3 className="font-black font-syne text-2xl mb-3 uppercase tracking-tight">Sell Faster</h3>
+              <p className="text-sm font-inter font-medium mb-8 leading-relaxed opacity-80">List your plot on Pakistan's #1 premium property portal for maximum exposure.</p>
+              <Link href="/add-property" className="block w-full py-5 bg-[#004737] text-[#C8F55A] text-xs font-black font-syne rounded-2xl hover:bg-black transition-all uppercase tracking-[0.2em] shadow-lg">
+                + ADD LISTING
               </Link>
             </div>
           </div>

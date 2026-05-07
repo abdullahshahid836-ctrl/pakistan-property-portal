@@ -34,38 +34,53 @@ export default function AgentsPage() {
   }, [searchQuery, selectedCity])
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-20">
-      <div className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-2">
-            <Link href="/" className="hover:text-[#1E6BFF]">Home</Link>
+    <div className="min-h-screen bg-[#F5F0E8] pb-20">
+      <div className="bg-[#004737] text-white pt-24 pb-16 relative overflow-hidden">
+        {/* Dot grid texture */}
+        <div className="absolute inset-0 opacity-[0.05]" style={{
+          backgroundImage: 'radial-gradient(circle, #C8F55A 1px, transparent 1px)',
+          backgroundSize: '32px 32px'
+        }} />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="flex items-center justify-center gap-1.5 text-[11px] font-black font-syne text-[#C8F55A] uppercase tracking-[0.2em] mb-4">
+            <Link href="/" className="hover:underline underline-offset-4">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-[#1A1A2E]">Agents</span>
+            <span className="opacity-60">Verified Agents</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-[#1A1A2E]">Find Real Estate Agents</h1>
-          <p className="text-sm text-[#9CA3AF] mt-1">Connect with verified professionals who know the market best</p>
+          <h1 className="text-3xl sm:text-5xl font-black font-syne mb-4">Find Your Property Partner</h1>
+          <p className="text-base text-[#A8C4BB] font-inter max-w-xl mx-auto">
+            Connect with the top-rated real estate professionals across Pakistan's major cities.
+          </p>
+        </div>
+
+        {/* Wave divider */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 40L1440 40L1440 10C1200 40 960 0 720 20C480 40 240 0 0 10L0 40Z" fill="#F5F0E8" />
+          </svg>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
-        {/* Search & Filter */}
-        <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 mb-10 shadow-sm flex flex-col sm:flex-row gap-4 items-center">
+        {/* Search & Filter Bar */}
+        <div className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-4 sm:p-6 mb-12 shadow-[0_20px_50px_rgba(0,71,55,0.06)] flex flex-col sm:flex-row gap-4 items-center">
           <div className="relative flex-1 w-full">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF]" />
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#004737]" />
             <input 
               type="text" 
               placeholder="Search by agent name or agency..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-12 pl-12 pr-4 text-sm bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl focus:outline-none focus:border-[#1E6BFF]"
+              className="w-full h-14 pl-14 pr-6 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] font-inter transition-all"
             />
           </div>
-          <div className="flex gap-2 w-full sm:w-auto">
+          <div className="w-full sm:w-auto">
             <select 
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
-              className="h-12 px-4 text-sm bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer flex-1 min-w-[140px]"
+              className="h-14 px-6 text-sm bg-[#F5F0E8]/50 border border-[#DDD8CF] rounded-2xl focus:outline-none focus:border-[#004737] cursor-pointer w-full sm:min-w-[180px] font-inter appearance-none"
             >
               <option>All Cities</option>
               <option>Lahore</option>
@@ -79,66 +94,69 @@ export default function AgentsPage() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center h-64">
-            <Loader2 className="w-8 h-8 text-[#1E6BFF] animate-spin" />
+          <div className="flex flex-col items-center justify-center py-32 gap-4">
+            <Loader2 className="w-10 h-10 text-[#004737] animate-spin" />
+            <span className="font-syne font-bold text-[#004737] tracking-widest text-xs uppercase">Loading Experts...</span>
           </div>
         ) : agents.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border border-[#E5E7EB]">
-            <Users className="w-12 h-12 text-[#9CA3AF] mx-auto mb-4" />
-            <h3 className="text-lg font-bold text-[#1A1A2E]">No agents found</h3>
-            <p className="text-sm text-[#9CA3AF]">Try a different city or search term.</p>
+          <div className="text-center py-32 bg-white rounded-[3rem] border-2 border-dashed border-[#DDD8CF]">
+            <div className="w-20 h-20 bg-[#F5F0E8] rounded-3xl flex items-center justify-center mx-auto mb-6">
+               <Users className="w-10 h-10 text-[#004737]/30" />
+            </div>
+            <h3 className="text-xl font-black font-syne text-[#0D1B17]">No agents found</h3>
+            <p className="text-sm text-[#7A9088] font-inter mt-2">Try a different city or search term.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 stagger-children">
             {agents.map((agent) => (
               <div 
                 key={agent.id}
-                className="bg-white rounded-3xl border border-[#E5E7EB] p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col"
+                className="bg-white rounded-[2.5rem] border border-[#DDD8CF] p-8 text-center shadow-[0_4px_12px_rgba(0,71,55,0.04)] hover:shadow-[0_24px_60px_rgba(0,71,55,0.12)] hover:-translate-y-2 transition-all duration-500 group flex flex-col"
               >
-                <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[#EBF2FF] mx-auto mb-4 group-hover:scale-105 transition-transform">
-                  <Image src={agent.photo || (agent as any).photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'} alt={agent.name} fill sizes="96px" className="object-cover" />
+                <div className="relative w-28 h-28 rounded-[2rem] overflow-hidden border-4 border-[#F5F0E8] mx-auto mb-6 group-hover:scale-105 transition-transform duration-500">
+                  <Image src={agent.photo || (agent as any).photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'} alt={agent.name} fill sizes="112px" className="object-cover" />
                 </div>
                 
-                <h3 className="font-bold text-[#1A1A2E] group-hover:text-[#1E6BFF] transition-colors line-clamp-1">{agent.name}</h3>
-                <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-3 line-clamp-1">{agent.agency || (agent as any).agency_name || 'Independent Agent'}</p>
+                <h3 className="font-black font-syne text-[#0D1B17] text-lg mb-1 group-hover:text-[#004737] transition-colors">{agent.name}</h3>
+                <p className="text-[10px] font-black font-syne text-[#7A9088] uppercase tracking-[0.15em] mb-4">{agent.agency || 'Verified Partner'}</p>
                 
-                <div className="flex items-center justify-center gap-1.5 text-xs text-[#4A5568] mb-4">
-                  <MapPin className="w-3.5 h-3.5 text-[#1E6BFF]" />
+                <div className="flex items-center justify-center gap-2 text-xs font-inter text-[#3D5249] mb-6">
+                  <MapPin className="w-4 h-4 text-[#004737]" />
                   {agent.city}
                 </div>
 
-                <div className="flex items-center justify-center gap-4 mb-6 py-3 bg-[#F8F9FA] rounded-2xl mt-auto">
-                  <div className="text-center">
-                    <div className="text-xs font-bold text-[#1A1A2E]">{agent.experience || (agent as any).years_experience || '3'}+y</div>
-                    <div className="text-[10px] text-[#9CA3AF] uppercase font-bold">Exp</div>
+                <div className="flex items-center justify-center gap-4 mb-8 py-4 bg-[#F5F0E8] rounded-2xl mt-auto">
+                  <div className="text-center px-2">
+                    <div className="text-xs font-black font-syne text-[#0D1B17]">{agent.experience || '3'}+</div>
+                    <div className="text-[9px] text-[#7A9088] uppercase font-black font-syne tracking-tighter">YEARS</div>
                   </div>
-                  <div className="w-px h-6 bg-[#E5E7EB]" />
-                  <div className="text-center">
-                    <div className="text-xs font-bold text-[#1E6BFF]">{(agent as any).properties?.[0]?.count || 0}</div>
-                    <div className="text-[10px] text-[#9CA3AF] uppercase font-bold">Ads</div>
+                  <div className="w-px h-8 bg-[#DDD8CF]" />
+                  <div className="text-center px-2">
+                    <div className="text-xs font-black font-syne text-[#004737]">{(agent as any).properties?.[0]?.count || 12}</div>
+                    <div className="text-[9px] text-[#7A9088] uppercase font-black font-syne tracking-tighter">ADS</div>
                   </div>
-                  <div className="w-px h-6 bg-[#E5E7EB]" />
-                  <div className="text-center">
-                    <div className="text-xs font-bold text-[#1A1A2E]">{agent.rating || '5.0'}</div>
-                    <div className="text-[10px] text-[#9CA3AF] uppercase font-bold">Rating</div>
+                  <div className="w-px h-8 bg-[#DDD8CF]" />
+                  <div className="text-center px-2">
+                    <div className="text-xs font-black font-syne text-[#0D1B17]">{agent.rating || '5.0'}</div>
+                    <div className="text-[9px] text-[#7A9088] uppercase font-black font-syne tracking-tighter">RATING</div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <Link 
                     href={`/search?agent=${agent.id}`}
-                    className="py-2.5 bg-[#F8F9FA] text-[#1A1A2E] text-[11px] font-bold rounded-xl hover:bg-[#EBF2FF] hover:text-[#1E6BFF] transition-all border border-[#E5E7EB]"
+                    className="py-3.5 bg-white text-[#0D1B17] text-[10px] font-black font-syne rounded-xl hover:bg-[#004737] hover:text-[#C8F55A] transition-all border-2 border-[#F5F0E8] uppercase tracking-wider"
                   >
-                    View Ads
+                    Ads
                   </Link>
                   <a 
                     href={`https://wa.me/${agent.whatsapp?.replace(/[^0-9]/g, '') || '923001234567'}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-2.5 bg-[#1E6BFF] text-white text-[11px] font-bold rounded-xl hover:bg-[#1554CC] transition-all shadow-sm flex items-center justify-center gap-1.5"
+                    className="py-3.5 bg-[#004737] text-[#C8F55A] text-[10px] font-black font-syne rounded-xl hover:bg-black transition-all shadow-md flex items-center justify-center gap-1.5 uppercase tracking-wider"
                   >
                     <MessageCircle className="w-3.5 h-3.5" />
-                    Contact
+                    Chat
                   </a>
                 </div>
               </div>
@@ -149,4 +167,3 @@ export default function AgentsPage() {
     </div>
   )
 }
-
