@@ -58,14 +58,10 @@ const ExploreTools = () => {
                   <div className="relative z-10">
                     <motion.div 
                       whileHover={{ rotate: 360 }}
-                      animate={{ rotate: [0, 360] }}
+                      whileTap={{ rotate: 360 }}
                       transition={{ 
-                        rotate: {
-                          duration: 20,
-                          repeat: Infinity,
-                          ease: "linear"
-                        },
-                        duration: 0.8 // for hover
+                        duration: 0.8,
+                        ease: [0.22, 1, 0.36, 1] as any
                       }}
                       className="w-16 h-16 rounded-2xl bg-[#004737] flex items-center justify-center mb-8 shadow-xl shadow-[#004737]/10"
                     >
