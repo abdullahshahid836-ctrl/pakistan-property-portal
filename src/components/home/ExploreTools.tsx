@@ -68,7 +68,7 @@ const ExploreTools = () => {
                       <tool.icon className="w-7 h-7 text-[#C8F55A]" />
                     </motion.div>
 
-                    <h3 className="font-syne font-black text-xl sm:text-2xl text-[#0D1B17] mb-2 uppercase tracking-tight group-hover:text-[#004737] transition-colors leading-[1.1] break-words">
+                    <h3 className="font-syne font-black text-lg sm:text-xl text-[#0D1B17] mb-2 uppercase tracking-tighter group-hover:text-[#004737] transition-colors leading-[1.1] break-words">
                       {tool.name}
                     </h3>
                     <p className="text-xs font-inter text-[#7A9088] leading-relaxed mb-8 opacity-80 group-hover:opacity-100 transition-opacity">
