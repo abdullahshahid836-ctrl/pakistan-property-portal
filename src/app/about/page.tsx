@@ -8,7 +8,7 @@ import { ShieldCheck, Target, Users, Zap, Heart, Compass, ArrowRight, RotateCcw 
 // ─────────────────────────────────────────────
 // EASE: Flecto's signature quintic ease-out
 // ─────────────────────────────────────────────
-const EASE = [0.16, 1, 0.3, 1]
+const EASE = [0.16, 1, 0.3, 1] as const
 
 // ─────────────────────────────────────────────
 // LINE-REVEAL: Single text line mask reveal
