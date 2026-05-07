@@ -7,7 +7,7 @@ import { ShieldCheck, Target } from 'lucide-react'
 // ─────────────────────────────────────────────
 // EASE: Flecto's signature Quart Out ease
 // ─────────────────────────────────────────────
-const EASE = [0.33, 1, 0.68, 1]
+const EASE = [0.33, 1, 0.68, 1] as const
 
 const Line = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
   <div className="overflow-hidden">
