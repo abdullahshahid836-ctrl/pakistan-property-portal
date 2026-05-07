@@ -20,8 +20,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <div className={cn(
-      "flex flex-col sm:flex-row sm:items-end justify-between mb-10 sm:mb-12 lg:mb-16",
-      align === 'center' && "sm:text-center sm:items-center mx-auto max-w-3xl",
+      "flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 lg:mb-10",
+      align === 'center' && "sm:text-center sm:items-center mx-auto max-w-2xl",
       className
     )}>
       <div className={cn(
@@ -29,25 +29,21 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         align === 'center' && "items-center"
       )}>
         {eyebrow && (
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-[1px] bg-flecto-lime" />
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-flecto-green font-inter">
-              {eyebrow}
-            </span>
-            <div className="w-8 h-[1px] bg-flecto-lime" />
-          </div>
+          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#1E6BFF] mb-2">
+            {eyebrow}
+          </span>
         )}
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-flecto-green leading-[1.2] font-syne tracking-tight">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1A1A2E] leading-tight">
           {heading}
         </h2>
         {sub && (
-          <p className="text-base text-flecto-text-2 mt-4 max-w-2xl leading-relaxed font-inter">
+          <p className="text-sm text-[#9CA3AF] mt-2 max-w-xl leading-relaxed">
             {sub}
           </p>
         )}
       </div>
       {right && (
-        <div className="mt-6 sm:mt-0">
+        <div className="mt-4 sm:mt-0">
           {right}
         </div>
       )}

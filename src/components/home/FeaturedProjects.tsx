@@ -3,12 +3,9 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, MapPin, Heart, Loader2 } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import SectionHeader from '@/components/shared/SectionHeader'
+import { ArrowRight, MapPin } from 'lucide-react'
+import { RevealWrapper } from '@/components/shared/RevealWrapper'
 import { Project } from '@/types'
-
-import RevealWrapper from '@/components/shared/RevealWrapper'
 
 const FeaturedProjects = () => {
   const [projects, setProjects] = useState<Project[]>([])
@@ -30,30 +27,73 @@ const FeaturedProjects = () => {
   }, [])
 
   return (
-    <section className="bg-flecto-cream-dark py-20 sm:py-24 lg:py-32 relative z-10">
+    <section className="py-16 sm:py-20 bg-[#EDE8DF] relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <RevealWrapper animation="fade-up">
-          <SectionHeader 
-            eyebrow="Prime Opportunities"
-            heading="Featured New Projects"
-            align="left"
-            right={
-              <Link href="/new-projects" className="btn-primary px-6 py-2.5 text-xs">
-                View all projects <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            }
-          />
-        </RevealWrapper>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+        <div className="flex items-end justify-between mb-10">
+          <RevealWrapper direction="left">
+            <span className="pill-label">🔥 TRENDING</span>
+            <h2 className="font-syne font-bold text-4xl text-[#0D1B17] mt-3">New Projects</h2>
+          </RevealWrapper>
+          <RevealWrapper direction="right">
+            <Link href="/new-projects"
+              className="text-sm font-bold font-syne text-[#004737] flex items-center gap-1.5 hover:gap-2.5 transition-all underline-offset-4 hover:underline">
+              View all <ArrowRight className="w-4 h-4" />
+            </Link>
+          </RevealWrapper>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children">
           {loading ? (
             Array(3).fill(0).map((_, i) => (
-              <div key={i} className="bg-white rounded-3xl h-[450px] animate-pulse border border-flecto-green/5" />
+              <div key={i} className="bg-white rounded-3xl h-[380px] skeleton-shimmer border border-[#DDD8CF]" />
             ))
           ) : (
-            projects.map((project, idx) => (
-              <RevealWrapper key={project.id} animation="fade-up" delay={idx * 0.1}>
-                <ProjectCard project={project} />
+            projects.map((project, i) => (
+              <RevealWrapper key={project.id} delay={i * 80} direction="up">
+                <Link href={`/new-projects/${project.slug}`}
+                  className="group block bg-white rounded-3xl overflow-hidden border border-[#DDD8CF] hover:shadow-[0_20px_50px_rgba(0,71,55,0.15)] hover:-translate-y-1 transition-all duration-300">
+
+                  <div className="relative h-52 overflow-hidden">
+                    <Image
+                      src={project.coverImage || project.cover_image || '/placeholder-project.png'}
+                      alt={project.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-black font-syne uppercase tracking-wider ${
+                        project.status === 'Ready'
+                          ? 'bg-[#C8F55A] text-[#004737]'
+                          : 'bg-[#004737] text-[#C8F55A]'
+                      }`}>
+                        {project.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-5">
+                    <h3 className="font-syne font-bold text-lg text-[#0D1B17] mb-1 line-clamp-1 group-hover:text-[#004737] transition-colors">
+                      {project.name}
+                    </h3>
+                    <div className="flex items-center gap-1.5 text-xs text-[#7A9088] mb-4 font-inter">
+                      <MapPin className="w-3 h-3 text-[#004737]" />
+                      {project.location}
+                    </div>
+                    <div className="flex items-end justify-between pt-4 border-t border-[#EDE8DF]">
+                      <div>
+                        <div className="text-[10px] text-[#7A9088] uppercase tracking-wider font-inter">Starting From</div>
+                        <div className="text-xl font-black text-[#004737] font-syne">
+                          PKR {project.price_label || project.priceLabel}
+                        </div>
+                      </div>
+                      <div className="text-[10px] text-[#7A9088] text-right font-inter">
+                        {project.developer}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               </RevealWrapper>
             ))
           )}
@@ -63,60 +103,4 @@ const FeaturedProjects = () => {
   )
 }
 
-const ProjectCard = ({ project }: { project: Project }) => (
-  <Link href={`/new-projects/${project.slug}`}
-    className="flecto-card group bg-white flex flex-col h-full">
-    
-    <div className="relative h-64 overflow-hidden">
-      <Image 
-        src={project.coverImage || project.cover_image || '/placeholder-project.png'} 
-        alt={project.name}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="object-cover group-hover:scale-110 transition-transform duration-1000"
-      />
-      
-      <div className="absolute top-6 left-6 z-10 flex flex-col gap-2">
-        <div className={cn(
-          "pill-label bg-white/90 backdrop-blur-md text-flecto-green shadow-lg",
-          project.status === 'Under Construction' ? "text-orange-600" : 
-          project.status === 'Ready' ? "text-green-600" : "text-flecto-green"
-        )}>
-          {project.status}
-        </div>
-      </div>
-
-      <button className="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-lg hover:bg-flecto-lime transition-all duration-300 z-10 group/heart">
-        <Heart className="w-5 h-5 text-flecto-green group-hover/heart:fill-red-500 group-hover/heart:text-red-500 transition-all" />
-      </button>
-    </div>
-
-    <div className="p-8 flex flex-col flex-1">
-      <h3 className="text-xl sm:text-2xl font-bold text-flecto-green mb-3 font-syne group-hover:text-flecto-green-light transition-colors line-clamp-1">
-        {project.name}
-      </h3>
-      
-      <div className="flex items-center gap-2 text-sm text-flecto-text-muted mb-6 font-inter font-medium">
-        <MapPin className="w-4 h-4 text-flecto-green/40" />
-        {project.location}
-      </div>
-
-      <div className="mt-auto pt-6 border-t border-flecto-green/5 flex items-center justify-between">
-        <div>
-          <span className="text-[10px] text-flecto-text-muted font-bold uppercase tracking-[0.2em] block mb-2 font-inter">
-            Investment Starts
-          </span>
-          <span className="text-xl font-bold text-flecto-green font-syne">
-            PKR {project.price_label || project.priceLabel}
-          </span>
-        </div>
-        <div className="w-12 h-12 rounded-2xl bg-flecto-green/5 flex items-center justify-center group-hover:bg-flecto-lime transition-colors duration-500">
-          <ArrowRight className="w-5 h-5 text-flecto-green" />
-        </div>
-      </div>
-    </div>
-  </Link>
-)
-
 export default FeaturedProjects
-

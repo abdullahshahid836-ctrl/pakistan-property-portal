@@ -1,68 +1,61 @@
 import React from 'react'
 import Link from 'next/link'
 import { MessageCircle, Key, Building, MessageSquare, ArrowRight, Users } from 'lucide-react'
-import SectionHeader from '@/components/shared/SectionHeader'
+import { RevealWrapper } from '@/components/shared/RevealWrapper'
 import forumData from '@/data/forum-topics.json'
 
 const icons = {
-  "buying-property": MessageCircle,
-  "renting-property": Key,
-  "new-projects": Building,
-  "general-discussion": MessageSquare
-}
-
-import RevealWrapper from '@/components/shared/RevealWrapper'
-
-const icons = {
-  "buying-property": MessageCircle,
-  "renting-property": Key,
-  "new-projects": Building,
-  "general-discussion": MessageSquare
+  'buying-property':    MessageCircle,
+  'renting-property':   Key,
+  'new-projects':       Building,
+  'general-discussion': MessageSquare,
 }
 
 const CommunityForum = () => {
   return (
-    <section className="bg-flecto-cream-dark py-20 sm:py-24 lg:py-32 relative z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <RevealWrapper animation="fade-up">
-          <SectionHeader 
-            eyebrow="The Knowledge Hub"
-            heading="Community Discussions"
-            sub="Connect with thousands of property enthusiasts, experts, and real estate professionals across Pakistan."
-          />
+    <section className="py-16 sm:py-20 bg-[#EDE8DF] relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <RevealWrapper className="text-center mb-12">
+          <span className="pill-label">COMMUNITY</span>
+          <h2 className="font-syne font-bold text-3xl sm:text-4xl lg:text-5xl text-[#0D1B17] mt-4 leading-tight">
+            Pakistan Property Forum
+          </h2>
+          <p className="text-[#3D5249] text-base mt-4 max-w-xl mx-auto font-inter leading-relaxed">
+            Join thousands of buyers, sellers and renters discussing the real estate market
+          </p>
         </RevealWrapper>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {forumData.categories.map((cat, idx) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger-children">
+          {forumData.categories.map((cat, i) => {
             const Icon = icons[cat.slug as keyof typeof icons] || MessageSquare
             return (
-              <RevealWrapper key={cat.id} animation="fade-up" delay={idx * 0.1}>
-                <Link 
-                  href={`/forum/${cat.slug}`}
-                  className="flecto-card group p-8 bg-white flex flex-col h-full"
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-flecto-green/5 mb-6 flex items-center justify-center group-hover:bg-flecto-green transition-all duration-500">
-                    <Icon className="w-6 h-6 text-flecto-green group-hover:text-flecto-lime transition-colors" />
+              <RevealWrapper key={cat.id} delay={i * 80} direction="scale">
+                <Link href={`/forum/${cat.slug}`}
+                  className="group block p-6 bg-white rounded-2xl border border-[#DDD8CF] shadow-[0_2px_8px_rgba(0,71,55,0.04)] hover:shadow-[0_16px_40px_rgba(0,71,55,0.12)] hover:-translate-y-1 hover:border-[#004737]/20 transition-all duration-300 flex flex-col">
+
+                  <div className="w-12 h-12 rounded-2xl bg-[#004737] mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="w-6 h-6 text-[#C8F55A]" />
                   </div>
-                  
-                  <h3 className="text-lg font-bold text-flecto-green mb-2 font-syne group-hover:text-flecto-green-light transition-colors">
+
+                  <h3 className="font-syne font-bold text-base text-[#0D1B17] mb-1 group-hover:text-[#004737] transition-colors">
                     {cat.name}
                   </h3>
-                  
-                  <div className="flex items-center gap-3 mt-2 mb-8">
-                    <span className="text-xs text-flecto-text-muted font-medium font-inter">
+
+                  <div className="flex items-center gap-3 mt-2 mb-4">
+                    <span className="text-xs font-inter text-[#7A9088]">
                       {cat.topicCount.toLocaleString()} Topics
                     </span>
                     {cat.newTopics > 0 && (
-                      <span className="text-[10px] text-flecto-green font-bold bg-flecto-lime px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-flecto-green animate-pulse" />
+                      <span className="text-[10px] text-green-700 font-bold bg-green-50 px-2 py-0.5 rounded-full flex items-center gap-1 font-inter">
+                        <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
                         {cat.newTopics} New
                       </span>
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2 mt-auto text-xs font-bold text-flecto-green group-hover:text-flecto-green-light transition-all uppercase tracking-wider font-inter">
-                    Join Discussion <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <div className="flex items-center gap-1.5 mt-auto text-xs font-bold font-syne text-[#7A9088] group-hover:text-[#004737] transition-colors">
+                    Browse Discussions <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                   </div>
                 </Link>
               </RevealWrapper>
@@ -70,18 +63,13 @@ const CommunityForum = () => {
           })}
         </div>
 
-        <RevealWrapper animation="fade-up" delay={0.4}>
-          <div className="mt-16 text-center">
-            <Link 
-              href="/register"
-              className="btn-primary px-10 py-4 text-sm"
-            >
-              <Users className="w-4 h-4 mr-2" />
-              Join the Community
-            </Link>
-          </div>
+        <RevealWrapper className="mt-12 text-center">
+          <Link href="/register"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[#004737] text-[#C8F55A] text-sm font-bold font-syne tracking-wide rounded-2xl hover:bg-[#003329] hover:shadow-[0_8px_24px_rgba(0,71,55,0.3)] hover:-translate-y-0.5 transition-all duration-300">
+            <Users className="w-4 h-4" />
+            Join the Community
+          </Link>
         </RevealWrapper>
-
       </div>
     </section>
   )

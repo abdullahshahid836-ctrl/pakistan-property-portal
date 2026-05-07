@@ -5,11 +5,13 @@ import './globals.css'
 
 const syne = Syne({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-syne',
 })
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
   variable: '--font-inter',
 })
 
@@ -25,9 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${syne.variable} ${inter.variable}`}>
-      <body className="font-inter">
+      <body className={inter.className}>
         <Navbar />
-        <main className="min-h-screen pt-16 bg-bg-primary">
+        <main className="min-h-screen pt-16 bg-[#F5F0E8]">
           {children}
         </main>
         <Footer />

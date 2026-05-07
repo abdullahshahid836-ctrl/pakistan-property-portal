@@ -119,205 +119,172 @@ export default function AreaGuidesPage() {
   const active = selectedCity ? filtered.filter(c => c.city === selectedCity) : filtered
 
   return (
-    <div className="min-h-screen bg-flecto-cream-dark pb-24">
+    <div className="min-h-screen bg-[#F8F9FA] pb-20">
       {/* Hero */}
-      <div className="bg-flecto-green pt-32 pb-24 relative overflow-hidden">
+      <div className="bg-[#1A1A2E] py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <MapPin className="w-4 h-4 text-flecto-lime" />
-            <span className="text-[10px] font-bold text-flecto-lime uppercase tracking-[0.2em] font-inter">Territorial Intelligence</span>
-          </div>
-          <h1 className="text-5xl sm:text-7xl font-bold text-flecto-cream mb-6 font-syne tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-1000">Area Guides</h1>
-          <p className="text-lg sm:text-xl text-flecto-cream/60 max-w-2xl mx-auto mb-12 font-inter font-medium animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            Decrypt Pakistan's premier neighborhoods — price vectors, yield trends, and infrastructural benchmarks.
+          <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">Area Guides</h1>
+          <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
+            Explore Pakistan's top neighbourhoods — prices, trends, amenities and market insights.
           </p>
-          <div className="max-w-2xl mx-auto relative group animate-in fade-in slide-in-from-bottom-10 duration-1000">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-flecto-lime group-focus-within:scale-110 transition-transform duration-500" />
+          <div className="max-w-xl mx-auto relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#9CA3AF]" />
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Filter by city or specific sector..."
-              className="w-full h-20 pl-16 pr-16 bg-white/5 border border-white/10 rounded-[2.5rem] focus:outline-none focus:bg-white focus:text-flecto-green text-flecto-cream placeholder:text-white/20 transition-all duration-700 backdrop-blur-xl font-syne text-lg shadow-2xl"
+              placeholder="Search city or area (e.g. DHA Phase 5, Bahria Karachi...)"
+              className="w-full h-14 pl-12 pr-12 bg-white/10 border border-white/20 rounded-2xl focus:outline-none focus:bg-white focus:text-[#1A1A2E] text-white placeholder-white/50 transition-all backdrop-blur-md"
             />
             {search && (
-              <button onClick={() => setSearch('')} className="absolute right-6 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                <X className="w-4 h-4 text-flecto-cream" />
+              <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2">
+                <X className="w-4 h-4 text-white/60 hover:text-white" />
               </button>
             )}
           </div>
         </div>
-        
-        {/* Background Accents */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-flecto-lime/10 rounded-full blur-[120px] -mr-64 -mt-64" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-flecto-green-light/20 rounded-full blur-[100px] -ml-48 -mb-48" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <Image src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920" alt="bg" fill className="object-cover" />
+        </div>
       </div>
 
       {/* City filter pills */}
-      <div className="bg-flecto-cream border-b border-flecto-green/5 sticky top-20 z-30 backdrop-blur-xl bg-opacity-90">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex gap-3 overflow-x-auto no-scrollbar items-center justify-center">
+      <div className="bg-white border-b border-[#E5E7EB] sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex gap-2 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setSelectedCity(null)}
-            className={cn(
-              "flex-shrink-0 px-8 py-3 text-[10px] font-bold rounded-full transition-all duration-500 border font-sy uppercase tracking-[0.2em]", 
-              !selectedCity ? "bg-flecto-green text-flecto-cream border-flecto-green shadow-xl shadow-flecto-green/20" : "bg-white text-flecto-green-light border-flecto-green/5 hover:border-flecto-lime hover:text-flecto-green"
-            )}
-          >All Regions</button>
+            className={cn("flex-shrink-0 px-4 py-2 text-xs font-bold rounded-full transition-all border", !selectedCity ? "bg-[#1E6BFF] text-white border-[#1E6BFF]" : "bg-white text-[#4A5568] border-[#E5E7EB] hover:border-[#1E6BFF]")}
+          >All Cities</button>
           {cities.map(c => (
             <button
               key={c.city}
               onClick={() => setSelectedCity(c.city === selectedCity ? null : c.city)}
-              className={cn(
-                "flex-shrink-0 px-8 py-3 text-[10px] font-bold rounded-full transition-all duration-500 border whitespace-nowrap font-syne uppercase tracking-[0.2em]", 
-                selectedCity === c.city ? "bg-flecto-green text-flecto-cream border-flecto-green shadow-xl shadow-flecto-green/20" : "bg-white text-flecto-green-light border-flecto-green/5 hover:border-flecto-lime hover:text-flecto-green"
-              )}
+              className={cn("flex-shrink-0 px-4 py-2 text-xs font-bold rounded-full transition-all border whitespace-nowrap", selectedCity === c.city ? "bg-[#1E6BFF] text-white border-[#1E6BFF]" : "bg-white text-[#4A5568] border-[#E5E7EB] hover:border-[#1E6BFF]")}
             >
               {c.city}
               {!loadingCounts && propertyCounts[c.city] ? (
-                <span className="ml-2 opacity-40 font-inter">[{propertyCounts[c.city]}]</span>
+                <span className="ml-1.5 opacity-70">({propertyCounts[c.city]})</span>
               ) : null}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Area Detail Modal */}
         {selectedArea && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-flecto-green/80 backdrop-blur-md animate-in fade-in duration-500" onClick={() => setSelectedArea(null)}>
-            <div className="bg-white rounded-[3rem] p-10 sm:p-14 max-w-xl w-full shadow-2xl border border-white/20 animate-in zoom-in-95 duration-500" onClick={e => e.stopPropagation()}>
-              <div className="flex justify-between items-start mb-10">
-                <div className="space-y-2">
-                  <h2 className="text-3xl font-bold text-flecto-green font-syne tracking-tight uppercase leading-none">{selectedArea.name}</h2>
-                  <p className="text-xs font-bold text-flecto-green-light uppercase tracking-[0.2em] font-inter">
-                    {selectedArea.cityName} <span className="mx-2 opacity-20">|</span> {selectedArea.type}
-                  </p>
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={() => setSelectedArea(null)}>
+            <div className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl" onClick={e => e.stopPropagation()}>
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h2 className="text-xl font-black text-[#1A1A2E]">{selectedArea.name}</h2>
+                  <p className="text-sm text-[#9CA3AF]">{selectedArea.cityName} · {selectedArea.type}</p>
                 </div>
-                <button onClick={() => setSelectedArea(null)} className="w-12 h-12 rounded-full bg-flecto-cream flex items-center justify-center hover:bg-flecto-green hover:text-flecto-lime transition-all duration-500">
-                  <X className="w-5 h-5" />
+                <button onClick={() => setSelectedArea(null)} className="w-8 h-8 rounded-full bg-[#F8F9FA] flex items-center justify-center hover:bg-[#E5E7EB] transition-colors">
+                  <X className="w-4 h-4 text-[#4A5568]" />
                 </button>
               </div>
-              
-              <div className="grid grid-cols-3 gap-6 mb-12">
-                <div className="bg-flecto-cream-dark rounded-[2rem] p-6 text-center border border-flecto-green/5">
-                  <p className="text-[9px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-2 font-inter">Valuation</p>
-                  <p className="text-sm font-bold text-flecto-green font-syne uppercase">PKR {selectedArea.avgPrice}</p>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-[#F8F9FA] rounded-2xl p-4 text-center">
+                  <p className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-1">Avg Price</p>
+                  <p className="text-sm font-black text-[#1A1A2E]">PKR {selectedArea.avgPrice}</p>
                 </div>
-                <div className="bg-flecto-cream-dark rounded-[2rem] p-6 text-center border border-flecto-green/5">
-                  <p className="text-[9px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-2 font-inter">Unit Rate</p>
-                  <p className="text-sm font-bold text-flecto-green font-syne uppercase">{selectedArea.pricePerMarla}</p>
+                <div className="bg-[#F8F9FA] rounded-2xl p-4 text-center">
+                  <p className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-1">Per Marla</p>
+                  <p className="text-sm font-black text-[#1A1A2E]">PKR {selectedArea.pricePerMarla}</p>
                 </div>
-                <div className="bg-flecto-lime/10 rounded-[2rem] p-6 text-center border border-flecto-lime/20">
-                  <p className="text-[9px] font-bold text-flecto-green/40 uppercase tracking-[0.2em] mb-2 font-inter">Yield Trend</p>
-                  <p className="text-sm font-bold text-flecto-green font-syne uppercase">{selectedArea.trend}</p>
+                <div className="bg-green-50 rounded-2xl p-4 text-center">
+                  <p className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-1">1Y Trend</p>
+                  <p className="text-sm font-black text-green-600">{selectedArea.trend}</p>
                 </div>
               </div>
-
               <Link
                 href={`/search?area=${encodeURIComponent(selectedArea.name)}&city=${encodeURIComponent(selectedArea.cityName)}`}
-                className="w-full flex items-center justify-center gap-3 h-16 bg-flecto-green text-flecto-cream text-xs font-bold rounded-full hover:bg-flecto-green-light hover:scale-[1.02] transition-all duration-500 font-syne uppercase tracking-widest shadow-2xl shadow-flecto-green/20"
+                className="w-full flex items-center justify-center gap-2 h-12 bg-[#1E6BFF] text-white text-sm font-bold rounded-xl hover:bg-[#1554CC] transition-all"
               >
-                <Home className="w-4 h-4 text-flecto-lime" />
-                Analyze Available Inventory
+                <Home className="w-4 h-4" />
+                View Properties in {selectedArea.name}
               </Link>
             </div>
           </div>
         )}
 
         {/* City cards */}
-        <div className="space-y-16">
+        <div className="space-y-10">
           {active.length === 0 && (
-            <div className="text-center py-32 bg-white rounded-[3rem] border border-flecto-green/5 shadow-inner">
-              <p className="text-flecto-text-muted font-bold font-syne uppercase tracking-widest text-lg mb-6">No geometric matches for "{search}"</p>
-              <button onClick={() => setSearch('')} className="px-8 py-3 bg-flecto-green text-flecto-lime rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform">Reset Parameters</button>
+            <div className="text-center py-20">
+              <p className="text-[#9CA3AF] font-medium">No results for "{search}"</p>
+              <button onClick={() => setSearch('')} className="mt-4 text-[#1E6BFF] text-sm font-bold">Clear Search</button>
             </div>
           )}
           {active.map((city, idx) => (
-            <div key={idx} className="bg-white rounded-[3rem] border border-flecto-green/5 overflow-hidden shadow-2xl shadow-flecto-green/[0.04] hover:shadow-flecto-green/[0.08] transition-all duration-700">
+            <div key={idx} className="bg-white rounded-3xl border border-[#E5E7EB] overflow-hidden shadow-sm hover:shadow-lg transition-all">
               {/* City Hero Strip */}
-              <div className="relative h-64 overflow-hidden group">
-                <Image src={city.image} alt={city.city} fill sizes="100vw" className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out" />
-                <div className="absolute inset-0 bg-gradient-to-r from-flecto-green to-transparent opacity-90" />
-                <div className="absolute inset-0 p-10 sm:p-14 flex items-center justify-between">
+              <div className="relative h-48 overflow-hidden">
+                <Image src={city.image} alt={city.city} fill sizes="100vw" className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A2E]/90 to-[#1A1A2E]/40" />
+                <div className="absolute inset-0 p-8 flex items-center justify-between">
                   <div>
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 rounded-lg bg-flecto-lime flex items-center justify-center">
-                        <MapPin className="w-4 h-4 text-flecto-green" />
-                      </div>
-                      <span className="text-[10px] font-bold text-flecto-lime uppercase tracking-[0.3em] font-inter">Strategic Node</span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <MapPin className="w-4 h-4 text-[#1E6BFF]" />
+                      <span className="text-xs font-bold text-white/60 uppercase tracking-widest">Pakistan</span>
                     </div>
-                    <h2 className="text-4xl sm:text-6xl font-bold text-flecto-cream mb-4 font-syne tracking-tight uppercase leading-none">{city.city}</h2>
-                    <div className="flex flex-wrap gap-3">
+                    <h2 className="text-3xl font-black text-white mb-2">{city.city}</h2>
+                    <div className="flex flex-wrap gap-2">
                       {city.highlights.map((h, i) => (
-                        <span key={i} className="px-5 py-2 bg-white/5 backdrop-blur-md text-white text-[9px] font-bold rounded-full border border-white/10 uppercase tracking-widest font-inter">{h}</span>
+                        <span key={i} className="px-3 py-1 bg-white/10 backdrop-blur-md text-white text-[10px] font-bold rounded-lg border border-white/20">{h}</span>
                       ))}
                     </div>
                   </div>
                   <div className="text-right hidden sm:block">
                     {loadingCounts ? (
-                      <div className="w-10 h-10 border-2 border-white/10 border-t-flecto-lime rounded-full animate-spin" />
+                      <Loader2 className="w-5 h-5 text-white animate-spin" />
                     ) : (
-                      <div className="space-y-1">
-                        <p className="text-5xl font-bold text-flecto-lime font-syne leading-none">{propertyCounts[city.city] || '—'}</p>
-                        <p className="text-[9px] text-flecto-cream/40 font-bold uppercase tracking-[0.2em] font-inter">Live Nodes</p>
-                      </div>
+                      <>
+                        <p className="text-3xl font-black text-white">{propertyCounts[city.city] || '—'}</p>
+                        <p className="text-xs text-white/60 font-bold uppercase tracking-widest">Active Listings</p>
+                      </>
                     )}
                   </div>
                 </div>
               </div>
 
               {/* Body */}
-              <div className="p-10 sm:p-14">
-                <p className="text-lg text-flecto-text-muted leading-relaxed mb-12 font-inter font-medium max-w-4xl">{city.description}</p>
+              <div className="p-8">
+                <p className="text-sm text-[#4A5568] leading-relaxed mb-8">{city.description}</p>
 
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-[1px] flex-grow bg-flecto-green/5" />
-                  <h3 className="text-[10px] font-bold text-flecto-green-light uppercase tracking-[0.3em] font-inter whitespace-nowrap">Tactical Price Guide</h3>
-                  <div className="h-[1px] flex-grow bg-flecto-green/5" />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+                <h3 className="text-xs font-bold text-[#9CA3AF] uppercase tracking-widest mb-4">Top Areas & Price Guide</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
                   {city.areas.map((area, aIdx) => (
                     <button
                       key={aIdx}
                       onClick={() => setSelectedArea({ ...area, cityName: city.city })}
-                      className="text-left p-8 bg-flecto-cream-dark rounded-[2.5rem] hover:bg-white hover:border-flecto-lime/30 border border-flecto-green/5 transition-all duration-500 group relative overflow-hidden"
+                      className="text-left p-4 bg-[#F8F9FA] rounded-2xl hover:bg-[#EBF2FF] hover:border-[#1E6BFF] border border-transparent transition-all group"
                     >
-                      <div className="relative z-10">
-                        <div className="flex items-start justify-between mb-4">
-                          <p className="text-base font-bold text-flecto-green font-syne uppercase tracking-wider group-hover:text-flecto-green-light transition-colors">{area.name}</p>
-                          <span className="text-[9px] font-bold text-flecto-green bg-flecto-lime px-3 py-1 rounded-full uppercase tracking-widest font-inter">{area.trend}</span>
-                        </div>
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between">
-                            <span className="text-[9px] font-bold text-flecto-text-muted uppercase tracking-[0.1em] font-inter">Classification</span>
-                            <span className="text-[10px] font-bold text-flecto-green-light uppercase font-syne">{area.type}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-[9px] font-bold text-flecto-text-muted uppercase tracking-[0.1em] font-inter">Average Value</span>
-                            <span className="text-[11px] font-bold text-flecto-green font-syne uppercase tracking-wider">PKR {area.avgPrice}</span>
-                          </div>
-                        </div>
+                      <div className="flex items-start justify-between mb-2">
+                        <p className="text-sm font-bold text-[#1A1A2E] group-hover:text-[#1E6BFF] transition-colors">{area.name}</p>
+                        <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-lg flex-shrink-0">{area.trend}</span>
                       </div>
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-flecto-lime/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+                      <p className="text-xs text-[#9CA3AF] mb-1">{area.type}</p>
+                      <p className="text-xs font-bold text-[#1A1A2E]">Avg: PKR {area.avgPrice}</p>
                     </button>
                   ))}
                 </div>
 
-                <div className="flex flex-wrap gap-4 pt-10 border-t border-flecto-green/5">
+                <div className="flex flex-wrap gap-3">
                   <Link
                     href={`/search?city=${encodeURIComponent(city.city)}`}
-                    className="flex items-center gap-3 px-10 py-4 bg-flecto-green text-flecto-cream text-xs font-bold rounded-full hover:bg-flecto-green-light hover:scale-105 transition-all duration-500 font-syne uppercase tracking-widest shadow-xl shadow-flecto-green/10"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-[#1E6BFF] text-white text-xs font-bold rounded-xl hover:bg-[#1554CC] transition-all"
                   >
-                    <Home className="w-4 h-4 text-flecto-lime" />
-                    Explore {city.city} Portfolio
+                    <Home className="w-3.5 h-3.5" />
+                    Browse All {city.city} Properties
                   </Link>
                   <Link
                     href={`/search?city=${encodeURIComponent(city.city)}&type=Plot`}
-                    className="flex items-center gap-3 px-10 py-4 bg-white border border-flecto-green/5 text-flecto-green-light text-xs font-bold rounded-full hover:border-flecto-lime hover:text-flecto-green transition-all duration-500 font-syne uppercase tracking-widest shadow-sm"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-[#F8F9FA] border border-[#E5E7EB] text-[#4A5568] text-xs font-bold rounded-xl hover:border-[#1E6BFF] hover:text-[#1E6BFF] transition-all"
                   >
-                    <TrendingUp className="w-4 h-4" />
-                    View Plot Dynamics
+                    <TrendingUp className="w-3.5 h-3.5" />
+                    View Plots
                   </Link>
                 </div>
               </div>

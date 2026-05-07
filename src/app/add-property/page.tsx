@@ -131,33 +131,33 @@ function AddPropertyContent() {
   const handleBack = () => setCurrentStep(prev => Math.max(prev - 1, 1))
 
   return (
-    <div className="min-h-screen bg-flecto-cream-dark pb-24">
-      <div className="bg-flecto-cream border-b border-flecto-green/5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h1 className="text-3xl sm:text-5xl font-bold text-flecto-green mb-4 font-syne tracking-tight">
-            {editId ? 'Refine Your Listing' : 'List Your Property'}
+    <div className="min-h-screen bg-[#F8F9FA] pb-20">
+      <div className="bg-white border-b border-[#E5E7EB]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#1A1A2E] mb-2">
+            {editId ? 'Edit Your Property' : 'List Your Property'}
           </h1>
-          <p className="text-base text-flecto-text-muted font-inter font-medium max-w-lg mx-auto">Elevate your property's visibility and reach serious buyers across Pakistan's premier portal.</p>
+          <p className="text-sm text-[#9CA3AF]">Reach thousands of potential buyers and tenants across Pakistan</p>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12">
-        <div className="bg-white rounded-[2rem] border border-flecto-green/5 p-6 sm:p-10 mb-10 shadow-2xl shadow-flecto-green/[0.03]">
-          <div className="flex justify-between items-center mb-6">
-            <span className="text-[10px] font-bold text-flecto-green-light uppercase tracking-[0.2em] font-inter">Phase {currentStep} of 7</span>
-            <span className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] font-inter">{steps[currentStep-1]}</span>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+        <div className="bg-white rounded-2xl border border-[#E5E7EB] p-4 sm:p-6 mb-8 shadow-sm">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-xs font-bold text-[#1E6BFF] uppercase tracking-widest">Step {currentStep} of 7</span>
+            <span className="text-xs font-bold text-[#9CA3AF] uppercase tracking-widest">{steps[currentStep-1]}</span>
           </div>
-          <div className="h-2 w-full bg-flecto-cream rounded-full overflow-hidden">
-            <div className="h-full bg-flecto-green transition-all duration-1000 ease-out" style={{ width: `${(currentStep / 7) * 100}%` }} />
+          <div className="h-2 w-full bg-[#F3F4F6] rounded-full overflow-hidden">
+            <div className="h-full bg-[#1E6BFF] transition-all duration-500" style={{ width: `${(currentStep / 7) * 100}%` }} />
           </div>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-10 sm:p-16 shadow-2xl shadow-flecto-green/[0.04] min-h-[550px] flex flex-col justify-between">
-          <div className="space-y-12">
+        <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 sm:p-12 shadow-md min-h-[450px] flex flex-col justify-between">
+          <div className="space-y-8">
             {currentStep === 1 && (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                <h3 className="text-2xl font-bold text-flecto-green mb-10 text-center font-syne">Property Category</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              <div className="animate-in fade-in slide-in-from-bottom-4">
+                <h3 className="text-xl font-bold text-[#1A1A2E] mb-8 text-center">Select Property Type</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {[
                     { id: 'House', icon: <Home /> },
                     { id: 'Flat', icon: <Building2 /> },
@@ -171,9 +171,9 @@ function AddPropertyContent() {
             )}
 
             {currentStep === 2 && (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                <h3 className="text-2xl font-bold text-flecto-green mb-10 text-center font-syne">Intended Purpose</h3>
-                <div className="flex justify-center gap-8">
+              <div className="animate-in fade-in slide-in-from-bottom-4">
+                <h3 className="text-xl font-bold text-[#1A1A2E] mb-8 text-center">What is the Purpose?</h3>
+                <div className="flex justify-center gap-6">
                   <PurposeCard label="Sale" active={formData.purpose === 'Sale'} onClick={() => setFormData({...formData, purpose: 'Sale'})} />
                   <PurposeCard label="Rent" active={formData.purpose === 'Rent'} onClick={() => setFormData({...formData, purpose: 'Rent'})} />
                 </div>
@@ -181,44 +181,44 @@ function AddPropertyContent() {
             )}
 
             {currentStep === 3 && (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 space-y-8">
-                <h3 className="text-2xl font-bold text-flecto-green mb-10 text-center font-syne">Global Location</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6">
+                <h3 className="text-xl font-bold text-[#1A1A2E] mb-8 text-center">Where is it Located?</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">City</label>
-                    <input type="text" placeholder="e.g. Lahore" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">City</label>
+                    <input type="text" placeholder="e.g. Lahore" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Area / Society</label>
-                    <input type="text" placeholder="e.g. DHA Phase 6" value={formData.area} onChange={e => setFormData({...formData, area: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Area / Society</label>
+                    <input type="text" placeholder="e.g. DHA Phase 6" value={formData.area} onChange={e => setFormData({...formData, area: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Full Address</label>
-                    <input type="text" placeholder="Street number, House number..." value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Full Address</label>
+                    <input type="text" placeholder="Street number, House number..." value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                   </div>
                 </div>
               </div>
             )}
 
             {currentStep === 4 && (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 space-y-8">
-                <h3 className="text-2xl font-bold text-flecto-green mb-10 text-center font-syne">Core Specification</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6">
+                <h3 className="text-xl font-bold text-[#1A1A2E] mb-8 text-center">Property Details</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Price (PKR)</label>
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Price (PKR)</label>
                     <div className="relative">
-                      <DollarSign className="absolute left-6 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-flecto-green-light" />
-                      <input type="number" placeholder="e.g. 25000000" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full h-14 pl-14 pr-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                      <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF]" />
+                      <input type="number" placeholder="e.g. 25000000" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full h-12 pl-12 pr-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                     </div>
                   </div>
-                  <div className="flex gap-4">
+                  <div className="flex gap-2">
                     <div className="flex-1">
-                      <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Area Size</label>
-                      <input type="number" value={formData.area_size} onChange={e => setFormData({...formData, area_size: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                      <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Area Size</label>
+                      <input type="number" value={formData.area_size} onChange={e => setFormData({...formData, area_size: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                     </div>
-                    <div className="w-28">
-                      <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Unit</label>
-                      <select value={formData.area_unit} onChange={e => setFormData({...formData, area_unit: e.target.value})} className="w-full h-14 px-4 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm font-inter font-bold text-flecto-green outline-none">
+                    <div className="w-24">
+                      <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Unit</label>
+                      <select value={formData.area_unit} onChange={e => setFormData({...formData, area_unit: e.target.value})} className="w-full h-12 px-2 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm outline-none">
                         <option>Marla</option><option>Kanal</option><option>Sq. Ft.</option>
                       </select>
                     </div>
@@ -226,57 +226,54 @@ function AddPropertyContent() {
                   {formData.type !== 'Plot' && (
                     <>
                       <div>
-                        <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Bedrooms</label>
-                        <select value={formData.bedrooms} onChange={e => setFormData({...formData, bedrooms: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm font-inter font-bold text-flecto-green outline-none">
+                        <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Bedrooms</label>
+                        <select value={formData.bedrooms} onChange={e => setFormData({...formData, bedrooms: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm outline-none">
                           {[1,2,3,4,5,6,7,8].map(n => <option key={n} value={n}>{n}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Bathrooms</label>
-                        <select value={formData.bathrooms} onChange={e => setFormData({...formData, bathrooms: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm font-inter font-bold text-flecto-green outline-none">
+                        <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Bathrooms</label>
+                        <select value={formData.bathrooms} onChange={e => setFormData({...formData, bathrooms: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm outline-none">
                           {[1,2,3,4,5,6,7,8].map(n => <option key={n} value={n}>{n}</option>)}
                         </select>
                       </div>
                     </>
                   )}
                   <div className="sm:col-span-2">
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Listing Title</label>
-                    <input type="text" placeholder="e.g. Modern 5 Marla House in DHA Phase 6" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Property Title</label>
+                    <input type="text" placeholder="e.g. Modern 5 Marla House in DHA Phase 6" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                   </div>
                 </div>
               </div>
             )}
 
             {currentStep === 5 && (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                <h3 className="text-2xl font-bold text-flecto-green mb-10 text-center font-syne">Detailed Description</h3>
-                <textarea rows={10} placeholder="Narrate the unique features of this property, its condition, the neighborhood, and anything that makes it stand out..." value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full p-8 bg-flecto-cream border border-flecto-green/5 rounded-[2rem] text-base font-inter font-medium focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 outline-none resize-none" />
+              <div className="animate-in fade-in slide-in-from-bottom-4">
+                <h3 className="text-xl font-bold text-[#1A1A2E] mb-8 text-center">Description</h3>
+                <textarea rows={8} placeholder="Tell us more about the property, its condition, neighborhood, etc." value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full p-6 bg-[#F8F9FA] border border-[#E5E7EB] rounded-3xl text-sm focus:border-[#1E6BFF] outline-none resize-none" />
               </div>
             )}
 
             {currentStep === 6 && (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                <h3 className="text-2xl font-bold text-flecto-green mb-10 text-center font-syne">Visual Gallery</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              <div className="animate-in fade-in slide-in-from-bottom-4">
+                <h3 className="text-xl font-bold text-[#1A1A2E] mb-8 text-center">Upload Photos</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {images.map((url, idx) => (
-                    <div key={idx} className="relative aspect-square rounded-[1.5rem] overflow-hidden border-2 border-flecto-cream shadow-xl group">
-                      <Image src={url} alt="upload" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                      <button onClick={() => setImages(prev => prev.filter((_, i) => i !== idx))} className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-md text-red-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg border border-flecto-green/5">
-                        <X className="w-4 h-4" />
+                    <div key={idx} className="relative aspect-square rounded-2xl overflow-hidden border border-[#E5E7EB] group">
+                      <Image src={url} alt="upload" fill className="object-cover" />
+                      <button onClick={() => setImages(prev => prev.filter((_, i) => i !== idx))} className="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <X className="w-3 h-3" />
                       </button>
                     </div>
                   ))}
                   {uploading ? (
-                    <div className="aspect-square rounded-[1.5rem] border-2 border-dashed border-flecto-green/10 flex flex-col items-center justify-center bg-flecto-cream">
-                      <div className="w-8 h-8 border-4 border-flecto-green/10 border-t-flecto-lime rounded-full animate-spin mb-3" />
-                      <span className="text-[10px] font-bold text-flecto-green uppercase tracking-widest font-inter">Uploading...</span>
+                    <div className="aspect-square rounded-2xl border-2 border-dashed border-[#E5E7EB] flex flex-col items-center justify-center bg-[#F8F9FA]">
+                      <Loader2 className="w-6 h-6 text-[#1E6BFF] animate-spin" />
                     </div>
                   ) : (
-                    <label className="aspect-square rounded-[1.5rem] border-2 border-dashed border-flecto-green/10 hover:border-flecto-lime hover:bg-flecto-lime/5 transition-all duration-500 cursor-pointer flex flex-col items-center justify-center gap-3 group">
-                      <div className="w-12 h-12 rounded-full bg-flecto-cream flex items-center justify-center group-hover:bg-flecto-lime transition-all duration-500">
-                        <Plus className="w-6 h-6 text-flecto-green-light group-hover:text-flecto-green" />
-                      </div>
-                      <span className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] group-hover:text-flecto-green font-inter">Add Photos</span>
+                    <label className="aspect-square rounded-2xl border-2 border-dashed border-[#E5E7EB] hover:border-[#1E6BFF] hover:bg-[#EBF2FF]/50 transition-all cursor-pointer flex flex-col items-center justify-center gap-2 group">
+                      <Plus className="w-6 h-6 text-[#9CA3AF] group-hover:text-[#1E6BFF]" />
+                      <span className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest group-hover:text-[#1E6BFF]">Add Photo</span>
                       <input type="file" multiple accept="image/*" onChange={handleFileUpload} className="hidden" />
                     </label>
                   )}
@@ -285,40 +282,32 @@ function AddPropertyContent() {
             )}
 
             {currentStep === 7 && (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 space-y-8">
-                <h3 className="text-2xl font-bold text-flecto-green mb-10 text-center font-syne">Identity Verification</h3>
-                <div className="space-y-6 max-w-md mx-auto">
+              <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6">
+                <h3 className="text-xl font-bold text-[#1A1A2E] mb-8 text-center">Contact Information</h3>
+                <div className="space-y-4 max-w-md mx-auto">
                   <div>
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Full Name</label>
-                    <input type="text" placeholder="John Doe" value={formData.sender_name} onChange={e => setFormData({...formData, sender_name: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Your Name</label>
+                    <input type="text" placeholder="John Doe" value={formData.sender_name} onChange={e => setFormData({...formData, sender_name: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Contact Number</label>
-                    <input type="tel" placeholder="+92 300 1234567" value={formData.sender_phone} onChange={e => setFormData({...formData, sender_phone: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Phone Number</label>
+                    <input type="tel" placeholder="+92 300 1234567" value={formData.sender_phone} onChange={e => setFormData({...formData, sender_phone: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-3 block font-inter">Email Address (Optional)</label>
-                    <input type="email" placeholder="john@example.com" value={formData.sender_email} onChange={e => setFormData({...formData, sender_email: e.target.value})} className="w-full h-14 px-6 bg-flecto-cream border border-flecto-green/5 rounded-2xl text-sm focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 font-inter font-medium outline-none" />
+                    <label className="text-[10px] font-bold text-[#9CA3AF] uppercase mb-2 block">Email Address (Optional)</label>
+                    <input type="email" placeholder="john@example.com" value={formData.sender_email} onChange={e => setFormData({...formData, sender_email: e.target.value})} className="w-full h-12 px-4 bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl text-sm focus:border-[#1E6BFF] outline-none" />
                   </div>
                 </div>
               </div>
             )}
           </div>
 
-          <div className="flex items-center justify-between mt-16 pt-10 border-t border-flecto-green/5">
-            <button 
-              onClick={handleBack} 
-              disabled={currentStep === 1 || loading} 
-              className="flex items-center gap-3 px-8 py-4 text-xs font-bold text-flecto-green-light rounded-full border border-flecto-green/10 hover:bg-flecto-green hover:text-flecto-cream transition-all duration-500 disabled:opacity-20 font-syne uppercase tracking-widest"
-            >
+          <div className="flex items-center justify-between mt-12 pt-8 border-t border-[#F3F4F6]">
+            <button onClick={handleBack} disabled={currentStep === 1 || loading} className="flex items-center gap-2 px-6 py-3 text-sm font-bold rounded-xl transition-all disabled:opacity-30">
               <ChevronLeft className="w-4 h-4" /> Back
             </button>
-            <button 
-              onClick={handleNext} 
-              disabled={loading} 
-              className="flex items-center gap-3 px-10 py-4 bg-flecto-green text-flecto-cream text-xs font-bold rounded-full hover:bg-flecto-green-light transition-all duration-500 shadow-2xl shadow-flecto-green/20 disabled:opacity-50 font-syne uppercase tracking-widest"
-            >
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : currentStep === 7 ? 'Finalize Listing' : 'Continue Phase'}
+            <button onClick={handleNext} disabled={loading} className="flex items-center gap-2 px-8 py-3 bg-[#1E6BFF] text-white text-sm font-bold rounded-xl hover:bg-[#1554CC] transition-all shadow-lg disabled:opacity-50">
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : currentStep === 7 ? 'Submit Property' : 'Next Step'}
               {currentStep < 7 && !loading && <ChevronRight className="w-4 h-4" />}
             </button>
           </div>
@@ -330,12 +319,7 @@ function AddPropertyContent() {
 
 export default function AddPropertyPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex flex-col items-center justify-center bg-flecto-cream gap-4">
-        <div className="w-12 h-12 border-4 border-flecto-green/10 border-t-flecto-lime rounded-full animate-spin" />
-        <p className="text-sm font-bold text-flecto-green font-syne uppercase tracking-widest">Preparing Workspace...</p>
-      </div>
-    }>
+    <Suspense fallback={<div className="p-20 text-center"><Loader2 className="w-8 h-8 text-[#1E6BFF] animate-spin mx-auto mb-4" />Loading form...</div>}>
       <AddPropertyContent />
     </Suspense>
   )
@@ -343,22 +327,22 @@ export default function AddPropertyPage() {
 
 function TypeCard({ icon, label, active, onClick }: any) {
   return (
-    <button onClick={onClick} className={cn("flex flex-col items-center justify-center p-8 rounded-[2rem] border-2 transition-all duration-500 group", active ? "bg-flecto-lime/10 border-flecto-lime text-flecto-green" : "bg-flecto-cream border-transparent text-flecto-text-muted hover:border-flecto-lime/30")}>
-      <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-500", active ? "bg-flecto-green text-flecto-lime shadow-xl shadow-flecto-green/20" : "bg-white text-flecto-green-light group-hover:bg-flecto-lime group-hover:text-flecto-green")}>
-        {React.cloneElement(icon as React.ReactElement<any>, { className: "w-8 h-8" })}
+    <button onClick={onClick} className={cn("flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all group", active ? "bg-[#EBF2FF] border-[#1E6BFF] text-[#1E6BFF]" : "bg-white border-[#E5E7EB] text-[#4A5568] hover:border-[#1E6BFF]/50")}>
+      <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center mb-2", active ? "bg-[#1E6BFF] text-white" : "bg-[#F8F9FA] group-hover:bg-[#EBF2FF]")}>
+        {React.cloneElement(icon as React.ReactElement<any>, { className: "w-5 h-5" })}
       </div>
-      <span className="text-xs font-bold font-syne uppercase tracking-widest">{label}</span>
+      <span className="text-xs font-bold">{label}</span>
     </button>
   )
 }
 
 function PurposeCard({ label, active, onClick }: any) {
   return (
-    <button onClick={onClick} className={cn("w-48 py-12 rounded-[2.5rem] border-2 flex flex-col items-center gap-4 transition-all duration-500 group", active ? "bg-flecto-green border-flecto-green text-flecto-cream shadow-2xl shadow-flecto-green/20" : "bg-flecto-cream border-transparent text-flecto-text-muted hover:border-flecto-lime/30")}>
-      <div className={cn("w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-500", active ? "border-flecto-lime" : "border-flecto-green/10")}>
-        {active && <div className="w-3 h-3 bg-flecto-lime rounded-full shadow-lg shadow-flecto-lime/50" />}
+    <button onClick={onClick} className={cn("w-32 py-8 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all", active ? "bg-[#EBF2FF] border-[#1E6BFF] text-[#1E6BFF]" : "bg-white border-[#E5E7EB] text-[#4A5568] hover:border-[#1E6BFF]/50")}>
+      <div className={cn("w-5 h-5 rounded-full border-2 flex items-center justify-center", active ? "border-[#1E6BFF]" : "border-[#E5E7EB]")}>
+        {active && <div className="w-2.5 h-2.5 bg-[#1E6BFF] rounded-full" />}
       </div>
-      <span className="text-sm font-bold font-syne uppercase tracking-[0.2em]">{label}</span>
+      <span className="text-sm font-bold">{label}</span>
     </button>
   )
 }

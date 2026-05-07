@@ -1,39 +1,38 @@
 'use client'
-import { ReactNode } from 'react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { cn } from '@/lib/utils'
 
 interface RevealWrapperProps {
-  children: ReactNode
-  animation?: 'fade-up' | 'fade-in' | 'fade-in-left' | 'fade-in-right' | 'scale-in'
-  delay?: number
-  duration?: number
+  children: React.ReactNode
   className?: string
+  direction?: 'up' | 'left' | 'right' | 'scale'
+  delay?: number
 }
 
-export default function RevealWrapper({
+export function RevealWrapper({
   children,
-  animation = 'fade-up',
+  className,
+  direction = 'up',
   delay = 0,
-  duration = 0.6,
-  className = ''
 }: RevealWrapperProps) {
   const { ref, isVisible } = useScrollReveal()
 
-  const animationStyles = {
-    'fade-up': isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
-    'fade-in': isVisible ? 'opacity-100' : 'opacity-0',
-    'fade-in-left': isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0',
-    'fade-in-right': isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0',
-    'scale-in': isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0',
+  const base = 'transition-all duration-700'
+  const hidden = {
+    up:    'opacity-0 translate-y-8',
+    left:  'opacity-0 -translate-x-8',
+    right: 'opacity-0 translate-x-8',
+    scale: 'opacity-0 scale-95',
   }
+  const visible = 'opacity-100 translate-y-0 translate-x-0 scale-100'
 
   return (
     <div
       ref={ref as any}
-      className={`transition-all cubic-bezier(0.16, 1, 0.3, 1) ${animationStyles[animation]} ${className}`}
+      className={cn(base, isVisible ? visible : hidden[direction], className)}
       style={{
-        transitionDuration: `${duration}s`,
-        transitionDelay: `${delay}s`,
+        transitionDelay: isVisible ? `${delay}ms` : '0ms',
+        transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       {children}

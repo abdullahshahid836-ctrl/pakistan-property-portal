@@ -34,38 +34,38 @@ export default function AgentsPage() {
   }, [searchQuery, selectedCity])
 
   return (
-    <div className="min-h-screen bg-flecto-cream-dark pb-24">
-      <div className="bg-flecto-cream border-b border-flecto-green/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="flex items-center gap-2 text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-4 font-inter">
-            <Link href="/" className="hover:text-flecto-green transition-colors">Home</Link>
-            <ChevronRight className="w-3.5 h-3.5 opacity-30" />
-            <span className="text-flecto-green-light">Verified Partners</span>
+    <div className="min-h-screen bg-[#F8F9FA] pb-20">
+      <div className="bg-white border-b border-[#E5E7EB]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-2">
+            <Link href="/" className="hover:text-[#1E6BFF]">Home</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-[#1A1A2E]">Agents</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-flecto-green font-syne tracking-tight">Market Experts</h1>
-          <p className="text-base text-flecto-text-muted mt-2 font-inter font-medium uppercase tracking-widest text-[10px]">Secure consultations with Pakistan's premier real estate advisors</p>
+          <h1 className="text-xl sm:text-2xl font-black text-[#1A1A2E]">Find Real Estate Agents</h1>
+          <p className="text-sm text-[#9CA3AF] mt-1">Connect with verified professionals who know the market best</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
         {/* Search & Filter */}
-        <div className="bg-white rounded-[2rem] border border-flecto-green/5 p-8 mb-12 shadow-2xl shadow-flecto-green/[0.04] flex flex-col sm:flex-row gap-6 items-center">
-          <div className="relative flex-1 w-full group">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-flecto-lime group-focus-within:scale-110 transition-transform duration-500" />
+        <div className="bg-white rounded-3xl border border-[#E5E7EB] p-6 mb-10 shadow-sm flex flex-col sm:flex-row gap-4 items-center">
+          <div className="relative flex-1 w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF]" />
             <input 
               type="text" 
-              placeholder="Identify agent or agency..." 
+              placeholder="Search by agent name or agency..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-14 pl-16 pr-6 text-sm bg-flecto-cream-dark border border-transparent rounded-[1.25rem] focus:outline-none focus:bg-white focus:border-flecto-lime/50 transition-all duration-500 font-syne uppercase tracking-wider"
+              className="w-full h-12 pl-12 pr-4 text-sm bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl focus:outline-none focus:border-[#1E6BFF]"
             />
           </div>
-          <div className="flex gap-3 w-full sm:w-auto">
+          <div className="flex gap-2 w-full sm:w-auto">
             <select 
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
-              className="h-14 px-8 text-xs font-bold bg-flecto-cream-dark border border-transparent rounded-[1.25rem] focus:outline-none focus:bg-white focus:border-flecto-lime/50 cursor-pointer flex-1 min-w-[180px] font-syne uppercase tracking-widest appearance-none transition-all duration-500"
+              className="h-12 px-4 text-sm bg-[#F8F9FA] border border-[#E5E7EB] rounded-2xl focus:outline-none focus:border-[#1E6BFF] cursor-pointer flex-1 min-w-[140px]"
             >
               <option>All Cities</option>
               <option>Lahore</option>
@@ -79,67 +79,66 @@ export default function AgentsPage() {
         </div>
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center h-96 gap-4">
-            <div className="w-12 h-12 border-4 border-flecto-green/10 border-t-flecto-lime rounded-full animate-spin" />
-            <p className="text-[10px] font-bold text-flecto-green uppercase tracking-[0.2em] font-inter">Syncing Experts...</p>
+          <div className="flex items-center justify-center h-64">
+            <Loader2 className="w-8 h-8 text-[#1E6BFF] animate-spin" />
           </div>
         ) : agents.length === 0 ? (
-          <div className="text-center py-32 bg-white rounded-[3rem] border border-flecto-green/5 shadow-inner">
-            <Users className="w-16 h-16 text-flecto-lime mx-auto mb-6 opacity-40" />
-            <h3 className="text-xl font-bold text-flecto-green font-syne uppercase tracking-widest mb-2">No results identified</h3>
-            <p className="text-xs text-flecto-text-muted font-inter font-medium uppercase tracking-[0.2em]">Adjust your criteria for broader discovery</p>
+          <div className="text-center py-20 bg-white rounded-3xl border border-[#E5E7EB]">
+            <Users className="w-12 h-12 text-[#9CA3AF] mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-[#1A1A2E]">No agents found</h3>
+            <p className="text-sm text-[#9CA3AF]">Try a different city or search term.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {agents.map((agent) => (
               <div 
                 key={agent.id}
-                className="bg-white rounded-[2.5rem] border border-flecto-green/5 p-8 text-center shadow-2xl shadow-flecto-green/[0.04] hover:shadow-flecto-green/[0.08] transition-all duration-700 transform hover:-translate-y-2 group flex flex-col"
+                className="bg-white rounded-3xl border border-[#E5E7EB] p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col"
               >
-                <div className="relative w-28 h-28 rounded-[2rem] overflow-hidden border-4 border-flecto-cream mx-auto mb-6 group-hover:scale-105 transition-all duration-700 shadow-xl">
-                  <Image src={agent.photo || (agent as any).photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'} alt={agent.name} fill sizes="112px" className="object-cover" />
+                <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[#EBF2FF] mx-auto mb-4 group-hover:scale-105 transition-transform">
+                  <Image src={agent.photo || (agent as any).photo_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'} alt={agent.name} fill sizes="96px" className="object-cover" />
                 </div>
                 
-                <h3 className="text-lg font-bold text-flecto-green group-hover:text-flecto-green-light transition-colors line-clamp-1 font-syne uppercase tracking-tight">{agent.name}</h3>
-                <p className="text-[9px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-4 line-clamp-1 font-inter">{agent.agency || (agent as any).agency_name || 'Strategic Advisor'}</p>
+                <h3 className="font-bold text-[#1A1A2E] group-hover:text-[#1E6BFF] transition-colors line-clamp-1">{agent.name}</h3>
+                <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-3 line-clamp-1">{agent.agency || (agent as any).agency_name || 'Independent Agent'}</p>
                 
-                <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-flecto-green-light mb-6 font-syne uppercase tracking-widest">
-                  <MapPin className="w-4 h-4 text-flecto-lime" />
+                <div className="flex items-center justify-center gap-1.5 text-xs text-[#4A5568] mb-4">
+                  <MapPin className="w-3.5 h-3.5 text-[#1E6BFF]" />
                   {agent.city}
                 </div>
 
-                <div className="flex items-center justify-center gap-4 mb-8 py-5 bg-flecto-cream rounded-[1.5rem] mt-auto border border-flecto-green/[0.02]">
-                  <div className="text-center flex-1">
-                    <div className="text-xs font-bold text-flecto-green font-syne">{agent.experience || (agent as any).years_experience || '3'}+</div>
-                    <div className="text-[8px] text-flecto-text-muted uppercase font-bold tracking-widest">Years</div>
+                <div className="flex items-center justify-center gap-4 mb-6 py-3 bg-[#F8F9FA] rounded-2xl mt-auto">
+                  <div className="text-center">
+                    <div className="text-xs font-bold text-[#1A1A2E]">{agent.experience || (agent as any).years_experience || '3'}+y</div>
+                    <div className="text-[10px] text-[#9CA3AF] uppercase font-bold">Exp</div>
                   </div>
-                  <div className="w-px h-6 bg-flecto-green/10" />
-                  <div className="text-center flex-1">
-                    <div className="text-xs font-bold text-flecto-green-light font-syne">{(agent as any).properties?.[0]?.count || 0}</div>
-                    <div className="text-[8px] text-flecto-text-muted uppercase font-bold tracking-widest">Ads</div>
+                  <div className="w-px h-6 bg-[#E5E7EB]" />
+                  <div className="text-center">
+                    <div className="text-xs font-bold text-[#1E6BFF]">{(agent as any).properties?.[0]?.count || 0}</div>
+                    <div className="text-[10px] text-[#9CA3AF] uppercase font-bold">Ads</div>
                   </div>
-                  <div className="w-px h-6 bg-flecto-green/10" />
-                  <div className="text-center flex-1">
-                    <div className="text-xs font-bold text-flecto-green font-syne">{agent.rating || '5.0'}</div>
-                    <div className="text-[8px] text-flecto-text-muted uppercase font-bold tracking-widest">Rating</div>
+                  <div className="w-px h-6 bg-[#E5E7EB]" />
+                  <div className="text-center">
+                    <div className="text-xs font-bold text-[#1A1A2E]">{agent.rating || '5.0'}</div>
+                    <div className="text-[10px] text-[#9CA3AF] uppercase font-bold">Rating</div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2">
                   <Link 
                     href={`/search?agent=${agent.id}`}
-                    className="py-3.5 bg-flecto-cream text-flecto-green-light text-[10px] font-bold rounded-full hover:bg-white hover:text-flecto-green transition-all duration-500 border border-flecto-green/5 font-syne uppercase tracking-widest shadow-sm"
+                    className="py-2.5 bg-[#F8F9FA] text-[#1A1A2E] text-[11px] font-bold rounded-xl hover:bg-[#EBF2FF] hover:text-[#1E6BFF] transition-all border border-[#E5E7EB]"
                   >
-                    Ads
+                    View Ads
                   </Link>
                   <a 
                     href={`https://wa.me/${agent.whatsapp?.replace(/[^0-9]/g, '') || '923001234567'}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-3.5 bg-flecto-green text-flecto-cream text-[10px] font-bold rounded-full hover:bg-flecto-green-light hover:scale-105 transition-all duration-500 shadow-xl shadow-flecto-green/20 flex items-center justify-center gap-2 font-syne uppercase tracking-widest border border-transparent"
+                    className="py-2.5 bg-[#1E6BFF] text-white text-[11px] font-bold rounded-xl hover:bg-[#1554CC] transition-all shadow-sm flex items-center justify-center gap-1.5"
                   >
-                    <MessageCircle className="w-3.5 h-3.5 text-flecto-lime" />
-                    Engage
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    Contact
                   </a>
                 </div>
               </div>

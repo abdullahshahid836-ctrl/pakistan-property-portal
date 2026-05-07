@@ -40,45 +40,45 @@ const SearchContent = () => {
   return (
     <>
       {/* Top Header */}
-      <div className="bg-flecto-cream border-b border-flecto-green/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-          <div className="flex items-center gap-2 text-[10px] font-bold text-flecto-text-muted uppercase tracking-[0.2em] mb-4 font-inter">
-            <Link href="/" className="hover:text-flecto-green transition-colors">Home</Link>
+      <div className="bg-white border-b border-[#E5E7EB]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-2">
+            <span className="hover:text-[#1E6BFF] cursor-pointer">Home</span>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-flecto-green">Search Results</span>
+            <span className="text-[#1A1A2E]">Search Results</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-flecto-green font-syne tracking-tight">
-            {purpose ? `Properties for ${purpose}` : 'Properties for Sale & Rent'} in <span className="text-flecto-green-light">{city || 'Pakistan'}</span>
+          <h1 className="text-xl sm:text-2xl font-black text-[#1A1A2E]">
+            {purpose ? `Properties for ${purpose}` : 'Properties for Sale & Rent'} in {city || 'Pakistan'}
           </h1>
-          <p className="text-sm sm:text-base text-flecto-text-muted mt-4 font-inter font-medium">
-            {loading ? 'Updating results...' : `${properties.length} verified listings available for you`}
+          <p className="text-sm text-[#9CA3AF] mt-1 font-medium">
+            {loading ? 'Updating results...' : `${properties.length} verified listings available`}
           </p>
         </div>
       </div>
 
       {/* Top Bar */}
-      <div className="bg-white/80 backdrop-blur-md border-b border-flecto-green/5 sticky top-20 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-4">
+      <div className="bg-white border-b border-[#E5E7EB] sticky top-16 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center gap-3">
             <div className="relative flex-1 group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-flecto-text-muted group-focus-within:text-flecto-green transition-colors" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF] group-focus-within:text-[#1E6BFF] transition-colors" />
               <input 
                 type="text" 
                 defaultValue={q || ''}
                 placeholder="Find city, area or society..." 
-                className="w-full h-12 pl-12 pr-4 text-sm bg-flecto-cream border border-flecto-green/5 rounded-2xl focus:outline-none focus:border-flecto-green/20 focus:ring-4 focus:ring-flecto-green/5 transition-all font-inter"
+                className="w-full h-11 pl-10 pr-4 text-sm bg-[#F8F9FA] border border-[#E5E7EB] rounded-xl focus:outline-none focus:border-[#1E6BFF] transition-all"
               />
             </div>
-            <button className="hidden sm:flex items-center gap-2 h-12 px-8 btn-primary text-sm">
+            <button className="hidden sm:flex items-center gap-2 h-11 px-6 bg-[#1E6BFF] text-white text-sm font-bold rounded-xl hover:bg-[#1554CC] transition-all shadow-button">
               Search
             </button>
-            <button className="flex items-center gap-2 h-12 px-6 bg-white text-flecto-green border border-flecto-green/10 text-sm font-bold rounded-full hover:bg-flecto-green hover:text-white transition-all font-syne">
+            <button className="flex items-center gap-2 h-11 px-4 sm:px-6 bg-white text-[#1E6BFF] border border-[#1E6BFF] text-sm font-bold rounded-xl hover:bg-[#EBF2FF] transition-all">
               <MapIcon className="w-4 h-4" />
               <span className="hidden sm:inline">View Map</span>
             </button>
             <button 
               onClick={() => setIsMobileFiltersOpen(true)}
-              className="md:hidden flex items-center justify-center w-12 h-12 bg-white border border-flecto-green/10 rounded-full text-flecto-green"
+              className="md:hidden flex items-center justify-center w-11 h-11 bg-white border border-[#E5E7EB] rounded-xl text-[#4A5568]"
             >
               <SlidersHorizontal className="w-5 h-5" />
             </button>
@@ -87,34 +87,33 @@ const SearchContent = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex gap-10 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex gap-8 lg:gap-10">
           {/* Sidebar */}
           <SearchSidebar />
 
           {/* Results List */}
           <div className="flex-1 min-w-0">
             {loading ? (
-              <div className="flex flex-col items-center justify-center h-96 gap-4">
-                <div className="w-12 h-12 border-4 border-flecto-green/10 border-t-flecto-lime rounded-full animate-spin" />
-                <p className="text-sm font-bold text-flecto-green font-syne uppercase tracking-widest">Searching properties...</p>
+              <div className="flex items-center justify-center h-64">
+                <Loader2 className="w-8 h-8 text-[#1E6BFF] animate-spin" />
               </div>
             ) : properties.length > 0 ? (
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {properties.map((prop) => (
                   <PropertyCardHorizontal key={prop.id} property={prop} />
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-3xl border border-flecto-green/5 p-16 text-center shadow-xl shadow-flecto-green/[0.02]">
-                <div className="w-20 h-20 bg-flecto-cream rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Search className="w-10 h-10 text-flecto-green/20" />
+              <div className="bg-white rounded-2xl border border-[#E5E7EB] p-12 text-center">
+                <div className="w-16 h-16 bg-[#F8F9FA] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Search className="w-8 h-8 text-[#9CA3AF]" />
                 </div>
-                <h3 className="text-2xl font-bold text-flecto-green mb-3 font-syne">No properties found</h3>
-                <p className="text-base text-flecto-text-muted mb-10 max-w-sm mx-auto font-inter">Try adjusting your filters or search area to find what you're looking for.</p>
+                <h3 className="text-lg font-bold text-[#1A1A2E] mb-2">No properties found</h3>
+                <p className="text-sm text-[#9CA3AF] mb-6">Try adjusting your filters or search area to find what you're looking for.</p>
                 <button 
                   onClick={() => window.location.href = '/search'}
-                  className="btn-primary px-8 py-4 text-xs"
+                  className="px-6 py-2.5 bg-[#1E6BFF] text-white text-xs font-bold rounded-xl hover:bg-[#1554CC] transition-all"
                 >
                   Clear All Filters
                 </button>
@@ -129,22 +128,13 @@ const SearchContent = () => {
 
 const SearchPage = () => {
   return (
-    <div className="min-h-screen bg-flecto-cream-dark">
-      <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center bg-flecto-cream">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-flecto-green/10 border-t-flecto-lime rounded-full animate-spin" />
-            <p className="text-sm font-bold text-flecto-green font-syne uppercase tracking-widest">Initializing Results...</p>
-          </div>
-        </div>
-      }>
+    <div className="min-h-screen bg-[#F8F9FA]">
+      <Suspense fallback={<div className="p-20 text-center">Loading search results...</div>}>
         <SearchContent />
       </Suspense>
     </div>
   )
 }
-
-export default SearchPage
 
 export default SearchPage
 

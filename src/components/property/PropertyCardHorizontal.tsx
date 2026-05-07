@@ -29,25 +29,25 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalProps> = ({ propert
   const isFeatured = property.isFeatured ?? (property as any).is_featured ?? false
 
   return (
-    <div className="bg-white rounded-3xl border border-flecto-green/5 shadow-xl shadow-flecto-green/[0.02] hover:shadow-2xl hover:shadow-flecto-green/[0.05] transition-all duration-500 flex flex-col sm:flex-row overflow-hidden group">
+    <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.1)] hover:border-[#1E6BFF]/20 transition-all duration-300 flex flex-col sm:flex-row mb-6 overflow-hidden group">
       
       {/* Image Side */}
-      <div className="sm:w-80 lg:w-96 h-64 sm:h-auto relative shrink-0 overflow-hidden">
+      <div className="sm:w-72 lg:w-80 h-56 sm:h-auto relative shrink-0 overflow-hidden">
         <Image 
           src={images[0] || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800'} 
           alt={property.title}
           fill
-          sizes="(max-width: 640px) 100vw, 400px"
-          className="object-cover group-hover:scale-105 transition-transform duration-1000"
+          sizes="(max-width: 640px) 100vw, 320px"
+          className="object-cover group-hover:scale-110 transition-transform duration-700"
         />
         
-        <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
-          <span className="px-3 py-1.5 text-[10px] font-bold uppercase bg-flecto-green/90 text-flecto-cream rounded-full backdrop-blur-md shadow-sm font-inter tracking-widest">
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
+          <span className="px-3 py-1 text-[10px] font-bold uppercase bg-[#1A1A2E]/80 text-white rounded-lg backdrop-blur-sm shadow-sm">
             {property.type}
           </span>
           {isVerified && (
-            <div className="bg-flecto-lime text-flecto-green px-3 py-1.5 text-[10px] font-bold rounded-full backdrop-blur-md flex items-center gap-1.5 shadow-sm font-inter tracking-widest">
-              <CheckCircle2 className="w-3.5 h-3.5" /> VERIFIED
+            <div className="bg-green-500 text-white px-3 py-1 text-[10px] font-bold rounded-lg backdrop-blur-sm flex items-center gap-1.5 shadow-sm">
+              <CheckCircle2 className="w-3 h-3" /> VERIFIED
             </div>
           )}
         </div>
@@ -58,81 +58,81 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalProps> = ({ propert
             toggleWishlist()
           }}
           disabled={wishlistLoading}
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-sm hover:bg-white transition-all duration-300 group/heart z-10 border border-flecto-green/5"
+          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm hover:bg-white transition-colors group/heart z-10"
         >
           {wishlistLoading ? (
-            <Loader2 className="w-4 h-4 text-flecto-green animate-spin" />
+            <Loader2 className="w-4 h-4 text-[#1E6BFF] animate-spin" />
           ) : (
-            <Heart className={cn("w-4.5 h-4.5 transition-all duration-300", isInWishlist ? "fill-red-500 text-red-500 scale-110" : "text-flecto-green group-hover/heart:text-red-500 group-hover/heart:scale-110")} />
+            <Heart className={cn("w-4 h-4 transition-colors", isInWishlist ? "fill-red-500 text-red-500" : "text-[#4A5568] group-hover/heart:text-red-500")} />
           )}
         </button>
 
         {isFeatured && (
-          <div className="absolute bottom-4 left-4 bg-flecto-lime text-flecto-green px-4 py-1.5 text-[10px] font-bold rounded-full shadow-lg font-inter tracking-[0.2em]">
+          <div className="absolute bottom-3 left-3 bg-[#1E6BFF] text-white px-3 py-1 text-[10px] font-bold rounded-lg shadow-sm">
             FEATURED
           </div>
         )}
       </div>
 
       {/* Info Side */}
-      <div className="flex-1 p-8 sm:p-10 flex flex-col justify-between">
+      <div className="flex-1 p-5 flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-flecto-green-light bg-flecto-cream px-3 py-1.5 rounded-full font-inter">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#9CA3AF] bg-[#F8F9FA] px-2 py-0.5 rounded-md">
               FOR {property.purpose.toUpperCase()}
             </span>
-            <div className="flex items-center gap-2 text-[11px] font-bold text-flecto-text-muted font-inter">
-              <Eye className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 text-xs text-[#9CA3AF]">
+              <Eye className="w-3.5 h-3.5" />
               {views.toLocaleString()}
             </div>
           </div>
 
-          <div className="flex items-baseline gap-2 mb-4">
-            <span className="text-xs font-bold text-flecto-text-muted font-inter uppercase tracking-widest">PKR</span>
-            <span className="text-2xl sm:text-3xl font-bold text-flecto-green font-syne tracking-tight">
+          <div className="flex items-baseline gap-2 mb-2">
+            <span className="text-xs font-semibold text-[#9CA3AF]">PKR</span>
+            <span className="text-xl sm:text-2xl font-black text-[#1A1A2E]">
               {priceLabel}
             </span>
           </div>
 
-          <h3 className="text-lg sm:text-xl font-bold text-flecto-green mb-3 group-hover:text-flecto-green-light transition-colors line-clamp-2 font-syne leading-tight">
+          <h3 className="text-sm sm:text-base font-bold text-[#1A1A2E] mb-2 group-hover:text-[#1E6BFF] transition-colors line-clamp-2">
             {property.title}
           </h3>
 
-          <div className="flex items-start gap-2 text-sm text-flecto-text-muted font-inter font-medium">
-            <MapPin className="w-4 h-4 text-flecto-green shrink-0 mt-0.5" />
+          <div className="flex items-start gap-1.5 text-xs text-[#9CA3AF]">
+            <MapPin className="w-3.5 h-3.5 text-[#1E6BFF] shrink-0 mt-0.5" />
             <span className="line-clamp-1">{property.address}</span>
           </div>
         </div>
 
         <div>
-          <div className="flex items-center gap-8 mt-8 pt-8 border-t border-flecto-green/5">
+          <div className="flex items-center gap-5 mt-5 pt-5 border-t border-[#F3F4F6]">
             {bedrooms > 0 && (
-              <div className="flex items-center gap-2.5 text-sm font-bold text-flecto-green font-syne">
-                <Bed className="w-5 h-5 text-flecto-green-light" />
-                {bedrooms} <span className="text-flecto-text-muted font-medium font-inter">Beds</span>
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#4A5568]">
+                <Bed className="w-4 h-4 text-[#1E6BFF]" />
+                {bedrooms} <span className="hidden lg:inline text-[#9CA3AF] font-normal">Beds</span>
               </div>
             )}
             {bathrooms > 0 && (
-              <div className="flex items-center gap-2.5 text-sm font-bold text-flecto-green font-syne">
-                <Bath className="w-5 h-5 text-flecto-green-light" />
-                {bathrooms} <span className="text-flecto-text-muted font-medium font-inter">Baths</span>
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#4A5568]">
+                <Bath className="w-4 h-4 text-[#1E6BFF]" />
+                {bathrooms} <span className="hidden lg:inline text-[#9CA3AF] font-normal">Baths</span>
               </div>
             )}
-            <div className="flex items-center gap-2.5 text-sm font-bold text-flecto-green font-syne">
-              <Move className="w-5 h-5 text-flecto-green-light" />
-              {areaSize} <span className="text-flecto-text-muted font-medium font-inter">{areaUnit}</span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#4A5568]">
+              <Move className="w-4 h-4 text-[#1E6BFF]" />
+              {areaSize} {areaUnit}
             </div>
           </div>
 
-          <div className="flex items-center gap-4 mt-10">
+          <div className="flex items-center gap-3 mt-5">
             <Link 
               href={`/property/${property.id}`}
-              className="flex-1 sm:flex-none px-8 py-4 text-xs font-bold text-flecto-green border border-flecto-green/10 rounded-full hover:bg-flecto-green hover:text-white transition-all duration-300 text-center font-syne uppercase tracking-widest"
+              className="flex-1 sm:flex-none px-5 py-2.5 text-xs font-bold text-[#1E6BFF] border border-[#1E6BFF] rounded-xl hover:bg-[#EBF2FF] transition-all text-center"
             >
               Details
             </Link>
-            <button className="flex-1 sm:flex-none px-8 py-4 text-xs font-bold btn-primary">
-              Inquire Now
+            <button className="flex-1 sm:flex-none px-5 py-2.5 text-xs font-bold text-white bg-[#1E6BFF] rounded-xl hover:bg-[#1554CC] transition-all shadow-button">
+              Inquire
             </button>
           </div>
         </div>
