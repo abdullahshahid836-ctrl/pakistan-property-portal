@@ -110,7 +110,7 @@ const PopularLocations = () => {
                              </div>
                           </div>
                           
-                          <h3 className="text-sm font-black font-syne text-[#0D1B17] uppercase tracking-tight group-hover:text-[#004737] transition-colors mb-1">
+                          <h3 className="text-2xl sm:text-3xl font-black font-syne text-[#0D1B17] uppercase tracking-tight group-hover:text-[#004737] transition-colors mb-2 leading-[0.9] text-balance">
                             {area}
                           </h3>
                           <p className="text-[9px] font-black font-syne text-[#7A9088] uppercase tracking-widest opacity-60">

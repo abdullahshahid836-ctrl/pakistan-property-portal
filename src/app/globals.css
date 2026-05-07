@@ -57,11 +57,14 @@
     letter-spacing: -0.05em !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
+    text-wrap: balance !important;
+    overflow-wrap: break-word !important;
   }
 
-  h1 { font-size: clamp(2.25rem, 8vw, 8rem) !important; }
-  h2 { font-size: clamp(1.75rem, 6vw, 5rem) !important; }
-  h3 { font-size: clamp(1.25rem, 4vw, 3rem) !important; }
+  h1 { font-size: clamp(2.25rem, 8vw, 8rem); }
+  h2 { font-size: clamp(1.75rem, 6vw, 5rem); }
+  h3 { font-size: clamp(1.15rem, 3.5vw, 2.5rem); }
+  h4 { font-size: clamp(1rem, 2.5vw, 1.75rem); }
 
   p {
     font-family: var(--font-inter), system-ui, sans-serif;
