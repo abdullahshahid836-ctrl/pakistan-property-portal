@@ -47,11 +47,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    transform: translate3d(0,0,0); /* Force GPU acceleration */
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-syne), system-ui, sans-serif;
     color: #0D1B17;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+    text-transform: uppercase;
   }
 
   a {
@@ -137,6 +143,17 @@
     color: #C8F55A;
     font-family: var(--font-syne), system-ui, sans-serif;
   }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform, opacity;
+  }
+
+  .text-flecto-h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; }
+  .text-flecto-h2 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; }
+  .text-flecto-body { font-size: 1.125rem; line-height: 1.6; letter-spacing: -0.01em; }
 }
 
 /* ── Keyframe animations ─────────────────────────────── */

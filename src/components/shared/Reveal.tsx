@@ -23,7 +23,7 @@ const Reveal = ({
   staggerChildren = false
 }: Props) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
   const mainControls = useAnimation()
 
   useEffect(() => {
@@ -57,7 +57,16 @@ const Reveal = ({
   }
 
   return (
-    <div ref={ref} style={{ position: 'relative', width, overflow: 'visible' }} className={className}>
+    <div 
+      ref={ref} 
+      style={{ 
+        position: 'relative', 
+        width, 
+        overflow: 'visible',
+        willChange: 'transform, opacity' 
+      }} 
+      className={className}
+    >
       <motion.div
         variants={getVariants()}
         initial="hidden"
