@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import Script from 'next/script'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { ShieldCheck, Users, Zap, Heart, Compass, ArrowRight, RotateCcw, ChevronDown } from 'lucide-react'
 
@@ -104,6 +105,30 @@ const JourneyItem = ({ item, i }: { item: { year: string; title: string; desc: s
 // MAIN PAGE
 // ─────────────────────────────────────────────────────────────────────────────
 const AboutPage = () => {
+  const [gsapReady, setGsapReady] = useState(false)
+
+  // GSAP refs — Card 1 (Mission)
+  const card1Ref    = useRef<HTMLDivElement>(null)
+  const card1Label  = useRef<HTMLDivElement>(null)
+  const card1Body   = useRef<HTMLDivElement>(null)
+  // GSAP refs — Card 2 (Vision)
+  const card2Ref    = useRef<HTMLDivElement>(null)
+  const card2Label  = useRef<HTMLDivElement>(null)
+  const card2Body   = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!gsapReady) return
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const gsap = (window as any).gsap
+    if (!gsap) return
+    gsap.from(card1Ref.current,   { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out', delay: 0.1 })
+    gsap.from(card1Label.current, { opacity: 0, y: 15, duration: 0.6, ease: 'power2.out', delay: 0.4 })
+    gsap.from(card1Body.current,  { opacity: 0, y: 20, duration: 0.7, ease: 'power2.out', delay: 0.6 })
+    gsap.from(card2Ref.current,   { opacity: 0, y: 50, duration: 0.8, ease: 'power3.out', delay: 0.3 })
+    gsap.from(card2Label.current, { opacity: 0, y: 15, duration: 0.6, ease: 'power2.out', delay: 0.6 })
+    gsap.from(card2Body.current,  { opacity: 0, y: 20, duration: 0.7, ease: 'power2.out', delay: 0.8 })
+  }, [gsapReady])
+
   const timelineRef = useRef(null)
   const { scrollYProgress: timelineProgress } = useScroll({
     target: timelineRef,
@@ -128,31 +153,15 @@ const AboutPage = () => {
 
   return (
     <>
+      {/* GSAP CDN */}
+      <Script
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        strategy="afterInteractive"
+        onLoad={() => setGsapReady(true)}
+      />
+
       {/* Global CSS */}
       <style>{`
-        /* ── Hero card animations ── */
-        @keyframes cardRiseA {
-          from { opacity: 0; transform: translateY(40px); }
-          to   { opacity: 1; transform: translateY(0px); }
-        }
-        @keyframes cardRiseB {
-          from { opacity: 0; transform: translateY(55px); }
-          to   { opacity: 1; transform: translateY(0px); }
-        }
-        @keyframes textFadeA {
-          0%, 30% { opacity: 0; transform: translateY(12px); }
-          100%    { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes textFadeB {
-          0%, 55% { opacity: 0; transform: translateY(12px); }
-          100%    { opacity: 1; transform: translateY(0); }
-        }
-        .hero-card-mission { animation: cardRiseA 1s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
-        .hero-card-vision  { animation: cardRiseB 1s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
-        .card-label-anim   { animation: textFadeA 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
-        .card-body-anim-a  { animation: textFadeB 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
-        .card-label-anim-b { animation: textFadeA 1.2s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
-        .card-body-anim-b  { animation: textFadeB 1.2s cubic-bezier(0.16,1,0.3,1) 0.75s both; }
         /* ── Orbit ── */
         @keyframes orbit {
           from { transform: rotate(var(--start-angle, 0deg)) translateX(180px) rotate(calc(-1 * var(--start-angle, 0deg))); }
@@ -172,37 +181,31 @@ const AboutPage = () => {
 
       <div className="overflow-x-hidden">
 
-        {/* ═══════════════════════════════════════════════════════════
-            1. HERO — Exact Flecto layout
-            Dual layered bg images · SVG-clipped tabbed cards
-            Mission card: tab notch top-right
-            Vision card:  tab notch top-left (mirror)
-        ═══════════════════════════════════════════════════════════ */}
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
-
-          {/* ── Layered background images (crossfade depth) ── */}
+        {/* ═══════════════════════════════════════════════════
+            1. HERO — Exact Flecto SVG balloon cards
+            Mission: dark green #01382C, tab TOP-RIGHT
+            Vision:  mint green #56F09F, tab TOP-LEFT, top:-45px
+        ═══════════════════════════════════════════════════ */}
+        <section
+          className="relative min-h-screen flex flex-col overflow-hidden"
+          style={{ background: '#004737' }}
+        >
+          {/* Full-cover background image */}
           <div className="absolute inset-0 z-0">
             <Image
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80"
               alt=""
               fill
-              className="object-cover opacity-20"
+              className="object-cover"
               priority
             />
-            <Image
-              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&q=80"
-              alt=""
-              fill
-              className="object-cover opacity-10 mix-blend-luminosity"
-            />
-            {/* Deep green overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#004737]/90 via-[#004737]/80 to-[#0D2B1F]/95" />
+            <div className="absolute inset-0" style={{ background: 'rgba(0,71,55,0.82)' }} />
           </div>
 
-          {/* ── Main content ── */}
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-32 flex flex-col lg:flex-row items-center gap-16 xl:gap-24">
+          {/* ── Content ── */}
+          <div className="relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-center gap-16 xl:gap-24 max-w-7xl mx-auto w-full px-6 lg:px-12 py-28">
 
-            {/* LEFT: Heading block */}
+            {/* LEFT: Heading */}
             <div className="flex-1 min-w-0">
               <motion.span
                 initial={{ opacity: 0, y: 16 }}
@@ -242,130 +245,134 @@ const AboutPage = () => {
               </motion.p>
             </div>
 
-            {/* RIGHT: SVG tabbed balloon cards */}
-            <div className="flex-1 min-w-0 flex flex-col items-center justify-center relative" style={{ minHeight: '520px' }}>
-
-              {/* ── HIDDEN SVG DEFS — clip paths for tabbed card shapes ── */}
-              <svg width="0" height="0" style={{ position: 'absolute' }}>
-                <defs>
-                  {/*
-                    Mission card: 400×340 canvas
-                    Tab at top-RIGHT: notch cuts top-right corner
-                    Tab rect: x=260..400, y=0..52  (140×52)
-                    Main body: full width, y=52..340, with rounded bottom corners
-                  */}
-                  <clipPath id="clip-mission" clipPathUnits="userSpaceOnUse">
-                    <path d="
-                      M 0,52
-                      L 0,312
-                      Q 0,340 28,340
-                      L 372,340
-                      Q 400,340 400,312
-                      L 400,52
-                      L 272,52
-                      Q 260,52 260,40
-                      L 260,0
-                      L 400,0
-                      L 400,0
-                      Z
-                    " />
-                  </clipPath>
-
-                  {/*
-                    Vision card: 360×300 canvas
-                    Tab at top-LEFT: notch cuts top-left corner
-                    Tab rect: x=0..140, y=0..48
-                    Main body: full width, y=48..300
-                  */}
-                  <clipPath id="clip-vision" clipPathUnits="userSpaceOnUse">
-                    <path d="
-                      M 0,0
-                      L 140,0
-                      L 140,36
-                      Q 140,48 152,48
-                      L 360,48
-                      L 360,276
-                      Q 360,300 332,300
-                      L 28,300
-                      Q 0,300 0,276
-                      Z
-                    " />
-                  </clipPath>
-                </defs>
-              </svg>
-
-              {/* ── CARD 1: MISSION (tab notch top-right) ── */}
+            {/* RIGHT: .balloons-container — exact Flecto spec */}
+            <div
+              className="flex-1 min-w-0 flex items-end justify-center"
+              style={{ position: 'relative', gap: 0 }}
+            >
+              {/* ── CARD 1: MISSION — tab notch TOP-RIGHT, #01382C ── */}
               <div
-                className="hero-card-mission absolute"
-                style={{ width: 400, left: '5%', top: 0, zIndex: 10 }}
+                ref={card1Ref}
+                style={{ position: 'relative', width: 400, flexShrink: 0 }}
               >
-                {/* Tab label — top right */}
-                <div
-                  className="card-label-anim absolute flex items-center justify-center"
-                  style={{ right: 0, top: 0, width: 140, height: 52, background: '#F5F0E8', borderRadius: '12px 12px 0 0' }}
+                {/* Exact SVG path from spec */}
+                <svg
+                  viewBox="0 0 545.7 402.3"
+                  width="400"
+                  height="295"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ display: 'block' }}
                 >
-                  <span className="font-syne font-black text-[#004737] text-[10px] uppercase tracking-[0.3em]">Mission</span>
-                </div>
+                  <path
+                    fill="#01382C"
+                    d="M13.62 47.225 L404.15 47.225 C404.15 47.225, 417.775 47.225, 417.775 33.601 L417.775 13.624 C417.775 13.624, 417.775 0, 431.398 0 L532.076 0 C532.076 0, 545.7 0, 545.7 13.624 L545.7 39.389 C545.7 39.389, 545.7 53.013, 532.076 53.013 L437.186 53.013 C437.186 53.013, 423.563 53.013, 423.563 66.636 L423.563 388.676 C423.563 388.676, 423.563 402.3, 409.939 402.3 L13.624 402.3 C13.624 402.3, 0 402.3, 0 388.676 L0 60.849 C0 60.849, 0 47.225, 13.624 47.225"
+                  />
+                </svg>
 
-                {/* Card body */}
+                {/* Tab label — top-right tab area */}
                 <div
+                  ref={card1Label}
                   style={{
-                    width: 400,
-                    height: 340,
-                    clipPath: 'url(#clip-mission)',
-                    background: '#F5F0E8',
-                    paddingTop: 72,
-                    paddingLeft: 36,
-                    paddingRight: 36,
-                    paddingBottom: 36,
-                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: 105,   /* tab width in rendered px (≈140/545.7*400) */
+                    height: 38,   /* tab height in rendered px (≈53/402.3*295) */
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  <p className="card-body-anim-a font-syne font-black text-[#0D1B17] uppercase text-2xl leading-tight mb-5">
+                  <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 900, fontSize: 11, color: '#C8F55A', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
+                    Mission
+                  </span>
+                </div>
+
+                {/* Body text — large bottom-left area */}
+                <div
+                  ref={card1Body}
+                  style={{
+                    position: 'absolute',
+                    top: 55,
+                    left: 20,
+                    right: 110, /* leave space for right tab notch column */
+                    bottom: 18,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    gap: 14,
+                  }}
+                >
+                  <p style={{ fontFamily: 'Syne, sans-serif', fontWeight: 900, fontSize: 22, color: '#FFFFFF', textTransform: 'uppercase', lineHeight: 1.15, margin: 0 }}>
                     Our Mission Defined.
                   </p>
-                  <p className="card-body-anim-a font-inter text-[#3D5249] text-sm leading-relaxed" style={{ animationDelay: '0.65s' }}>
+                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 13, color: 'rgba(200,245,200,0.7)', lineHeight: 1.6, margin: 0 }}>
                     Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate investment and management.
                   </p>
                 </div>
               </div>
 
-              {/* ── CARD 2: VISION (tab notch top-left, overlaps Mission, offset up) ── */}
+              {/* ── CARD 2: VISION — tab notch TOP-LEFT, #56F09F, top:-45px ── */}
               <div
-                className="hero-card-vision absolute"
-                style={{ width: 360, right: '2%', top: 200, zIndex: 20 }}
+                ref={card2Ref}
+                style={{ position: 'relative', width: 400, flexShrink: 0, top: -45 }}
               >
-                {/* Tab label — top left */}
-                <div
-                  className="card-label-anim-b absolute flex items-center justify-center"
-                  style={{ left: 0, top: 0, width: 140, height: 48, background: '#C8F55A', borderRadius: '12px 12px 0 0' }}
+                {/* Exact SVG path from spec */}
+                <svg
+                  viewBox="0 0 449.3 364.513"
+                  width="400"
+                  height="325"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ display: 'block' }}
                 >
-                  <span className="font-syne font-black text-[#004737] text-[10px] uppercase tracking-[0.3em]">Vision</span>
-                </div>
+                  <path
+                    fill="#56F09F"
+                    d="M13.624 0 L112.901 0 C112.901 0, 126.525 0, 126.525 13.624 L126.525 34.176 C126.525 34.176, 126.525 47.8, 140.149 47.8 L435.676 47.8 C435.676 47.8, 449.3 47.8, 449.3 61.424 L449.3 350.889 C449.3 350.889, 449.3 364.512, 435.676 364.512 L137.261 364.512 C137.261 364.512, 123.638 364.512, 123.638 350.889 L123.638 64.311 C123.638 64.311, 123.638 50.688, 110.014 50.688 L13.624 50.688 C13.624 50.688, 0 50.688, 0 37.064 L0 13.624 C0 13.624, 0 0, 13.624 0"
+                  />
+                </svg>
 
-                {/* Card body */}
+                {/* Tab label — top-left tab area */}
                 <div
+                  ref={card2Label}
                   style={{
-                    width: 360,
-                    height: 300,
-                    clipPath: 'url(#clip-vision)',
-                    background: '#004737',
-                    paddingTop: 68,
-                    paddingLeft: 32,
-                    paddingRight: 32,
-                    paddingBottom: 32,
-                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: 113,  /* ≈126.525/449.3*400 */
+                    height: 43,  /* ≈47.8/364.513*325 */
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  <p className="card-body-anim-b font-syne font-black text-[#C8F55A] uppercase text-2xl leading-tight mb-5">
+                  <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 900, fontSize: 11, color: '#01382C', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
+                    Vision
+                  </span>
+                </div>
+
+                {/* Body text — large bottom-right area */}
+                <div
+                  ref={card2Body}
+                  style={{
+                    position: 'absolute',
+                    top: 65,
+                    left: 125, /* after tab column */
+                    right: 20,
+                    bottom: 20,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    gap: 14,
+                  }}
+                >
+                  <p style={{ fontFamily: 'Syne, sans-serif', fontWeight: 900, fontSize: 22, color: '#01382C', textTransform: 'uppercase', lineHeight: 1.15, margin: 0 }}>
                     12+ Years Experience.
                   </p>
-                  <p className="card-body-anim-b font-inter text-[#A8C4BB] text-sm leading-relaxed" style={{ animationDelay: '0.9s' }}>
+                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 13, color: 'rgba(1,56,44,0.7)', lineHeight: 1.6, margin: 0 }}>
                     50,000+ active members trust Pakistan Property Portal for their biggest life milestones.
                   </p>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -380,6 +387,7 @@ const AboutPage = () => {
             <div className="scroll-bounce text-white/20"><ChevronDown className="w-5 h-5" /></div>
           </motion.div>
         </section>
+
 
         {/* ═══════════════════════════════════════════════════
             2. CIRCULAR ECONOMY — CSS Orbit, no JS scroll
