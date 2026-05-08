@@ -149,151 +149,148 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
 
         {/* ═══════════════════════════════════════════════════════════════════
-            1. HERO SECTION
-            Exact Flecto layout:
-            • Full dark-green (#0D2B1F) background, full viewport height
-            • LEFT: pill badge → 3-line staggered heading → subtitle paragraph
-            • RIGHT: large image card (rotate +4°) + floating white quote
-              card (rotate -3°) + lime stat chip
-            • BOTTOM CENTER: "Scroll" label + bouncing chevron
+            HERO — Exact Flecto About Page Layout
+            BG: Dark green #004737
+            LEFT: Giant statement heading (line-by-line reveal) + subtitle
+            RIGHT: Two overlapping ear-tab cards
+              Card 1 (back)  — dark green #004737, "Mission" ear tab top-right
+              Card 2 (front) — lime #C8F55A,  "Vision"  ear tab top-left
+            BOTTOM: animated scroll chevron
         ═══════════════════════════════════════════════════════════════════ */}
-        <section className="relative min-h-screen bg-[#0D2B1F] flex flex-col pt-24 overflow-hidden">
+        <section className="relative min-h-screen bg-[#004737] flex flex-col overflow-hidden">
 
-          {/* Ambient glow — top-right */}
-          <div
-            className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(0,71,55,0.8) 0%, transparent 70%)' }}
-          />
-          {/* Ambient glow — bottom-left */}
-          <div
-            className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(200,245,90,0.06) 0%, transparent 70%)' }}
+          {/* Subtle noise texture */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
           />
 
-          {/* Main grid */}
-          <div className="flex-1 flex items-center max-w-7xl mx-auto px-6 lg:px-12 w-full py-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center w-full">
+          {/* Content — takes full height, vertically centred */}
+          <div className="flex-1 flex items-center pt-24 pb-16">
+            <div className="max-w-7xl mx-auto px-6 lg:px-16 w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
-              {/* ── LEFT: Text ── */}
-              <div className="relative z-10 order-2 lg:order-1">
+                {/* ── LEFT: Heading ── */}
+                <div className="relative z-10">
 
-                {/* Pill badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
-                  className="mb-10"
-                >
-                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-white/40 font-syne font-black text-[10px] uppercase tracking-[0.3em]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C8F55A] shrink-0" />
-                    About Us
-                  </span>
-                </motion.div>
+                  {/* Small eyebrow label */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+                    className="mb-8"
+                  >
+                    <span className="inline-flex items-center gap-2 text-[#C8F55A]/60 font-syne font-black text-[11px] uppercase tracking-[0.35em]">
+                      <span className="w-8 h-px bg-[#C8F55A]/40" />
+                      About Us
+                    </span>
+                  </motion.div>
 
-                {/* 3-line heading — each slides up from mask */}
-                <div className="mb-10">
-                  <HeroLine delay={0.25}>
-                    <h1
-                      className="font-syne font-black text-white uppercase tracking-tighter leading-[0.82]"
-                      style={{ fontSize: 'clamp(3rem, 6.5vw, 7rem)' }}
-                    >
-                      Pakistan&apos;s
-                    </h1>
-                  </HeroLine>
-                  <HeroLine delay={0.4}>
-                    <h1
-                      className="font-syne font-black text-[#C8F55A] italic uppercase tracking-tighter leading-[0.82]"
-                      style={{ fontSize: 'clamp(3rem, 6.5vw, 7rem)' }}
-                    >
-                      Most Trusted
-                    </h1>
-                  </HeroLine>
-                  <HeroLine delay={0.55}>
-                    <h1
-                      className="font-syne font-black text-white uppercase tracking-tighter leading-[0.82]"
-                      style={{ fontSize: 'clamp(3rem, 6.5vw, 7rem)' }}
-                    >
-                      Network.
-                    </h1>
-                  </HeroLine>
+                  {/* Giant heading — 3 lines, each clips up from overflow:hidden */}
+                  <div className="mb-12 space-y-1">
+                    <HeroLine delay={0.2}>
+                      <h1 className="font-syne font-black text-white uppercase leading-[0.88] tracking-[-0.02em]"
+                          style={{ fontSize: 'clamp(3.2rem, 7vw, 7.5rem)' }}>
+                        Pakistan&apos;s
+                      </h1>
+                    </HeroLine>
+                    <HeroLine delay={0.36}>
+                      <h1 className="font-syne font-black text-[#C8F55A] italic uppercase leading-[0.88] tracking-[-0.02em]"
+                          style={{ fontSize: 'clamp(3.2rem, 7vw, 7.5rem)' }}>
+                        Most Trusted
+                      </h1>
+                    </HeroLine>
+                    <HeroLine delay={0.52}>
+                      <h1 className="font-syne font-black text-white uppercase leading-[0.88] tracking-[-0.02em]"
+                          style={{ fontSize: 'clamp(3.2rem, 7vw, 7.5rem)' }}>
+                        Network.
+                      </h1>
+                    </HeroLine>
+                  </div>
+
+                  {/* Subtitle */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 0.5, y: 0 }}
+                    transition={{ duration: 1, ease: EASE, delay: 0.85 }}
+                    className="text-white font-inter text-base sm:text-[1.05rem] leading-relaxed max-w-[420px]"
+                  >
+                    Redefining the real estate landscape in Pakistan through
+                    transparency, technology, and a premium user experience.
+                  </motion.p>
                 </div>
 
-                {/* Subtitle */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.45 }}
-                  transition={{ duration: 1.2, delay: 0.85 }}
-                  className="text-white font-inter text-base sm:text-lg leading-relaxed max-w-md"
-                >
-                  Redefining the real estate landscape in Pakistan through transparency, technology, and a premium user experience.
-                </motion.p>
-              </div>
+                {/* ── RIGHT: Two overlapping ear-tab cards ── */}
+                <div className="relative h-[480px] sm:h-[540px]">
 
-              {/* ── RIGHT: Visual stack ── */}
-              <div className="relative h-[380px] sm:h-[480px] lg:h-[560px] order-1 lg:order-2">
-
-                {/* Large background image card — tilted clockwise ~4° */}
-                <motion.div
-                  initial={{ opacity: 0, y: 80, rotate: 8 }}
-                  animate={{ opacity: 1, y: 0, rotate: 4 }}
-                  transition={{ duration: 1.4, ease: EASE, delay: 0.45 }}
-                  className="absolute inset-0 rounded-[2.5rem] overflow-hidden shadow-[0_50px_120px_rgba(0,0,0,0.6)]"
-                  style={{ willChange: 'transform, opacity' }}
-                >
-                  <Image
-                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80"
-                    alt="Pakistan Property Portal — National Skyline"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                  {/* Gradient overlay so white card text is readable */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D2B1F]/50 via-transparent to-transparent" />
-                </motion.div>
-
-                {/* Floating white quote card — bottom-left, tilted -3° */}
-                <motion.div
-                  initial={{ opacity: 0, y: 60, rotate: -8 }}
-                  animate={{ opacity: 1, y: 0, rotate: -3 }}
-                  transition={{ duration: 1.3, ease: EASE, delay: 0.75 }}
-                  className="absolute bottom-6 -left-4 sm:-left-10 z-20 w-60 sm:w-72 bg-white rounded-[1.75rem] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)]"
-                  style={{ willChange: 'transform, opacity' }}
-                >
-                  <p className="font-syne font-black text-[#0D1B17] text-sm uppercase leading-snug mb-5">
-                    &ldquo;Property isn&apos;t just square feet — it&apos;s life&apos;s biggest milestones.&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-[#F5F0E8]">
-                    <div className="w-8 h-8 rounded-full bg-[#004737] flex items-center justify-center shrink-0">
-                      <ShieldCheck className="w-4 h-4 text-[#C8F55A]" />
+                  {/* ── CARD 1: Mission — dark green, ear tab at top-right ── */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 80, rotate: 5 }}
+                    animate={{ opacity: 1, y: 0, rotate: 3 }}
+                    transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
+                    className="absolute top-0 right-0 w-[290px] sm:w-[320px] z-10"
+                    style={{ willChange: 'transform, opacity' }}
+                  >
+                    {/* Ear tab — top-right */}
+                    <div className="absolute -top-0 right-10 w-[100px] h-9 bg-[#003328] rounded-t-2xl flex items-center justify-center z-20">
+                      <span className="text-[#C8F55A] font-syne font-black text-[9px] uppercase tracking-[0.25em]">Mission</span>
                     </div>
-                    <div>
-                      <p className="font-syne font-black text-[10px] text-[#0D1B17] uppercase tracking-widest">Founded 2012</p>
-                      <p className="font-inter text-[10px] text-[#7A9088]">Pakistan Property Portal</p>
+                    {/* Card body */}
+                    <div className="bg-[#003328] rounded-[2rem] rounded-tr-none pt-14 pb-10 px-10 shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/5">
+                      <p className="text-[#C8F55A] font-syne font-black text-[1.6rem] uppercase leading-tight mb-5">
+                        Our Mission Defined.
+                      </p>
+                      <p className="text-white/40 font-inter text-sm leading-relaxed mb-8">
+                        Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate investment and discovery.
+                      </p>
+                      <div className="flex items-center gap-3 pt-6 border-t border-white/10">
+                        <div className="w-9 h-9 rounded-full bg-[#C8F55A]/10 border border-[#C8F55A]/20 flex items-center justify-center shrink-0">
+                          <ShieldCheck className="w-4 h-4 text-[#C8F55A]" />
+                        </div>
+                        <span className="text-white/30 font-syne font-black text-[9px] uppercase tracking-widest">Verified Platform Since 2012</span>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
 
-                {/* Floating lime stat chip — top-right */}
-                <motion.div
-                  initial={{ opacity: 0, x: 40, y: -20 }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 1, ease: EASE, delay: 1.0 }}
-                  className="absolute -top-4 -right-2 sm:-right-6 z-20 bg-[#C8F55A] rounded-2xl px-5 py-4 shadow-[0_20px_60px_rgba(200,245,90,0.3)]"
-                  style={{ willChange: 'transform, opacity' }}
-                >
-                  <p className="font-syne font-black text-[#004737] text-2xl sm:text-3xl leading-none">50K+</p>
-                  <p className="font-syne font-black text-[#004737]/60 text-[9px] uppercase tracking-[0.2em] mt-1">Members</p>
-                </motion.div>
+                  {/* ── CARD 2: Vision — lime green, ear tab at top-left, overlaps Card 1 ── */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 100, rotate: -5 }}
+                    animate={{ opacity: 1, y: 160, rotate: -3 }}
+                    transition={{ duration: 1.3, ease: EASE, delay: 0.65 }}
+                    className="absolute bottom-0 left-0 w-[290px] sm:w-[320px] z-20"
+                    style={{ willChange: 'transform, opacity' }}
+                  >
+                    {/* Ear tab — top-left */}
+                    <div className="absolute -top-0 left-10 w-[90px] h-9 bg-[#aad832] rounded-t-2xl flex items-center justify-center z-20">
+                      <span className="text-[#004737] font-syne font-black text-[9px] uppercase tracking-[0.25em]">Vision</span>
+                    </div>
+                    {/* Card body */}
+                    <div className="bg-[#C8F55A] rounded-[2rem] rounded-tl-none pt-14 pb-10 px-10 shadow-[0_40px_80px_rgba(0,0,0,0.3)]">
+                      <p className="text-[#004737] font-syne font-black text-[1.6rem] uppercase leading-tight mb-5">
+                        12+ Years Experience.
+                      </p>
+                      <p className="text-[#004737]/60 font-inter text-sm leading-relaxed mb-8">
+                        50,000+ active members trust Pakistan Property Portal for their biggest life milestones across every major city.
+                      </p>
+                      <div className="flex items-center gap-3 pt-6 border-t border-[#004737]/15">
+                        <div className="w-9 h-9 rounded-full bg-[#004737] flex items-center justify-center shrink-0">
+                          <ArrowRight className="w-4 h-4 text-[#C8F55A]" />
+                        </div>
+                        <span className="text-[#004737]/50 font-syne font-black text-[9px] uppercase tracking-widest">Pakistan&apos;s Market Leader</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
               </div>
             </div>
           </div>
 
-          {/* Animated scroll indicator — bottom center */}
+          {/* Scroll indicator — bottom center */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.5 }}
-            className="flex flex-col items-center gap-2 pb-8 z-10"
+            className="flex flex-col items-center gap-2 pb-10 z-10"
           >
             <span className="text-white/20 font-syne font-black text-[9px] uppercase tracking-[0.4em]">Scroll</span>
             <div className="scroll-bounce text-white/20">
