@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { ShieldCheck, Eye, Users, Zap } from 'lucide-react'
 
@@ -9,36 +9,71 @@ const AnimatedStepsCard = dynamic(
   { ssr: false }
 )
 
-// ─── Parallax right column ───────────────────────────────────────────────────
+const BG_IMAGES = [
+  'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
+  'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80',
+]
+
+// ─── Right column: crossfade bg photos + Ken Burns + floating steps ──────────
 function RightColumn() {
   const [scrollY, setScrollY] = useState(0)
+  const [bgIndex, setBgIndex] = useState(0)
 
+  // Parallax
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // FIX 6 — crossfade between 2 photos every 5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBgIndex((i) => (i + 1) % BG_IMAGES.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="relative overflow-hidden min-h-[50vh] lg:min-h-0">
-      {/* Parallax background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center will-change-transform"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80')",
-          transform: `translateY(${scrollY * 0.3}px)`,
-        }}
-      />
+      {/* Ken Burns keyframes injected inline */}
+      <style>{`
+        @keyframes kenBurns {
+          from { transform: scale(1.0); }
+          to   { transform: scale(1.06); }
+        }
+      `}</style>
+
+      {/* Two stacked bg images — crossfade */}
+      {BG_IMAGES.map((src, i) => (
+        <div
+          key={src}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url('${src}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            transform: `translateY(${scrollY * 0.3}px)`,
+            animation: 'kenBurns 8s ease-in-out infinite alternate',
+            opacity: i === bgIndex ? 1 : 0,
+            transition: 'opacity 1500ms ease-in-out',
+            willChange: 'transform, opacity',
+          }}
+        />
+      ))}
+
       {/* Dark overlay */}
       <div
-        className="absolute inset-0"
         style={{
+          position: 'absolute',
+          inset: 0,
           background:
-            'linear-gradient(135deg, rgba(0,71,55,0.75) 0%, rgba(0,0,0,0.55) 100%)',
+            'linear-gradient(to right, rgba(0,71,55,0.3) 0%, rgba(0,0,0,0.5) 100%)',
         }}
       />
-      {/* Animated card */}
+
+      {/* Floating steps — no card, positioned absolute */}
       <AnimatedStepsCard />
     </div>
   )
@@ -93,48 +128,116 @@ export default function AboutPage() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
 
-        {/* ── LEFT COLUMN ── */}
+        {/* ── LEFT COLUMN — FIX 1: correct sizes, timing, minimal pills ── */}
         <div
-          className="bg-[#004737] flex flex-col justify-center
-                     px-6 py-[100px] sm:px-10 lg:px-[60px] lg:py-[120px]
-                     min-h-[60vh] lg:min-h-0"
+          className="bg-[#004737] flex flex-col justify-center min-h-[60vh] lg:min-h-0"
+          style={{ padding: 'clamp(60px, 10vw, 120px) clamp(24px, 6vw, 60px)' }}
         >
-          {/* MISSION */}
-          <div className="mb-12 sm:mb-16 animate-fade-up" style={{ animationDelay: '0ms', animationFillMode: 'both' }}>
-            {/* Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 bg-[#C8F55A]/15 border border-[#C8F55A]/30">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C8F55A] animate-pulse" />
-              <span className="text-[#C8F55A] text-[11px] font-bold uppercase tracking-[0.15em] font-syne">
+          {/* MISSION block */}
+          <div style={{ marginBottom: '40px' }}>
+            {/* Mission label — minimal, no colored dot */}
+            <div
+              className="animate-fade-up"
+              style={{
+                animationDelay: '100ms',
+                animationFillMode: 'both',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '6px 14px',
+                borderRadius: '100px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                marginBottom: '20px',
+              }}
+            >
+              <span
+                style={{
+                  color: 'rgba(255,255,255,0.6)',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.15em',
+                  fontFamily: 'var(--font-syne, sans-serif)',
+                }}
+              >
                 Mission
               </span>
             </div>
 
-            {/* Mission text */}
+            {/* Mission text — white, huge, delay 300ms */}
             <p
-              className="font-syne font-bold text-[#F5F0E8] text-2xl sm:text-3xl lg:text-4xl leading-[1.2] tracking-tight animate-fade-up"
-              style={{ animationDelay: '200ms', animationFillMode: 'both' }}
+              className="animate-fade-up"
+              style={{
+                animationDelay: '300ms',
+                animationFillMode: 'both',
+                fontFamily: 'var(--font-syne, sans-serif)',
+                fontWeight: 800,
+                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                color: '#FFFFFF',
+                lineHeight: 1.1,
+                letterSpacing: '-0.01em',
+                margin: 0,
+              }}
             >
               We connect thousands of buyers and tenants with verified properties across Pakistan.
             </p>
           </div>
 
-          {/* Divider */}
-          <div className="w-16 h-px bg-[#C8F55A]/40 mb-12" />
+          {/* Divider — 48px wide, subtle white */}
+          <div
+            style={{
+              width: '48px',
+              height: '1px',
+              background: 'rgba(255,255,255,0.3)',
+              margin: '32px 0',
+            }}
+          />
 
-          {/* VISION */}
-          <div className="animate-fade-up" style={{ animationDelay: '150ms', animationFillMode: 'both' }}>
-            {/* Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 bg-white/10 border border-white/20">
-              <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
-              <span className="text-white/80 text-[11px] font-bold uppercase tracking-[0.15em] font-syne">
+          {/* VISION block */}
+          <div>
+            {/* Vision label — minimal */}
+            <div
+              className="animate-fade-up"
+              style={{
+                animationDelay: '400ms',
+                animationFillMode: 'both',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '6px 14px',
+                borderRadius: '100px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                marginBottom: '20px',
+              }}
+            >
+              <span
+                style={{
+                  color: 'rgba(255,255,255,0.6)',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.15em',
+                  fontFamily: 'var(--font-syne, sans-serif)',
+                }}
+              >
                 Vision
               </span>
             </div>
 
-            {/* Vision text */}
+            {/* Vision text — same size, much more muted, delay 600ms */}
             <p
-              className="font-syne font-bold text-[#A8C4BB] text-2xl sm:text-3xl lg:text-4xl leading-[1.2] tracking-tight animate-fade-up"
-              style={{ animationDelay: '400ms', animationFillMode: 'both' }}
+              className="animate-fade-up"
+              style={{
+                animationDelay: '600ms',
+                animationFillMode: 'both',
+                fontFamily: 'var(--font-syne, sans-serif)',
+                fontWeight: 800,
+                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                color: 'rgba(255,255,255,0.45)',
+                lineHeight: 1.1,
+                letterSpacing: '-0.01em',
+                margin: 0,
+              }}
             >
               by making property ownership and renting accessible to every Pakistani family.
             </p>
@@ -142,15 +245,22 @@ export default function AboutPage() {
 
           {/* Scroll indicator */}
           <div
-            className="mt-16 flex items-center gap-3 animate-fade-up"
-            style={{ animationDelay: '600ms', animationFillMode: 'both' }}
+            className="animate-fade-up"
+            style={{
+              animationDelay: '800ms',
+              animationFillMode: 'both',
+              marginTop: '48px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+            }}
           >
-            <div className="flex flex-col gap-1">
-              <div className="w-5 h-px bg-[#C8F55A]/60" />
-              <div className="w-8 h-px bg-[#C8F55A]" />
-              <div className="w-5 h-px bg-[#C8F55A]/60" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div style={{ width: '20px', height: '1px', background: 'rgba(200,245,90,0.6)' }} />
+              <div style={{ width: '32px', height: '1px', background: '#C8F55A' }} />
+              <div style={{ width: '20px', height: '1px', background: 'rgba(200,245,90,0.6)' }} />
             </div>
-            <span className="text-[#A8C4BB] text-xs font-inter uppercase tracking-[0.15em]">
+            <span style={{ color: '#A8C4BB', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', fontFamily: 'var(--font-inter, sans-serif)' }}>
               Scroll to explore
             </span>
           </div>

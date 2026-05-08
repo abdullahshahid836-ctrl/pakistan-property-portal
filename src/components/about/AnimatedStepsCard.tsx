@@ -24,138 +24,227 @@ const steps = [
 ]
 
 export default function AnimatedStepsCard() {
-  const [currentStep, setCurrentStep] = useState(0)
   const [visibleSteps, setVisibleSteps] = useState<number[]>([])
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [key, setKey] = useState(0)
+  const [animKey, setAnimKey] = useState(0)
 
   useEffect(() => {
-    if (!isPlaying) return
+    setVisibleSteps([])
 
     const timers: ReturnType<typeof setTimeout>[] = []
 
-    steps.forEach((_, index) => {
-      const timer = setTimeout(() => {
-        setVisibleSteps((prev) => [...prev, index])
-        setCurrentStep(index)
-      }, index * 900)
-      timers.push(timer)
-    })
-
-    const resetTimer = setTimeout(() => {
-      setVisibleSteps([])
-      setCurrentStep(0)
-      setKey((prev) => prev + 1)
-    }, steps.length * 900 + 2000)
-    timers.push(resetTimer)
+    // Show step 0 after 800ms
+    timers.push(setTimeout(() => setVisibleSteps([0]), 800))
+    // Show step 1 after 1600ms
+    timers.push(setTimeout(() => setVisibleSteps([0, 1]), 1600))
+    // Show step 2 after 2400ms
+    timers.push(setTimeout(() => setVisibleSteps([0, 1, 2]), 2400))
+    // Auto-restart after 5500ms
+    timers.push(
+      setTimeout(() => {
+        setVisibleSteps([])
+        setAnimKey((k) => k + 1)
+      }, 5500)
+    )
 
     return () => timers.forEach(clearTimeout)
-  }, [key, isPlaying])
+  }, [animKey])
 
   const handleRestart = () => {
     setVisibleSteps([])
-    setCurrentStep(0)
-    setIsPlaying(true)
-    setKey((prev) => prev + 1)
+    setAnimKey((k) => k + 1)
   }
 
   return (
-    <div className="relative z-10 flex items-center justify-center h-full p-8">
-      <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-8 w-full max-w-sm shadow-[0_24px_64px_rgba(0,0,0,0.3)]">
+    /* Floating steps — NO card box, positioned absolute bottom-right */
+    <div
+      style={{
+        position: 'absolute',
+        bottom: '80px',
+        right: '60px',
+        width: '340px',
+        zIndex: 10,
+      }}
+    >
+      {/* Header row: label + progress dots */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '24px',
+        }}
+      >
+        <span
+          style={{
+            fontSize: '10px',
+            color: 'rgba(255,255,255,0.4)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.15em',
+            fontFamily: 'var(--font-syne, sans-serif)',
+            fontWeight: 700,
+          }}
+        >
+          How It Works
+        </span>
 
-        {/* Card header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <div className="text-[10px] text-[#C8F55A] font-bold uppercase tracking-[0.15em] font-syne mb-1">
-              How It Works
-            </div>
-            <h3 className="font-syne font-bold text-white text-lg">
-              Pakistan Property Portal
-            </h3>
-          </div>
-          {/* Progress dots */}
-          <div className="flex gap-1.5">
-            {steps.map((_, i) => (
-              <div
-                key={i}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  i <= currentStep && visibleSteps.length > 0
-                    ? 'bg-[#C8F55A] w-5'
-                    : 'bg-white/20 w-1.5'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Steps list */}
-        <div className="space-y-3">
-          {steps.map((step, index) => (
+        {/* FIX 5 — Progress dots that expand + fill */}
+        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+          {[0, 1, 2].map((i) => (
             <div
-              key={index}
-              className={`flex items-center gap-4 p-3 rounded-2xl transition-all duration-500 ${
-                visibleSteps.includes(index)
-                  ? 'opacity-100 translate-y-0 bg-white/[0.08]'
-                  : 'opacity-0 translate-y-4'
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              key={i}
+              style={{
+                width: visibleSteps.includes(i) ? '28px' : '8px',
+                height: '4px',
+                borderRadius: '2px',
+                background: visibleSteps.includes(i)
+                  ? '#C8F55A'
+                  : 'rgba(255,255,255,0.2)',
+                transition: 'all 500ms cubic-bezier(0.16,1,0.3,1)',
+                transitionDelay: `${i * 200}ms`,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* FIX 3 — Steps appear one by one */}
+      <div>
+        {steps.map((step, index) => {
+          const isVisible = visibleSteps.includes(index)
+          const isLast = index === steps.length - 1
+
+          return (
+            <div
+              key={step.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                padding: '12px 0',
+                borderBottom: isLast
+                  ? 'none'
+                  : '1px solid rgba(255,255,255,0.1)',
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'all 600ms cubic-bezier(0.16,1,0.3,1)',
+              }}
             >
               {/* Icon circle */}
               <div
-                className={`w-11 h-11 rounded-2xl flex-shrink-0 flex items-center justify-center text-xl transition-all duration-400 ${
-                  visibleSteps.includes(index)
-                    ? 'bg-[#C8F55A] scale-100'
-                    : 'bg-white/10 scale-90'
-                }`}
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '14px',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '20px',
+                  background: isVisible
+                    ? '#C8F55A'
+                    : 'rgba(255,255,255,0.10)',
+                  transition: 'background 500ms cubic-bezier(0.16,1,0.3,1)',
+                }}
               >
                 {step.icon}
               </div>
 
               {/* Text */}
-              <div className="flex-1 min-w-0">
-                <div className="font-syne font-bold text-white text-sm leading-tight">
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-syne, sans-serif)',
+                    fontWeight: 700,
+                    color: '#FFFFFF',
+                    fontSize: '14px',
+                    lineHeight: 1.3,
+                  }}
+                >
                   {step.label}
                 </div>
-                <div className="font-inter text-white/60 text-xs mt-0.5 leading-relaxed">
+                <div
+                  style={{
+                    color: 'rgba(255,255,255,0.5)',
+                    fontSize: '12px',
+                    marginTop: '2px',
+                    lineHeight: 1.5,
+                    fontFamily: 'var(--font-inter, sans-serif)',
+                  }}
+                >
                   {step.description}
                 </div>
               </div>
 
-              {/* Checkmark */}
+              {/* FIX 4 — Checkmark draws in 400ms after step appears */}
               <div
-                className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center transition-all duration-300 ${
-                  visibleSteps.includes(index)
-                    ? 'bg-[#C8F55A] scale-100 opacity-100'
-                    : 'scale-0 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100 + 400}ms` }}
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '50%',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: '#C8F55A',
+                  transform: isVisible ? 'scale(1)' : 'scale(0)',
+                  opacity: isVisible ? 1 : 0,
+                  transition: 'all 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+                  transitionDelay: isVisible ? '400ms' : '0ms',
+                }}
               >
-                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
                   <path
-                    d="M1 4L3.5 6.5L9 1"
+                    d="M1.5 5L4.5 8L10.5 2"
                     stroke="#004737"
-                    strokeWidth="1.8"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={visibleSteps.includes(index) ? 'animate-draw-check' : ''}
                   />
                 </svg>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* Restart button */}
-        <button
-          onClick={handleRestart}
-          className="mt-5 w-full py-2.5 rounded-2xl border border-white/20 text-white/70 text-xs font-syne font-bold uppercase tracking-[0.1em] hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-200 flex items-center justify-center gap-2"
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M10 6A4 4 0 1 1 6 2V0L9 3L6 6V4A2 2 0 1 0 8 6H10Z" />
-          </svg>
-          Restart
-        </button>
+          )
+        })}
       </div>
+
+      {/* Restart button — pill style */}
+      <button
+        onClick={handleRestart}
+        style={{
+          marginTop: '24px',
+          width: '100%',
+          padding: '10px 24px',
+          borderRadius: '100px',
+          border: '1px solid rgba(255,255,255,0.2)',
+          background: 'transparent',
+          color: 'rgba(255,255,255,0.6)',
+          fontSize: '12px',
+          fontFamily: 'var(--font-syne, sans-serif)',
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          cursor: 'pointer',
+          textAlign: 'center',
+          transition: 'all 200ms ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'
+          e.currentTarget.style.color = '#ffffff'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
+          e.currentTarget.style.color = 'rgba(255,255,255,0.6)'
+        }}
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+          <path d="M10 6A4 4 0 1 1 6 2V0L9 3L6 6V4A2 2 0 1 0 8 6H10Z" />
+        </svg>
+        Restart
+      </button>
     </div>
   )
 }
