@@ -43,7 +43,7 @@ const FeaturedProjects = () => {
                </div>
                <span className="text-[10px] font-black font-syne text-[#004737] uppercase tracking-[0.3em]">TRENDING NOW</span>
             </div>
-            <h2 className="font-syne font-black text-3xl sm:text-6xl text-[#0D1B17] uppercase leading-[0.95]">
+            <h2 className="font-syne font-black text-2xl sm:text-6xl text-[#0D1B17] uppercase leading-[0.9] tracking-tighter">
               Featured <br />
               <span className="text-[#004737] opacity-40">Developments</span>
             </h2>
