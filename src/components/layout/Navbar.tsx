@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Menu, X, User, Home, ArrowRight } from 'lucide-react'
+import { Menu, X, User, Globe, ArrowRight, Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const Navbar = () => {
@@ -30,103 +30,88 @@ const Navbar = () => {
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[0.22,1,0.36,1] gpu-accelerated',
-        scrolled 
-          ? 'py-4 px-4 sm:px-10' 
-          : 'py-8 px-4 sm:px-16'
+        scrolled ? 'py-4' : 'py-6 sm:py-8'
       )}
     >
-      <div className={cn(
-        "max-w-[1800px] mx-auto transition-all duration-500 ease-[0.22,1,0.36,1] rounded-[1.5rem] sm:rounded-[2rem] border flex items-center justify-between px-6 sm:px-8",
-        scrolled 
-          ? 'bg-white border-[#DDD8CF] shadow-[0_20px_50px_rgba(0,71,55,0.08)] h-14 sm:h-16' 
-          : 'bg-[#004737] border-[#0A5A46] h-16 sm:h-20 shadow-2xl'
-      )}>
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 bg-[#004737] rounded-xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
-             <Home className="w-5 h-5 text-[#C8F55A]" />
-          </div>
-          <span className={cn(
-            "font-syne font-black text-lg sm:text-xl uppercase tracking-tighter transition-colors duration-500",
-            scrolled ? "text-[#0D1B17]" : "text-[#F5F0E8]"
-          )}>
-            Pakistan <span className={scrolled ? "text-[#004737]" : "text-[#C8F55A]"}>Property</span>
-          </span>
-        </Link>
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-10 lg:px-16 flex items-center justify-between">
+        
+        {/* Left Side: Logo + Nav */}
+        <div className="flex items-center gap-12">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#C8F55A] rounded-lg flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
+               <Home className="w-5 h-5 text-[#004737]" />
+            </div>
+            <span className="font-syne font-black text-xl sm:text-2xl uppercase tracking-tighter text-white">
+              Pakistan <span className="text-[#C8F55A]">Property</span>
+            </span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-2">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              href={link.href}
-              className={cn(
-                "px-6 py-2 text-[10px] font-black font-syne uppercase tracking-widest rounded-full transition-all duration-500 relative group overflow-hidden",
-                scrolled 
-                  ? "text-[#3D5249] hover:text-[#004737] hover:bg-[#F5F0E8]" 
-                  : "text-[#F5F0E8]/70 hover:text-white hover:bg-white/10"
-              )}
-            >
-              {link.name}
-              <motion.div 
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C8F55A] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-              />
-            </Link>
-          ))}
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href}
+                className="text-[11px] font-bold font-syne uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+              </Link>
+            ))}
+          </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-4">
-          <Link href="/login" className={cn(
-            "hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-sm",
-            scrolled 
-              ? "bg-[#004737] text-[#C8F55A] hover:bg-black" 
-              : "bg-[#F5F0E8] text-[#004737] hover:bg-[#C8F55A]"
-          )}>
-            <User className="w-4 h-4" /> LOGIN
+        {/* Right Side: Actions */}
+        <div className="flex items-center gap-3">
+          {/* Language Switcher */}
+          <button className="hidden xl:flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-white text-[10px] font-bold font-syne uppercase tracking-widest transition-all duration-300">
+            EN <Globe className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Book a Demo Style (List Asset) */}
+          <Link href="/add-property" className="hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-[#004737] hover:bg-[#C8F55A] text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-black/10">
+             LIST ASSET <ArrowRight className="w-3.5 h-3.5" />
           </Link>
-          
-          <Link href="/add-property" className={cn(
-            "hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest border transition-all duration-500",
-            scrolled
-              ? "border-[#DDD8CF] text-[#0D1B17] hover:bg-[#F5F0E8]"
-              : "border-white/20 text-white hover:bg-white/10"
-          )}>
-            LIST ASSET <ArrowRight className="w-4 h-4" />
+
+          {/* Login Button */}
+          <Link href="/login" className="px-8 py-2.5 rounded-full bg-[#C8F55A] text-[#004737] hover:bg-white text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-[#C8F55A]/20">
+             LOGIN
           </Link>
 
           {/* Mobile Toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={cn(
-              "lg:hidden w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500",
-              scrolled ? "bg-[#F5F0E8] text-[#004737]" : "bg-white/10 text-white"
-            )}
+            className="lg:hidden w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center border border-white/10"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer (Simplified integration) */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden mt-4 bg-white rounded-[2.5rem] border border-[#DDD8CF] shadow-2xl overflow-hidden p-8"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="lg:hidden absolute top-full left-4 right-4 mt-2 bg-[#004737]/95 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden p-8 z-50"
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
-                <Link key={link.name} href={link.href} className="text-2xl font-black font-syne text-[#0D1B17] uppercase tracking-tighter">
+                <Link key={link.name} href={link.href} className="text-3xl font-black font-syne text-white uppercase tracking-tighter hover:text-[#C8F55A] transition-colors">
                   {link.name}
                 </Link>
               ))}
-              <div className="h-px bg-[#F5F0E8] my-4" />
-              <Link href="/login" className="w-full py-5 bg-[#004737] text-[#C8F55A] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
-                LOGIN / REGISTER
-              </Link>
+              <div className="h-px bg-white/10 my-2" />
+              <div className="flex flex-col gap-3">
+                <Link href="/login" className="w-full py-5 bg-[#C8F55A] text-[#004737] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
+                  LOGIN / REGISTER
+                </Link>
+                <Link href="/add-property" className="w-full py-5 bg-white text-[#004737] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
+                  LIST ASSET
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}
