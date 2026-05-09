@@ -237,7 +237,7 @@ const AboutPage = () => {
 
           <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center px-4 sm:px-10">
             {/* Balloon cards — Centralized and Larger */}
-            <div className="w-full flex flex-col lg:flex-row items-center justify-center relative -mt-5 lg:-mt-40 gap-16 lg:gap-0 px-4 sm:px-10">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-center relative -mt-5 lg:-mt-56 gap-16 lg:gap-0 px-4 sm:px-10">
               {/* Card 1: MISSION — Notch TOP-RIGHT */}
               <div
                 ref={missionRef}
@@ -260,7 +260,7 @@ const AboutPage = () => {
               <div
                 ref={visionRef}
                 style={{ opacity: 0 }}
-                className="relative w-full lg:w-[50%] max-w-[920px] aspect-[449/364] lg:mt-[45%] lg:-ml-[15%] z-10"
+                className="relative w-full lg:w-[50%] max-w-[920px] aspect-[449/364] lg:mt-[60%] lg:-ml-[2%] z-10"
               >
                 <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_40px_100px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#56F09F" d="M13.624 0 L112.901 0 C112.901 0, 126.525 0, 126.525 13.624 L126.525 34.176 C126.525 34.176, 126.525 47.8, 140.149 47.8 L435.676 47.8 C435.676 47.8, 449.3 47.8, 449.3 61.424 L449.3 350.889 C449.3 350.889, 449.3 364.512, 435.676 364.512 L137.261 364.512 C137.261 364.512, 123.638 364.512, 123.638 350.889 L123.638 64.311 C123.638 64.311, 123.638 50.688, 110.014 50.688 L13.624 50.688 C13.624 50.688, 0 50.688, 0 37.064 L0 13.624 C0 13.624, 0 0, 13.624 0" />
