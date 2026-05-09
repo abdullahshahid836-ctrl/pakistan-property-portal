@@ -223,40 +223,28 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
-          {/* LAYER 1: Full Background Image */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920"
-              alt="background"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-              priority
-            />
+          {/* STEP 1: Fragmented Puzzle Grid Container */}
+          <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 gap-1 bg-[#004737]">
+             {[...Array(15)].map((_, i) => {
+              const col = i % 5;
+              const row = Math.floor(i / 5);
+              return (
+                <div
+                  key={i}
+                  className="w-full h-full"
+                  style={{
+                    backgroundImage: `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)`,
+                    backgroundSize: '500% 300%',
+                    backgroundPosition: `${col * 25}% ${row * 50}%`,
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                />
+              );
+            })}
           </div>
 
-          {/* LAYER 2: SVG Grid Lines (creates the puzzle effect) */}
-          <div className="absolute inset-0 z-1 pointer-events-none">
-            <svg
-              width="100%"
-              height="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              className="w-full h-full"
-            >
-              {/* VERTICAL LINES — divides into 5 columns */}
-              <line x1="20%" y1="0" x2="20%" y2="100%" stroke="#004737" strokeWidth="3" />
-              <line x1="40%" y1="0" x2="40%" y2="100%" stroke="#004737" strokeWidth="3" />
-              <line x1="60%" y1="0" x2="60%" y2="100%" stroke="#004737" strokeWidth="3" />
-              <line x1="80%" y1="0" x2="80%" y2="100%" stroke="#004737" strokeWidth="3" />
-
-              {/* HORIZONTAL LINES — divides into 3 rows */}
-              <line x1="0" y1="33.33%" x2="100%" y2="33.33%" stroke="#004737" strokeWidth="3" />
-              <line x1="0" y1="66.66%" x2="100%" y2="66.66%" stroke="#004737" strokeWidth="3" />
-            </svg>
-          </div>
-
-          {/* LAYER 3: Dark Green Overlay */}
-          <div className="absolute inset-0 z-[2] bg-[rgba(0,51,38,0.50)] pointer-events-none" />
+          {/* STEP 5: Dark Overlay above the grid */}
+          <div className="absolute inset-0 z-[1] bg-[rgba(0,51,38,0.45)] pointer-events-none" />
 
           <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center px-4 sm:px-10">
             {/* Balloon cards — Centralized and Larger */}
