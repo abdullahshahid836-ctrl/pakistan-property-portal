@@ -8,24 +8,14 @@ import { Menu, X, Globe, ArrowRight, Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const Navbar = () => {
-  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
-  // Pages that have a light header background initially
-  const isLightPage = pathname === '/about' || pathname?.startsWith('/blog') || pathname === '/contact'
-
   const navLinks = [
     { name: 'Properties', href: '/search' },
     { name: 'Projects', href: '/new-projects' },
     { name: 'Trends', href: '/trends' },
     { name: 'Forum', href: '/forum' },
   ]
-
-  // Color scheme based on page type
-  const textColor = isLightPage ? 'text-[#004737]' : 'text-white'
-  const textMutedColor = isLightPage ? 'text-[#004737]/60' : 'text-white/80'
-  const pillBg = isLightPage ? 'bg-[#004737]/5' : 'bg-white/10'
-  const pillBorder = isLightPage ? 'border-[#004737]/10' : 'border-white/10'
 
   return (
     <motion.nav 
@@ -42,8 +32,8 @@ const Navbar = () => {
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#C8F55A] rounded-lg flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
                <Home className="w-5 h-5 text-[#004737]" />
             </div>
-            <span className={cn("font-syne font-black text-xl sm:text-2xl uppercase tracking-tighter transition-colors", textColor)}>
-              Pakistan <span className="text-[#004737] opacity-40">Property</span>
+            <span className="font-syne font-black text-xl sm:text-2xl uppercase tracking-tighter transition-colors text-white">
+              Pakistan <span className="text-white opacity-40">Property</span>
             </span>
           </Link>
 
@@ -53,10 +43,10 @@ const Navbar = () => {
               <Link 
                 key={link.name} 
                 href={link.href}
-                className={cn("text-[11px] font-bold font-syne uppercase tracking-[0.2em] transition-colors relative group", textMutedColor, "hover:text-[#004737]")}
+                className="text-[11px] font-bold font-syne uppercase tracking-[0.2em] transition-colors relative group text-white/80 hover:text-white"
               >
                 {link.name}
-                <span className={cn("absolute -bottom-1 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left", isLightPage ? "bg-[#004737]" : "bg-white")} />
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left bg-white" />
               </Link>
             ))}
           </div>
@@ -65,15 +55,12 @@ const Navbar = () => {
         {/* Right Side: Actions */}
         <div className="flex items-center gap-3">
           {/* Language Switcher */}
-          <button className={cn("hidden xl:flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-300 text-[10px] font-bold font-syne uppercase tracking-widest", pillBg, pillBorder, textColor)}>
+          <button className="hidden xl:flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-300 text-[10px] font-bold font-syne uppercase tracking-widest bg-white/10 border-white/10 text-white hover:bg-white/20">
             EN <Globe className="w-3.5 h-3.5" />
           </button>
 
           {/* Book a Demo Style (List Asset) */}
-          <Link href="/add-property" className={cn(
-            "hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-black/5",
-            isLightPage ? "bg-white text-[#004737] border border-[#DDD8CF] hover:bg-[#004737] hover:text-white" : "bg-white text-[#004737] hover:bg-[#C8F55A]"
-          )}>
+          <Link href="/add-property" className="hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-black/5 bg-white text-[#004737] hover:bg-[#C8F55A]">
              LIST ASSET <ArrowRight className="w-3.5 h-3.5" />
           </Link>
 
@@ -85,7 +72,7 @@ const Navbar = () => {
           {/* Mobile Toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={cn("lg:hidden w-11 h-11 rounded-full flex items-center justify-center border", pillBg, pillBorder, textColor)}
+            className="lg:hidden w-11 h-11 rounded-full flex items-center justify-center border bg-white/10 border-white/10 text-white"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
