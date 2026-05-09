@@ -1,14 +1,16 @@
 'use client'
  
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Globe, ArrowRight, Home } from 'lucide-react'
+import { Menu, X, Calendar, ArrowRight, Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const Navbar = () => {
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isAboutPage = pathname === '/about'
   
   const navLinks = [
     { name: 'Properties', href: '/search' },
@@ -50,17 +52,24 @@ const Navbar = () => {
     >
       <div className="max-w-[1800px] mx-auto px-4 sm:px-10 lg:px-16 flex items-center justify-between">
         
-        {/* Left Side: Logo + Nav */}
+        {/* Left Side: Logo (or About Link) + Nav */}
         <div className="flex items-center gap-12">
           <motion.div variants={itemVariants}>
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#C8F55A] rounded-lg flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
-                 <Home className="w-5 h-5 text-[#004737]" />
-              </div>
-              <span className="font-syne font-black text-xl sm:text-2xl uppercase tracking-tighter transition-colors text-white">
-                Pakistan <span className="text-white opacity-40">Property</span>
-              </span>
-            </Link>
+            {isAboutPage ? (
+              <Link href="/about" className="font-syne font-black text-xl text-white uppercase tracking-tighter relative group">
+                About
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-white scale-x-100" />
+              </Link>
+            ) : (
+              <Link href="/" className="flex items-center gap-2 group">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#C8F55A] rounded-lg flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
+                   <Home className="w-5 h-5 text-[#004737]" />
+                </div>
+                <span className="font-syne font-black text-xl sm:text-2xl uppercase tracking-tighter transition-colors text-white">
+                  Pakistan <span className="text-white opacity-40">Property</span>
+                </span>
+              </Link>
+            )}
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -81,21 +90,16 @@ const Navbar = () => {
 
         {/* Right Side: Actions */}
         <div className="flex items-center gap-3">
-          {/* Language Switcher */}
-          <motion.button variants={itemVariants} className="hidden xl:flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-300 text-[10px] font-bold font-syne uppercase tracking-widest bg-white/10 border-white/10 text-white hover:bg-white/20">
-            EN <Globe className="w-3.5 h-3.5" />
-          </motion.button>
-
-          {/* Book a Demo Style (List Asset) */}
+          {/* List Asset (Book a Demo Style) */}
           <motion.div variants={itemVariants}>
-            <Link href="/add-property" className="hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-black/5 bg-white text-[#004737] hover:bg-[#C8F55A]">
-               LIST ASSET <ArrowRight className="w-3.5 h-3.5" />
+            <Link href="/add-property" className="hidden sm:flex items-center gap-3 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-black/5 bg-[#D1FAE5] text-[#004737] hover:bg-white">
+               <Calendar className="w-4 h-4" /> LIST ASSET
             </Link>
           </motion.div>
 
           {/* Login Button */}
           <motion.div variants={itemVariants}>
-            <Link href="/login" className="px-8 py-2.5 rounded-full bg-[#C8F55A] text-[#004737] hover:bg-white text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-[#C8F55A]/20">
+            <Link href="/login" className="px-8 py-2.5 rounded-full bg-[#56F09F] text-[#004737] hover:bg-white text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-[#56F09F]/20">
                LOGIN
             </Link>
           </motion.div>
@@ -128,10 +132,10 @@ const Navbar = () => {
               ))}
               <div className="h-px bg-white/10 my-2" />
               <div className="flex flex-col gap-3">
-                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full py-5 bg-[#C8F55A] text-[#004737] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="w-full py-5 bg-[#56F09F] text-[#004737] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
                   LOGIN / REGISTER
                 </Link>
-                <Link href="/add-property" onClick={() => setMobileMenuOpen(false)} className="w-full py-5 bg-white text-[#004737] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
+                <Link href="/add-property" onClick={() => setMobileMenuOpen(false)} className="w-full py-5 bg-[#D1FAE5] text-[#004737] rounded-2xl font-black font-syne uppercase tracking-widest text-xs flex items-center justify-center">
                   LIST ASSET
                 </Link>
               </div>

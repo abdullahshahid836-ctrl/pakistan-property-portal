@@ -223,16 +223,22 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737] px-4 py-10 sm:py-20">
-          {/* Background */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80"
-              alt=""
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-[#004737]/90 via-[#004737]/80 to-[#0D2B1F]/95" />
+          {/* Background Layers */}
+          <div className="absolute inset-0 z-0 flex">
+            {/* Left side: Solid Dark Green */}
+            <div className="w-[40%] h-full bg-[#004737]" />
+            {/* Right side: Botanical Image */}
+            <div className="w-[60%] h-full relative">
+              <Image
+                src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=1600&auto=format&fit=crop"
+                alt="Botanical Background"
+                fill
+                className="object-cover"
+                priority
+              />
+              {/* Overlay gradient to blend with solid green */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#004737] via-[#004737]/60 to-transparent" />
+            </div>
           </div>
 
           <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center px-4 sm:px-10">
