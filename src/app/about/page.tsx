@@ -223,7 +223,7 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
-          {/* STEP 1: Fragmented Puzzle Grid Container (Sculpted & Rounded) */}
+          {/* STEP 1: Fragmented Puzzle Grid Container (Sculpted) */}
           <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 bg-[#004737]">
              {[...Array(15)].map((_, i) => {
               const col = i % 5;
@@ -235,16 +235,15 @@ const AboutPage = () => {
               const removedIndices = [0, 5, 8, 9, 10, 11, 12, 13, 14];
               const isVisible = !removedIndices.includes(i);
 
-              // Apply custom rounding based on yellow/black marked areas
+              // Outer Perimeter Rounding (ONLY the very edges)
               let roundingClass = "";
               if (i === 1) roundingClass = "rounded-tl-[8rem]";
-              if (i === 6) roundingClass = "rounded-bl-[8rem]";
-              if (i === 7) roundingClass = "rounded-tl-[8rem] rounded-br-[8rem]"; // Added tl per yellow circle
+              if (i === 4) roundingClass = "rounded-tr-[8rem]";
 
               return (
                 <div
                   key={i}
-                  className={`w-full h-full ${roundingClass}`}
+                  className={`w-full h-full relative ${roundingClass}`}
                   style={{
                     backgroundImage: isVisible ? `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)` : 'none',
                     backgroundSize: '500% 300%',
@@ -252,7 +251,22 @@ const AboutPage = () => {
                     backgroundRepeat: 'no-repeat',
                     backgroundColor: '#004737'
                   }}
-                />
+                >
+                  {/* INVERTED CORNER LOGIC (Concave) */}
+                  {/* Corner A: Blue Circle (Top-left of Tile 6) */}
+                  {i === 6 && (
+                    <div className="absolute -top-16 -left-16 w-16 h-16 pointer-events-none z-10 overflow-hidden">
+                       <div className="w-full h-full rounded-br-[4rem] shadow-[20px_20px_0_40px_#004737]" />
+                    </div>
+                  )}
+
+                  {/* Corner B: Blue Arrow (Top-left of Tile 7) */}
+                  {i === 7 && (
+                    <div className="absolute -top-16 -left-16 w-16 h-16 pointer-events-none z-10 overflow-hidden">
+                       <div className="w-full h-full rounded-br-[4rem] shadow-[20px_20px_0_40px_#004737]" />
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>
