@@ -228,6 +228,11 @@ const AboutPage = () => {
              {[...Array(15)].map((_, i) => {
               const col = i % 5;
               const row = Math.floor(i / 5);
+              
+              // Define indices to remove for the puzzle cutout effect
+              const toRemove = [0, 5, 10, 11, 12];
+              if (toRemove.includes(i)) return <div key={i} className="w-full h-full bg-transparent" />;
+
               return (
                 <div
                   key={i}
