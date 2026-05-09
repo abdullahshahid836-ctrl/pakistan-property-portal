@@ -237,7 +237,7 @@ const AboutPage = () => {
 
           <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center px-4 sm:px-10">
             {/* Balloon cards — Centralized and Larger */}
-            <div className="w-full flex flex-col lg:flex-row items-center justify-center relative -mt-5 lg:-mt-10">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-center relative -mt-5 lg:-mt-10 gap-16 lg:gap-0 px-4 sm:px-10">
               {/* Card 1: MISSION — Notch TOP-RIGHT */}
               <div
                 ref={missionRef}

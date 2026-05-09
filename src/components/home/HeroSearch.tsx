@@ -75,7 +75,7 @@ const HeroSearch = () => {
         </Reveal>
 
         <Reveal direction="up" delay={0.2}>
-          <h1 className="text-flecto-h1 text-white mb-10">
+          <h1 className="text-4xl sm:text-7xl lg:text-8xl font-syne font-black text-white mb-10 leading-[0.95] uppercase tracking-tight">
             Elevate Your <br />
             <span className="text-[#C8F55A] italic">Lifestyle.</span>
           </h1>
@@ -90,13 +90,13 @@ const HeroSearch = () => {
         <Reveal direction="up" delay={0.4} className="w-full">
           <div className="max-w-4xl mx-auto">
             {/* Tabs */}
-            <div className="flex gap-2 mb-0 ml-4">
+            <div className="flex gap-1 mb-0 ml-0 sm:ml-4 overflow-x-auto no-scrollbar scroll-smooth pb-1 px-4 sm:px-0">
               {(['BUY', 'RENT', 'PROJECTS'] as const).map(tab => (
                 <button 
                   key={tab} 
                   onClick={() => setActiveTab(tab)}
                   className={cn(
-                    'px-10 py-5 text-[10px] font-black font-syne tracking-[0.3em] rounded-t-[2rem] transition-all duration-700 relative overflow-hidden uppercase',
+                    'whitespace-nowrap px-8 sm:px-10 py-4 sm:py-5 text-[9px] sm:text-[10px] font-black font-syne tracking-[0.2em] sm:tracking-[0.3em] rounded-t-[1.5rem] sm:rounded-t-[2rem] transition-all duration-700 relative overflow-hidden uppercase flex-shrink-0',
                     activeTab === tab ? 'bg-[#F5F0E8] text-[#004737]' : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white'
                   )}
                 >
