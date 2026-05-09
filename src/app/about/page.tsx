@@ -226,18 +226,20 @@ const AboutPage = () => {
           {/* Background Layers */}
           <div className="absolute inset-0 z-0 flex">
             {/* Left side: Solid Dark Green */}
-            <div className="w-[40%] h-full bg-[#004737]" />
-            {/* Right side: Botanical Image */}
-            <div className="w-[60%] h-full relative">
-              <Image
-                src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=1600&auto=format&fit=crop"
-                alt="Botanical Background"
-                fill
-                className="object-cover"
-                priority
-              />
-              {/* Overlay gradient to blend with solid green */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#004737] via-[#004737]/60 to-transparent" />
+            <div className="w-[45%] h-full bg-[#004737]" />
+            {/* Right side: Botanical Image with cut corner */}
+            <div className="w-[55%] h-full relative">
+              <div className="absolute inset-0 top-12 left-0 rounded-tl-[8rem] sm:rounded-tl-[12rem] overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=1600&auto=format&fit=crop"
+                  alt="Botanical Background"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#004737]/40 via-transparent to-transparent" />
+              </div>
             </div>
           </div>
 
