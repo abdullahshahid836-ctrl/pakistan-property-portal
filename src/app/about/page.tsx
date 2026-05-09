@@ -224,31 +224,34 @@ const AboutPage = () => {
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
           {/* STEP 1: Fragmented Puzzle Grid Container (Sculpted & Rounded) */}
-          <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 bg-[#004737] p-4 gap-4">
+          <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 bg-[#004737]">
              {[...Array(15)].map((_, i) => {
               const col = i % 5;
               const row = Math.floor(i / 5);
               
-              // Define indices to remove based on user request:
-              // 1. First 3 boxes from left side (First Column): 0, 5, 10
-              // 2. Bottom left 3 boxes: 10, 11, 12
-              // 3. Second line right side (2 boxes): 8, 9
-              // 4. Bottom 2 right boxes: 13, 14
-              const removedIndices = [0, 5, 10, 11, 12, 8, 9, 13, 14];
+              // 1. First column (0, 5, 10)
+              // 2. Bottom row (10, 11, 12, 13, 14)
+              // 3. Middle row right (8, 9)
+              const removedIndices = [0, 5, 8, 9, 10, 11, 12, 13, 14];
               const isVisible = !removedIndices.includes(i);
+
+              // Apply custom rounding to outer corners of the collective shape
+              let roundingClass = "";
+              if (i === 1) roundingClass = "rounded-tl-[8rem]";
+              if (i === 4) roundingClass = "rounded-tr-[8rem]";
+              if (i === 7) roundingClass = "rounded-br-[8rem]";
+              if (i === 6) roundingClass = "rounded-bl-[8rem]";
 
               return (
                 <div
                   key={i}
-                  className="w-full h-full"
+                  className={`w-full h-full ${roundingClass}`}
                   style={{
                     backgroundImage: isVisible ? `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)` : 'none',
                     backgroundSize: '500% 300%',
                     backgroundPosition: `${col * 25}% ${row * 50}%`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundColor: isVisible ? 'transparent' : '#004737',
-                    borderRadius: isVisible ? '2rem' : '0',
-                    transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)'
+                    backgroundColor: '#004737'
                   }}
                 />
               );
