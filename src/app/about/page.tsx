@@ -138,112 +138,75 @@ const AboutPage = () => {
       `}</style>
 
       <div className="overflow-x-hidden">
-        {/* 1. HERO — Responsive Flecto Design */}
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737] px-4 py-20 sm:py-32">
-          {/* Background */}
+        {/* 1. HERO — Focused Card Design */}
+        <section className="relative w-full h-[100vh] bg-[#004737] flex items-center justify-center overflow-hidden">
+          {/* Background Image (Optional, kept subtle) */}
           <div className="absolute inset-0 z-0">
             <Image
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80"
               alt=""
               fill
-              className="object-cover opacity-20"
+              className="object-cover opacity-10"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-[#004737]/90 via-[#004737]/80 to-[#0D2B1F]/95" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#004737]/40 to-[#004737]" />
           </div>
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-            {/* Heading block */}
-            <div className="w-full lg:w-[45%] text-center lg:text-left">
-              <motion.span
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
-                className="inline-flex items-center gap-2 mb-6 sm:mb-10 px-4 py-2 rounded-full border border-white/10 text-white/40 font-syne font-black text-[10px] uppercase tracking-[0.3em]"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C8F55A]" />
-                About Us
-              </motion.span>
+          <style dangerouslySetInnerHTML={{ __html: `
+            @keyframes slideInFromLeft {
+              0% { opacity: 0; transform: translateX(-120px) rotate(-3deg); }
+              100% { opacity: 1; transform: translateX(0px) rotate(0deg); }
+            }
+            @keyframes slideInFromRight {
+              0% { opacity: 0; transform: translateX(120px) rotate(3deg); }
+              100% { opacity: 1; transform: translateX(0px) rotate(0deg); }
+            }
+            .mission-card-animate {
+              opacity: 0;
+              animation: slideInFromLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+              animation-delay: 200ms;
+            }
+            .vision-card-animate {
+              opacity: 0;
+              animation: slideInFromRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+              animation-delay: 400ms;
+            }
+          `}} />
 
-              <div className="mb-8 sm:mb-10">
-                <HeroLine delay={0.25}>
-                  <h1 className="font-syne font-black text-white uppercase tracking-tighter leading-[0.85]" style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}>
-                    Pakistan&apos;s
-                  </h1>
-                </HeroLine>
-                <HeroLine delay={0.4}>
-                  <h1 className="font-syne font-black text-[#C8F55A] italic uppercase tracking-tighter leading-[0.85]" style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}>
-                    Most Trusted
-                  </h1>
-                </HeroLine>
-                <HeroLine delay={0.55}>
-                  <h1 className="font-syne font-black text-white uppercase tracking-tighter leading-[0.85]" style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}>
-                    Network.
-                  </h1>
-                </HeroLine>
-              </div>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.6 }}
-                transition={{ duration: 1.2, delay: 0.85 }}
-                className="text-white font-inter text-base sm:text-lg leading-relaxed max-w-md mx-auto lg:mx-0"
-              >
-                Redefining the real estate landscape in Pakistan through transparency, technology, and a premium user experience.
-              </motion.p>
+          {/* Cards Container */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-10 flex flex-col md:flex-row items-start md:items-center justify-center">
+            
+            {/* MISSION CARD */}
+            <div className="mission-card-animate relative w-full md:w-[420px] bg-[#0a5a46] rounded-[16px] p-10 z-[1] shadow-2xl">
+              <span className="absolute -top-[28px] left-0 font-syne font-bold text-[#C8F55A] text-[11px] uppercase tracking-[0.2em]">
+                Mission
+              </span>
+              <h3 className="font-syne font-extrabold text-white uppercase text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.1]">
+                Our Mission<br/>Defined.
+              </h3>
+              <p className="font-inter text-white/70 text-[15px] leading-relaxed mt-4">
+                Pakistan Property Portal connects buyers, sellers and tenants with verified properties across 25+ cities in Pakistan.
+              </p>
             </div>
 
-            {/* Balloon cards */}
-            <div className="w-full lg:w-[60%] flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-10 relative pb-10 lg:pb-0">
-              {/* Card 1: MISSION — Notch TOP-RIGHT */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: EASE, delay: 0.6 }}
-                className="relative w-full sm:w-[50%] max-w-[420px] aspect-[545/402] z-10"
-              >
-                <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="#01382C" d="M13.62 47.225 L404.15 47.225 C404.15 47.225, 417.775 47.225, 417.775 33.601 L417.775 13.624 C417.775 13.624, 417.775 0, 431.398 0 L532.076 0 C532.076 0, 545.7 0, 545.7 13.624 L545.7 39.389 C545.7 39.389, 545.7 53.013, 532.076 53.013 L437.186 53.013 C437.186 53.013, 423.563 53.013, 423.563 66.636 L423.563 388.676 C423.563 388.676, 423.563 402.3, 409.939 402.3 L13.624 402.3 C13.624 402.3, 0 402.3, 0 388.676 L0 60.849 C0 60.849, 0 47.225, 13.624 47.225" />
-                </svg>
-                {/* Overlay content — precise positioning for MISSION card */}
-                <div className="absolute inset-0 pointer-events-none">
-                  {/* Label in notch */}
-                  <span className="absolute top-[3%] right-[5%] w-[18%] text-center font-syne font-black text-[#C8F55A] text-[clamp(9px,1vw,11px)] uppercase tracking-[0.2em]">Mission</span>
-                  {/* Body Content */}
-                  <div className="absolute top-[22%] left-[10%] right-[30%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-white uppercase text-[clamp(18px,2vw,26px)] leading-[1] mb-2 sm:mb-4">Our Mission<br/>Defined.</h3>
-                    <p className="font-inter text-white/50 text-[clamp(10px,1vw,13px)] leading-relaxed">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem.</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Card 2: VISION — Notch TOP-LEFT */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: EASE, delay: 0.8 }}
-                className="relative w-full sm:w-[50%] max-w-[420px] aspect-[449/364] sm:mt-[15%] lg:mt-[10%] z-20"
-              >
-                <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="#56F09F" d="M13.624 0 L112.901 0 C112.901 0, 126.525 0, 126.525 13.624 L126.525 34.176 C126.525 34.176, 126.525 47.8, 140.149 47.8 L435.676 47.8 C435.676 47.8, 449.3 47.8, 449.3 61.424 L449.3 350.889 C449.3 350.889, 449.3 364.512, 435.676 364.512 L137.261 364.512 C137.261 364.512, 123.638 364.512, 123.638 350.889 L123.638 64.311 C123.638 64.311, 123.638 50.688, 110.014 50.688 L13.624 50.688 C13.624 50.688, 0 50.688, 0 37.064 L0 13.624 C0 13.624, 0 0, 13.624 0" />
-                </svg>
-                {/* Overlay content — precise positioning for VISION card */}
-                <div className="absolute inset-0 pointer-events-none">
-                  {/* Label in notch */}
-                  <span className="absolute top-[4%] left-[3%] w-[25%] text-center font-syne font-black text-[#01382C] text-[clamp(9px,1vw,11px)] uppercase tracking-[0.2em]">Vision</span>
-                  {/* Body Content */}
-                  <div className="absolute top-[25%] left-[32%] right-[10%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(18px,2vw,26px)] leading-[1] mb-2 sm:mb-4">12+ Years<br/>Experience.</h3>
-                    <p className="font-inter text-[#01382C]/60 text-[clamp(10px,1vw,13px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their life milestones.</p>
-                  </div>
-                </div>
-              </motion.div>
+            {/* VISION CARD */}
+            <div className="vision-card-animate relative w-full md:w-[380px] bg-[#C8F55A] rounded-[16px] p-10 z-[2] shadow-2xl md:-ml-[40px] md:mt-[40px] mt-8">
+              <span className="absolute -top-[28px] left-0 font-syne font-bold text-[#004737] text-[11px] uppercase tracking-[0.2em]">
+                Vision
+              </span>
+              <h3 className="font-syne font-extrabold text-[#004737] uppercase text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.1]">
+                12+ Years<br/>Experience.
+              </h3>
+              <p className="font-inter text-[#004737]/75 text-[15px] leading-relaxed mt-4">
+                50,000+ active members trust Pakistan Property Portal for their real estate needs every single day.
+              </p>
             </div>
+
           </div>
 
           {/* Scroll indicator */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-            <span className="text-white/20 font-syne font-black text-[9px] uppercase tracking-[0.4em]">Scroll</span>
+            <span className="text-white/20 font-syne font-bold text-[9px] uppercase tracking-[0.4em]">Scroll</span>
             <div className="scroll-bounce text-white/20"><ChevronDown className="w-5 h-5" /></div>
           </div>
         </section>
