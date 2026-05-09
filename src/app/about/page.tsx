@@ -250,7 +250,11 @@ const AboutPage = () => {
             {/* Balloon cards — Centralized and Larger */}
             <div className="w-full flex flex-col lg:flex-row items-center justify-center relative -mt-5 lg:-mt-56 gap-16 lg:gap-0 px-4 sm:px-10">
               {/* Card 1: MISSION — Notch TOP-RIGHT */}
-              <div
+              <motion.div
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as any }}
                 className="relative w-full lg:w-[55%] max-w-[920px] aspect-[545/402] z-20"
               >
                 <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-[0_40px_100px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
@@ -263,10 +267,14 @@ const AboutPage = () => {
                     <p className="font-inter text-white/50 text-[clamp(11px,1.4vw,20px)] leading-relaxed max-w-[500px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card 2: VISION — Notch TOP-LEFT */}
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 100, x: 50 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] as any }}
                 className="relative w-full lg:w-[50%] max-w-[920px] aspect-[449/364] lg:mt-[60%] lg:-ml-[2%] z-10"
               >
                 <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_40px_100px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
@@ -279,7 +287,7 @@ const AboutPage = () => {
                     <p className="font-inter text-[#01382C]/60 text-[clamp(11px,1.4vw,20px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
