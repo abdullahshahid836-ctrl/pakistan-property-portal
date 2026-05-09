@@ -152,35 +152,24 @@ const AboutPage = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-[#004737]/90 via-[#004737]/80 to-[#0D2B1F]/95" />
           </div>
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center pt-20">
-            {/* Top Label */}
-            <motion.span
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
-              className="inline-flex items-center gap-2 mb-16 px-5 py-2.5 rounded-full border border-white/10 text-white/40 font-syne font-black text-[11px] uppercase tracking-[0.4em]"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#C8F55A]" />
-              About Our Network
-            </motion.span>
-
+          <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center pt-10 sm:pt-0">
             {/* Balloon cards — Centralized and Larger */}
-            <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 relative">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 relative -mt-10 sm:-mt-20">
               {/* Card 1: MISSION — Notch TOP-RIGHT */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: EASE, delay: 0.3 }}
-                className="relative w-[95%] sm:w-[85%] lg:w-1/2 max-w-[580px] aspect-[545/402] z-10"
+                transition={{ duration: 1, ease: EASE, delay: 0.2 }}
+                className="relative w-[95%] sm:w-[90%] lg:w-1/2 max-w-[650px] aspect-[545/402] z-10"
               >
-                <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#01382C" d="M13.62 47.225 L404.15 47.225 C404.15 47.225, 417.775 47.225, 417.775 33.601 L417.775 13.624 C417.775 13.624, 417.775 0, 431.398 0 L532.076 0 C532.076 0, 545.7 0, 545.7 13.624 L545.7 39.389 C545.7 39.389, 545.7 53.013,532.076 53.013 L437.186 53.013 C437.186 53.013, 423.563 53.013, 423.563 66.636 L423.563 388.676 C423.563 388.676, 423.563 402.3, 409.939 402.3 L13.624 402.3 C13.624 402.3, 0 402.3, 0 388.676 L0 60.849 C0 60.849, 0 47.225, 13.624 47.225" />
                 </svg>
                 <div className="absolute inset-0 pointer-events-none">
-                  <span className="absolute top-[4%] right-[4%] w-[20%] text-center font-syne font-black text-[#C8F55A] text-[clamp(10px,1.2vw,13px)] uppercase tracking-[0.25em]">Mission</span>
+                  <span className="absolute top-[4%] right-[4%] w-[20%] text-center font-syne font-black text-[#C8F55A] text-[clamp(10px,1.4vw,14px)] uppercase tracking-[0.3em]">Mission</span>
                   <div className="absolute top-[25%] left-[8%] right-[28%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-white uppercase text-[clamp(24px,3vw,38px)] leading-[1.05] mb-4 sm:mb-6">Our Mission<br/>Defined.</h3>
-                    <p className="font-inter text-white/50 text-[clamp(13px,1.3vw,17px)] leading-relaxed max-w-[320px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
+                    <h3 className="font-syne font-black text-white uppercase text-[clamp(26px,3.5vw,44px)] leading-[1.0] mb-4 sm:mb-8">Our Mission<br/>Defined.</h3>
+                    <p className="font-inter text-white/50 text-[clamp(14px,1.5vw,18px)] leading-relaxed max-w-[340px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
                   </div>
                 </div>
               </motion.div>
@@ -189,17 +178,17 @@ const AboutPage = () => {
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: EASE, delay: 0.5 }}
-                className="relative w-[95%] sm:w-[85%] lg:w-1/2 max-w-[580px] aspect-[449/364] z-20"
+                transition={{ duration: 1, ease: EASE, delay: 0.4 }}
+                className="relative w-[95%] sm:w-[90%] lg:w-1/2 max-w-[650px] aspect-[449/364] z-20"
               >
-                <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#56F09F" d="M13.624 0 L112.901 0 C112.901 0, 126.525 0, 126.525 13.624 L126.525 34.176 C126.525 34.176, 126.525 47.8, 140.149 47.8 L435.676 47.8 C435.676 47.8, 449.3 47.8, 449.3 61.424 L449.3 350.889 C449.3 350.889, 449.3 364.512, 435.676 364.512 L137.261 364.512 C137.261 364.512, 123.638 364.512, 123.638 350.889 L123.638 64.311 C123.638 64.311, 123.638 50.688, 110.014 50.688 L13.624 50.688 C13.624 50.688, 0 50.688, 0 37.064 L0 13.624 C0 13.624, 0 0, 13.624 0" />
                 </svg>
                 <div className="absolute inset-0 pointer-events-none">
-                  <span className="absolute top-[4.5%] left-[3%] w-[25%] text-center font-syne font-black text-[#01382C] text-[clamp(10px,1.2vw,13px)] uppercase tracking-[0.25em]">Vision</span>
-                  <div className="absolute top-[28%] left-[32%] right-[8%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(24px,3vw,38px)] leading-[1.05] mb-4 sm:mb-6">12+ Years<br/>Experience.</h3>
-                    <p className="font-inter text-[#01382C]/60 text-[clamp(13px,1.3vw,17px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
+                  <span className="absolute top-[4.5%] left-[3%] w-[25%] text-center font-syne font-black text-[#01382C] text-[clamp(10px,1.4vw,14px)] uppercase tracking-[0.3em]">Vision</span>
+                  <div className="absolute top-[26%] left-[32%] right-[10%] bottom-[10%] flex flex-col justify-start">
+                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(26px,3.5vw,44px)] leading-[1.0] mb-4 sm:mb-8">12+ Years<br/>Experience.</h3>
+                    <p className="font-inter text-[#01382C]/60 text-[clamp(14px,1.5vw,18px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
                   </div>
                 </div>
               </motion.div>
