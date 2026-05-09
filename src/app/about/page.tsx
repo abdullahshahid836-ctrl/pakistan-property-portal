@@ -223,25 +223,29 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
-          {/* STEP 1: Fragmented Puzzle Grid Container */}
-          <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 gap-1 bg-[#004737]">
+          {/* STEP 1: Fragmented Puzzle Grid Container (Sculpted) */}
+          <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 bg-[#004737]">
              {[...Array(15)].map((_, i) => {
               const col = i % 5;
               const row = Math.floor(i / 5);
               
-              // Define indices to remove for the puzzle cutout effect
-              const toRemove = [0, 5, 10, 11, 12];
-              if (toRemove.includes(i)) return <div key={i} className="w-full h-full bg-transparent" />;
+              // Define indices to remove based on user request:
+              // 1. First 3 boxes from left side (First Column): 0, 5, 10
+              // 2. Bottom left 3 boxes: 10, 11, 12
+              // 3. Second line right side (2 boxes): 8, 9
+              const removedIndices = [0, 5, 10, 11, 12, 8, 9];
+              const isVisible = !removedIndices.includes(i);
 
               return (
                 <div
                   key={i}
                   className="w-full h-full"
                   style={{
-                    backgroundImage: `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)`,
+                    backgroundImage: isVisible ? `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)` : 'none',
                     backgroundSize: '500% 300%',
                     backgroundPosition: `${col * 25}% ${row * 50}%`,
                     backgroundRepeat: 'no-repeat',
+                    backgroundColor: '#004737'
                   }}
                 />
               );
