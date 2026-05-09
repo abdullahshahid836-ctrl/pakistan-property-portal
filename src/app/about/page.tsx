@@ -250,8 +250,8 @@ const AboutPage = () => {
                 <div className="absolute inset-0 pointer-events-none">
                   <span className="absolute top-[4%] right-[4%] w-[20%] text-center font-syne font-black text-[#C8F55A] text-[clamp(11px,1.4vw,18px)] uppercase tracking-[0.3em]">Mission</span>
                   <div className="absolute top-[26%] sm:top-[25%] left-[8%] right-[30%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-white uppercase text-[clamp(24px,4vw,60px)] leading-[0.9] mb-4 sm:mb-12 break-words">Our Mission<br/>Defined.</h3>
-                    <p className="font-inter text-white/50 text-[clamp(13px,1.6vw,24px)] leading-relaxed max-w-[500px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
+                    <h3 className="font-syne font-black text-white uppercase text-[clamp(18px,3.5vw,48px)] leading-[0.9] mb-4 sm:mb-12 break-words">Our Mission<br/>Defined.</h3>
+                    <p className="font-inter text-white/50 text-[clamp(11px,1.4vw,20px)] leading-relaxed max-w-[500px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
                   </div>
                 </div>
               </div>
@@ -268,8 +268,8 @@ const AboutPage = () => {
                 <div className="absolute inset-0 pointer-events-none">
                   <span className="absolute top-[4.5%] left-[3%] w-[25%] text-center font-syne font-black text-[#01382C] text-[clamp(11px,1.4vw,18px)] uppercase tracking-[0.3em]">Vision</span>
                   <div className="absolute top-[28%] sm:top-[26%] left-[32%] right-[10%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(24px,4vw,60px)] leading-[0.9] mb-4 sm:mb-12 break-words">12+ Years<br/>Experience.</h3>
-                    <p className="font-inter text-[#01382C]/60 text-[clamp(13px,1.6vw,24px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
+                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(18px,3.5vw,48px)] leading-[0.9] mb-4 sm:mb-12 break-words">12+ Years<br/>Experience.</h3>
+                    <p className="font-inter text-[#01382C]/60 text-[clamp(11px,1.4vw,20px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
                   </div>
                 </div>
               </div>

@@ -75,7 +75,7 @@ const HeroSearch = () => {
         </Reveal>
 
         <Reveal direction="up" delay={0.2}>
-          <h1 className="text-3xl sm:text-7xl lg:text-8xl font-syne font-black text-white mb-10 leading-[0.9] uppercase tracking-tighter">
+          <h1 className="text-2xl sm:text-6xl lg:text-7xl font-syne font-black text-white mb-10 leading-[0.9] uppercase tracking-tighter">
             Elevate Your <br />
             <span className="text-[#C8F55A] italic">Lifestyle.</span>
           </h1>

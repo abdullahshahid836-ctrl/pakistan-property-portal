@@ -32,7 +32,7 @@ const ExploreTools = () => {
             <div className="flex justify-center mb-6">
                <span className="pill-label bg-white border-[#DDD8CF] text-[#004737] shadow-lg px-8 py-2">DIGITAL ECOSYSTEM</span>
             </div>
-            <h2 className="font-syne font-black text-3xl sm:text-6xl lg:text-7xl text-[#0D1B17] uppercase tracking-tighter leading-none">
+            <h2 className="font-syne font-black text-2xl sm:text-5xl text-[#0D1B17] uppercase tracking-tighter leading-none">
               Intelligence <br />
               <span className="text-[#004737] italic">Suite.</span>
             </h2>
