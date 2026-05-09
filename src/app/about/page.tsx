@@ -6,6 +6,10 @@ import Image from 'next/image'
 import Script from 'next/script'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { ShieldCheck, Users, Zap, Heart, Compass, ArrowRight, RotateCcw, ChevronDown } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Flecto's signature quintic ease-out
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -105,6 +109,61 @@ const JourneyItem = ({ item, i }: { item: { year: string; title: string; desc: s
 // MAIN PAGE
 // ─────────────────────────────────────────────────────────────────────────────
 const AboutPage = () => {
+  const missionRef = useRef<HTMLDivElement>(null)
+  const visionRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const mission = missionRef.current
+    const vision = visionRef.current
+    const section = sectionRef.current
+    if (!mission || !vision || !section) return
+
+    // Mission card: starts -440px to the left
+    gsap.set(mission, { 
+      x: -440, 
+      opacity: 0 
+    })
+
+    // Vision card: starts at normal position
+    // but invisible (opacity 0)
+    gsap.set(vision, { 
+      x: 0,
+      opacity: 0,
+      scale: 0.95
+    })
+
+    // Timeline triggered when section enters view
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 75%',
+        once: true,
+      }
+    })
+
+    // Step 1: Mission slides in from left
+    tl.to(mission, {
+      x: 0,
+      opacity: 1,
+      duration: 1.0,
+      ease: 'power3.out',
+    })
+
+    // Step 2: Vision fades in and scales up
+    // starts slightly before mission finishes
+    .to(vision, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      ease: 'power2.out',
+    }, '-=0.3')
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill())
+    }
+  }, [])
+
   const timelineRef = useRef(null)
   const { scrollYProgress: timelineProgress } = useScroll({
     target: timelineRef,
@@ -139,7 +198,7 @@ const AboutPage = () => {
 
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737] px-4 py-20 sm:py-32">
+        <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737] px-4 py-20 sm:py-32">
           {/* Background */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -156,10 +215,9 @@ const AboutPage = () => {
             {/* Balloon cards — Centralized and Larger */}
             <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 relative -mt-10 sm:-mt-20">
               {/* Card 1: MISSION — Notch TOP-RIGHT */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: EASE, delay: 0.2 }}
+              <div
+                ref={missionRef}
+                style={{ opacity: 0 }}
                 className="relative w-[95%] sm:w-[90%] lg:w-1/2 max-w-[650px] aspect-[545/402] z-10"
               >
                 <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]" xmlns="http://www.w3.org/2000/svg">
@@ -172,13 +230,12 @@ const AboutPage = () => {
                     <p className="font-inter text-white/50 text-[clamp(14px,1.5vw,18px)] leading-relaxed max-w-[340px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Card 2: VISION — Notch TOP-LEFT */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: EASE, delay: 0.4 }}
+              <div
+                ref={visionRef}
+                style={{ opacity: 0 }}
                 className="relative w-[95%] sm:w-[90%] lg:w-1/2 max-w-[650px] aspect-[449/364] z-20"
               >
                 <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]" xmlns="http://www.w3.org/2000/svg">
@@ -191,7 +248,7 @@ const AboutPage = () => {
                     <p className="font-inter text-[#01382C]/60 text-[clamp(14px,1.5vw,18px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
 
