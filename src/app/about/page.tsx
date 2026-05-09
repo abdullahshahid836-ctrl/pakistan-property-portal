@@ -223,40 +223,52 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
-          {/* STEP 2: Grid Background Layer */}
-          <div className="absolute inset-0 z-0 hidden lg:grid grid-cols-5 grid-rows-3 gap-[3px]">
-            {Array.from({ length: 15 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920)`,
-                  backgroundSize: '500% 300%',
-                  backgroundAttachment: 'fixed',
-                  backgroundPosition: `${(i % 5) * 25}% ${Math.floor(i / 5) * 50}%`,
-                }}
-              />
-            ))}
+          {/* STEP 2: Grid Background Layer (Fixed Logic) */}
+          <div className="absolute inset-0 z-0 hidden lg:grid grid-cols-5 grid-rows-3 gap-[2px]">
+            {Array.from({ length: 15 }).map((_, i) => {
+              const col = i % 5;
+              const row = Math.floor(i / 5);
+              const xPos = (col / 4) * 100;
+              const yPos = (row / 2) * 100;
+              return (
+                <div
+                  key={i}
+                  className="w-full h-full"
+                  style={{
+                    backgroundImage: `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)`,
+                    backgroundSize: '500% 300%',
+                    backgroundAttachment: 'fixed',
+                    backgroundPosition: `${xPos}% ${yPos}%`,
+                  }}
+                />
+              );
+            })}
           </div>
 
-          {/* Mobile Grid Layer (3x4) */}
-          <div className="absolute inset-0 z-0 grid lg:hidden grid-cols-3 grid-rows-4 gap-[3px]">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920)`,
-                  backgroundSize: '300% 400%',
-                  backgroundAttachment: 'fixed',
-                  backgroundPosition: `${(i % 3) * 50}% ${Math.floor(i / 3) * 33}%`,
-                }}
-              />
-            ))}
+          {/* Mobile Grid Layer (3x4) (Fixed Logic) */}
+          <div className="absolute inset-0 z-0 grid lg:hidden grid-cols-3 grid-rows-4 gap-[2px]">
+            {Array.from({ length: 12 }).map((_, i) => {
+              const col = i % 3;
+              const row = Math.floor(i / 3);
+              const xPos = (col / 2) * 100;
+              const yPos = (row / 3) * 100;
+              return (
+                <div
+                  key={i}
+                  className="w-full h-full"
+                  style={{
+                    backgroundImage: `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)`,
+                    backgroundSize: '300% 400%',
+                    backgroundAttachment: 'fixed',
+                    backgroundPosition: `${xPos}% ${yPos}%`,
+                  }}
+                />
+              );
+            })}
           </div>
 
-          {/* STEP 3: Dark Overlay */}
-          <div className="absolute inset-0 z-1 bg-[#004737]/45 pointer-events-none" />
+          {/* STEP 4: Refined Dark Overlay */}
+          <div className="absolute inset-0 z-1 bg-[rgba(0,51,38,0.55)] pointer-events-none" />
 
           <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center px-4 sm:px-10">
             {/* Balloon cards — Centralized and Larger */}
