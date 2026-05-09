@@ -119,21 +119,28 @@ const AboutPage = () => {
     const section = sectionRef.current
     if (!mission || !vision || !section) return
 
-    // Mission card: starts -440px to the left
+    // Setup initial states for expansion effect
+    // Mission expands from its top-right notch
     gsap.set(mission, { 
-      x: -440, 
-      opacity: 0 
-    })
-
-    // Vision card: starts at normal position
-    // but invisible (opacity 0)
-    gsap.set(vision, { 
-      x: 0,
+      x: 200, 
+      scale: 0.2,
       opacity: 0,
-      scale: 0.95
+      transformOrigin: "85% 10%" 
     })
 
-    // Timeline triggered when section enters view
+    // Vision expands from its top-left notch
+    gsap.set(vision, { 
+      x: -200,
+      scale: 0.2,
+      opacity: 0,
+      transformOrigin: "15% 10%"
+    })
+
+    // Hide internal content initially
+    const missionContent = mission.querySelectorAll('h3, p, span')
+    const visionContent = vision.querySelectorAll('h3, p, span')
+    gsap.set([missionContent, visionContent], { opacity: 0, y: 10 })
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
@@ -142,22 +149,39 @@ const AboutPage = () => {
       }
     })
 
-    // Step 1: Mission slides in from left
+    // 1. Mission Expansion
     tl.to(mission, {
       x: 0,
-      opacity: 1,
-      duration: 1.0,
-      ease: 'power3.out',
-    })
-
-    // Step 2: Vision fades in and scales up
-    // starts slightly before mission finishes
-    .to(vision, {
-      opacity: 1,
       scale: 1,
+      opacity: 1,
+      duration: 1.4,
+      ease: "expo.out",
+    })
+    // 2. Mission Content Reveal
+    .to(missionContent, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
       duration: 0.8,
-      ease: 'power2.out',
-    }, '-=0.3')
+      ease: "power2.out"
+    }, "-=0.8")
+
+    // 3. Vision Expansion (Starts after Mission is settled)
+    .to(vision, {
+      x: 0,
+      scale: 1,
+      opacity: 1,
+      duration: 1.4,
+      ease: "expo.out",
+    }, "-=0.4")
+    // 4. Vision Content Reveal
+    .to(visionContent, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: "power2.out"
+    }, "-=0.8")
 
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill())
