@@ -222,26 +222,41 @@ const AboutPage = () => {
 
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
-        <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737] px-4 py-10 sm:py-20">
-          {/* Background Layers */}
-          <div className="absolute inset-0 z-0 flex">
-            {/* Left side: Solid Dark Green */}
-            <div className="w-[45%] h-full bg-[#004737]" />
-            {/* Right side: Botanical Image with cut corner */}
-            <div className="w-[55%] h-full relative">
-              <div className="absolute inset-0 top-12 left-0 rounded-tl-[8rem] sm:rounded-tl-[12rem] overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=1600&auto=format&fit=crop"
-                  alt="Botanical Background"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#004737]/40 via-transparent to-transparent" />
-              </div>
-            </div>
+        <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
+          {/* STEP 2: Grid Background Layer */}
+          <div className="absolute inset-0 z-0 hidden lg:grid grid-cols-5 grid-rows-3 gap-[3px]">
+            {Array.from({ length: 15 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-full h-full"
+                style={{
+                  backgroundImage: `url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920)`,
+                  backgroundSize: '500% 300%',
+                  backgroundAttachment: 'fixed',
+                  backgroundPosition: `${(i % 5) * 25}% ${Math.floor(i / 5) * 50}%`,
+                }}
+              />
+            ))}
           </div>
+
+          {/* Mobile Grid Layer (3x4) */}
+          <div className="absolute inset-0 z-0 grid lg:hidden grid-cols-3 grid-rows-4 gap-[3px]">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-full h-full"
+                style={{
+                  backgroundImage: `url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920)`,
+                  backgroundSize: '300% 400%',
+                  backgroundAttachment: 'fixed',
+                  backgroundPosition: `${(i % 3) * 50}% ${Math.floor(i / 3) * 33}%`,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* STEP 3: Dark Overlay */}
+          <div className="absolute inset-0 z-1 bg-[#004737]/45 pointer-events-none" />
 
           <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center px-4 sm:px-10">
             {/* Balloon cards — Centralized and Larger */}
