@@ -138,75 +138,77 @@ const AboutPage = () => {
       `}</style>
 
       <div className="overflow-x-hidden">
-        {/* 1. HERO — Focused Card Design */}
-        <section className="relative w-full h-[100vh] bg-[#004737] flex items-center justify-center overflow-hidden">
-          {/* Background Image (Optional, kept subtle) */}
+        {/* 1. HERO — Responsive Flecto Design */}
+        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737] px-4 py-20 sm:py-32">
+          {/* Background */}
           <div className="absolute inset-0 z-0">
             <Image
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80"
               alt=""
               fill
-              className="object-cover opacity-10"
+              className="object-cover opacity-20"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#004737]/40 to-[#004737]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#004737]/90 via-[#004737]/80 to-[#0D2B1F]/95" />
           </div>
 
-          <style dangerouslySetInnerHTML={{ __html: `
-            @keyframes slideInFromLeft {
-              0% { opacity: 0; transform: translateX(-120px) rotate(-3deg); }
-              100% { opacity: 1; transform: translateX(0px) rotate(0deg); }
-            }
-            @keyframes slideInFromRight {
-              0% { opacity: 0; transform: translateX(120px) rotate(3deg); }
-              100% { opacity: 1; transform: translateX(0px) rotate(0deg); }
-            }
-            .mission-card-animate {
-              opacity: 0;
-              animation: slideInFromLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-              animation-delay: 200ms;
-            }
-            .vision-card-animate {
-              opacity: 0;
-              animation: slideInFromRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-              animation-delay: 400ms;
-            }
-          `}} />
+          <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center justify-center pt-20">
+            {/* Top Label */}
+            <motion.span
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+              className="inline-flex items-center gap-2 mb-16 px-5 py-2.5 rounded-full border border-white/10 text-white/40 font-syne font-black text-[11px] uppercase tracking-[0.4em]"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#C8F55A]" />
+              About Our Network
+            </motion.span>
 
-          {/* Cards Container */}
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-10 flex flex-col md:flex-row items-start md:items-center justify-center">
-            
-            {/* MISSION CARD */}
-            <div className="mission-card-animate relative w-full md:w-[420px] bg-[#0a5a46] rounded-[16px] p-10 z-[1] shadow-2xl">
-              <span className="absolute -top-[28px] left-0 font-syne font-bold text-[#C8F55A] text-[11px] uppercase tracking-[0.2em]">
-                Mission
-              </span>
-              <h3 className="font-syne font-extrabold text-white uppercase text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.1]">
-                Our Mission<br/>Defined.
-              </h3>
-              <p className="font-inter text-white/70 text-[15px] leading-relaxed mt-4">
-                Pakistan Property Portal connects buyers, sellers and tenants with verified properties across 25+ cities in Pakistan.
-              </p>
+            {/* Balloon cards — Centralized and Larger */}
+            <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 relative">
+              {/* Card 1: MISSION — Notch TOP-RIGHT */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, ease: EASE, delay: 0.3 }}
+                className="relative w-[95%] sm:w-[85%] lg:w-1/2 max-w-[580px] aspect-[545/402] z-10"
+              >
+                <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#01382C" d="M13.62 47.225 L404.15 47.225 C404.15 47.225, 417.775 47.225, 417.775 33.601 L417.775 13.624 C417.775 13.624, 417.775 0, 431.398 0 L532.076 0 C532.076 0, 545.7 0, 545.7 13.624 L545.7 39.389 C545.7 39.389, 545.7 53.013,532.076 53.013 L437.186 53.013 C437.186 53.013, 423.563 53.013, 423.563 66.636 L423.563 388.676 C423.563 388.676, 423.563 402.3, 409.939 402.3 L13.624 402.3 C13.624 402.3, 0 402.3, 0 388.676 L0 60.849 C0 60.849, 0 47.225, 13.624 47.225" />
+                </svg>
+                <div className="absolute inset-0 pointer-events-none">
+                  <span className="absolute top-[4%] right-[4%] w-[20%] text-center font-syne font-black text-[#C8F55A] text-[clamp(10px,1.2vw,13px)] uppercase tracking-[0.25em]">Mission</span>
+                  <div className="absolute top-[25%] left-[8%] right-[28%] bottom-[10%] flex flex-col justify-start">
+                    <h3 className="font-syne font-black text-white uppercase text-[clamp(24px,3vw,38px)] leading-[1.05] mb-4 sm:mb-6">Our Mission<br/>Defined.</h3>
+                    <p className="font-inter text-white/50 text-[clamp(13px,1.3vw,17px)] leading-relaxed max-w-[320px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Card 2: VISION — Notch TOP-LEFT */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, ease: EASE, delay: 0.5 }}
+                className="relative w-[95%] sm:w-[85%] lg:w-1/2 max-w-[580px] aspect-[449/364] z-20"
+              >
+                <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#56F09F" d="M13.624 0 L112.901 0 C112.901 0, 126.525 0, 126.525 13.624 L126.525 34.176 C126.525 34.176, 126.525 47.8, 140.149 47.8 L435.676 47.8 C435.676 47.8, 449.3 47.8, 449.3 61.424 L449.3 350.889 C449.3 350.889, 449.3 364.512, 435.676 364.512 L137.261 364.512 C137.261 364.512, 123.638 364.512, 123.638 350.889 L123.638 64.311 C123.638 64.311, 123.638 50.688, 110.014 50.688 L13.624 50.688 C13.624 50.688, 0 50.688, 0 37.064 L0 13.624 C0 13.624, 0 0, 13.624 0" />
+                </svg>
+                <div className="absolute inset-0 pointer-events-none">
+                  <span className="absolute top-[4.5%] left-[3%] w-[25%] text-center font-syne font-black text-[#01382C] text-[clamp(10px,1.2vw,13px)] uppercase tracking-[0.25em]">Vision</span>
+                  <div className="absolute top-[28%] left-[32%] right-[8%] bottom-[10%] flex flex-col justify-start">
+                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(24px,3vw,38px)] leading-[1.05] mb-4 sm:mb-6">12+ Years<br/>Experience.</h3>
+                    <p className="font-inter text-[#01382C]/60 text-[clamp(13px,1.3vw,17px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-
-            {/* VISION CARD */}
-            <div className="vision-card-animate relative w-full md:w-[380px] bg-[#C8F55A] rounded-[16px] p-10 z-[2] shadow-2xl md:-ml-[40px] md:mt-[40px] mt-8">
-              <span className="absolute -top-[28px] left-0 font-syne font-bold text-[#004737] text-[11px] uppercase tracking-[0.2em]">
-                Vision
-              </span>
-              <h3 className="font-syne font-extrabold text-[#004737] uppercase text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.1]">
-                12+ Years<br/>Experience.
-              </h3>
-              <p className="font-inter text-[#004737]/75 text-[15px] leading-relaxed mt-4">
-                50,000+ active members trust Pakistan Property Portal for their real estate needs every single day.
-              </p>
-            </div>
-
           </div>
 
           {/* Scroll indicator */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-            <span className="text-white/20 font-syne font-bold text-[9px] uppercase tracking-[0.4em]">Scroll</span>
+            <span className="text-white/20 font-syne font-black text-[9px] uppercase tracking-[0.4em]">Scroll</span>
             <div className="scroll-bounce text-white/20"><ChevronDown className="w-5 h-5" /></div>
           </div>
         </section>
