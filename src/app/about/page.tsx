@@ -235,23 +235,23 @@ const AboutPage = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-[#004737]/90 via-[#004737]/80 to-[#0D2B1F]/95" />
           </div>
 
-          <div className="relative z-10 w-full max-w-[1600px] mx-auto flex flex-col items-center justify-center pt-10 sm:pt-0">
+          <div className="relative z-10 w-full max-w-[1440px] mx-auto flex flex-col items-center justify-center pt-10 lg:pt-0 px-4 sm:px-10">
             {/* Balloon cards — Centralized and Larger */}
-            <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-0 relative -mt-10 sm:-mt-24 px-4 sm:px-10">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-center relative -mt-10 sm:-mt-24">
               {/* Card 1: MISSION — Notch TOP-RIGHT */}
               <div
                 ref={missionRef}
                 style={{ opacity: 0 }}
-                className="relative w-full lg:w-[55%] max-w-[820px] aspect-[545/402] z-20"
+                className="relative w-full lg:w-[50%] max-w-[720px] aspect-[545/402] z-20"
               >
-                <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-[0_40px_80px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 545.7 402.3" className="w-full h-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#01382C" d="M13.62 47.225 L404.15 47.225 C404.15 47.225, 417.775 47.225, 417.775 33.601 L417.775 13.624 C417.775 13.624, 417.775 0, 431.398 0 L532.076 0 C532.076 0, 545.7 0, 545.7 13.624 L545.7 39.389 C545.7 39.389, 545.7 53.013,532.076 53.013 L437.186 53.013 C437.186 53.013, 423.563 53.013, 423.563 66.636 L423.563 388.676 C423.563 388.676, 423.563 402.3, 409.939 402.3 L13.624 402.3 C13.624 402.3, 0 402.3, 0 388.676 L0 60.849 C0 60.849, 0 47.225, 13.624 47.225" />
                 </svg>
                 <div className="absolute inset-0 pointer-events-none">
-                  <span className="absolute top-[4%] right-[4%] w-[20%] text-center font-syne font-black text-[#C8F55A] text-[clamp(10px,1.6vw,16px)] uppercase tracking-[0.3em]">Mission</span>
-                  <div className="absolute top-[25%] left-[8%] right-[28%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-white uppercase text-[clamp(28px,4vw,52px)] leading-[0.95] mb-4 sm:mb-10">Our Mission<br/>Defined.</h3>
-                    <p className="font-inter text-white/50 text-[clamp(16px,1.8vw,22px)] leading-relaxed max-w-[440px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
+                  <span className="absolute top-[4%] right-[4%] w-[20%] text-center font-syne font-black text-[#C8F55A] text-[clamp(9px,1.2vw,14px)] uppercase tracking-[0.2em]">Mission</span>
+                  <div className="absolute top-[26%] sm:top-[25%] left-[8%] right-[30%] bottom-[10%] flex flex-col justify-start">
+                    <h3 className="font-syne font-black text-white uppercase text-[clamp(20px,3vw,42px)] leading-[1.0] mb-2 sm:mb-8 break-words">Our Mission<br/>Defined.</h3>
+                    <p className="font-inter text-white/50 text-[clamp(11px,1.4vw,18px)] leading-relaxed max-w-[400px]">Founded in 2012, Pakistan Property Portal has evolved into a comprehensive ecosystem for real estate excellence.</p>
                   </div>
                 </div>
               </div>
@@ -260,16 +260,16 @@ const AboutPage = () => {
               <div
                 ref={visionRef}
                 style={{ opacity: 0 }}
-                className="relative w-full lg:w-[50%] max-w-[820px] aspect-[449/364] lg:-ml-[15%] lg:mt-[30%] z-10"
+                className="relative w-full lg:w-[45%] max-w-[720px] aspect-[449/364] lg:mt-[35%] lg:-ml-[5%] z-10"
               >
-                <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_40px_80px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 449.3 364.513" className="w-full h-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#56F09F" d="M13.624 0 L112.901 0 C112.901 0, 126.525 0, 126.525 13.624 L126.525 34.176 C126.525 34.176, 126.525 47.8, 140.149 47.8 L435.676 47.8 C435.676 47.8, 449.3 47.8, 449.3 61.424 L449.3 350.889 C449.3 350.889, 449.3 364.512, 435.676 364.512 L137.261 364.512 C137.261 364.512, 123.638 364.512, 123.638 350.889 L123.638 64.311 C123.638 64.311, 123.638 50.688, 110.014 50.688 L13.624 50.688 C13.624 50.688, 0 50.688, 0 37.064 L0 13.624 C0 13.624, 0 0, 13.624 0" />
                 </svg>
                 <div className="absolute inset-0 pointer-events-none">
-                  <span className="absolute top-[4.5%] left-[3%] w-[25%] text-center font-syne font-black text-[#01382C] text-[clamp(10px,1.6vw,16px)] uppercase tracking-[0.3em]">Vision</span>
-                  <div className="absolute top-[26%] left-[32%] right-[10%] bottom-[10%] flex flex-col justify-start">
-                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(28px,4vw,52px)] leading-[0.95] mb-4 sm:mb-10">12+ Years<br/>Experience.</h3>
-                    <p className="font-inter text-[#01382C]/60 text-[clamp(16px,1.8vw,22px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
+                  <span className="absolute top-[4.5%] left-[3%] w-[25%] text-center font-syne font-black text-[#01382C] text-[clamp(9px,1.2vw,14px)] uppercase tracking-[0.2em]">Vision</span>
+                  <div className="absolute top-[28%] sm:top-[26%] left-[32%] right-[10%] bottom-[10%] flex flex-col justify-start">
+                    <h3 className="font-syne font-black text-[#01382C] uppercase text-[clamp(20px,3vw,42px)] leading-[1.0] mb-2 sm:mb-8 break-words">12+ Years<br/>Experience.</h3>
+                    <p className="font-inter text-[#01382C]/60 text-[clamp(11px,1.4vw,18px)] leading-relaxed">50,000+ active members trust Pakistan Property Portal for their biggest life milestones.</p>
                   </div>
                 </div>
               </div>
