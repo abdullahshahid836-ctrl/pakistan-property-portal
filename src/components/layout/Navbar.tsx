@@ -17,37 +17,64 @@ const Navbar = () => {
     { name: 'Forum', href: '/forum' },
   ]
 
+  // Animation variants for staggered children
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { y: -20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1] as any
+      }
+    }
+  }
+
   return (
     <motion.nav 
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as any }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
       className="absolute top-0 left-0 right-0 z-50 py-6 sm:py-8 gpu-accelerated"
     >
       <div className="max-w-[1800px] mx-auto px-4 sm:px-10 lg:px-16 flex items-center justify-between">
         
         {/* Left Side: Logo + Nav */}
         <div className="flex items-center gap-12">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#C8F55A] rounded-lg flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
-               <Home className="w-5 h-5 text-[#004737]" />
-            </div>
-            <span className="font-syne font-black text-xl sm:text-2xl uppercase tracking-tighter transition-colors text-white">
-              Pakistan <span className="text-white opacity-40">Property</span>
-            </span>
-          </Link>
+          <motion.div variants={itemVariants}>
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#C8F55A] rounded-lg flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
+                 <Home className="w-5 h-5 text-[#004737]" />
+              </div>
+              <span className="font-syne font-black text-xl sm:text-2xl uppercase tracking-tighter transition-colors text-white">
+                Pakistan <span className="text-white opacity-40">Property</span>
+              </span>
+            </Link>
+          </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                href={link.href}
-                className="text-[11px] font-bold font-syne uppercase tracking-[0.2em] transition-colors relative group text-white/80 hover:text-white"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left bg-white" />
-              </Link>
+              <motion.div key={link.name} variants={itemVariants}>
+                <Link 
+                  href={link.href}
+                  className="text-[11px] font-bold font-syne uppercase tracking-[0.2em] transition-colors relative group text-white/80 hover:text-white"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left bg-white" />
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -55,27 +82,32 @@ const Navbar = () => {
         {/* Right Side: Actions */}
         <div className="flex items-center gap-3">
           {/* Language Switcher */}
-          <button className="hidden xl:flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-300 text-[10px] font-bold font-syne uppercase tracking-widest bg-white/10 border-white/10 text-white hover:bg-white/20">
+          <motion.button variants={itemVariants} className="hidden xl:flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-300 text-[10px] font-bold font-syne uppercase tracking-widest bg-white/10 border-white/10 text-white hover:bg-white/20">
             EN <Globe className="w-3.5 h-3.5" />
-          </button>
+          </motion.button>
 
           {/* Book a Demo Style (List Asset) */}
-          <Link href="/add-property" className="hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-black/5 bg-white text-[#004737] hover:bg-[#C8F55A]">
-             LIST ASSET <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          <motion.div variants={itemVariants}>
+            <Link href="/add-property" className="hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-black/5 bg-white text-[#004737] hover:bg-[#C8F55A]">
+               LIST ASSET <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </motion.div>
 
           {/* Login Button */}
-          <Link href="/login" className="px-8 py-2.5 rounded-full bg-[#C8F55A] text-[#004737] hover:bg-white text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-[#C8F55A]/20">
-             LOGIN
-          </Link>
+          <motion.div variants={itemVariants}>
+            <Link href="/login" className="px-8 py-2.5 rounded-full bg-[#C8F55A] text-[#004737] hover:bg-white text-[10px] font-black font-syne uppercase tracking-widest transition-all duration-500 shadow-xl shadow-[#C8F55A]/20">
+               LOGIN
+            </Link>
+          </motion.div>
 
           {/* Mobile Toggle */}
-          <button 
+          <motion.button 
+            variants={itemVariants}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden w-11 h-11 rounded-full flex items-center justify-center border bg-white/10 border-white/10 text-white"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          </motion.button>
         </div>
       </div>
 
