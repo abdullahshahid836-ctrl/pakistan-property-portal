@@ -235,12 +235,11 @@ const AboutPage = () => {
               const removedIndices = [0, 5, 8, 9, 10, 11, 12, 13, 14];
               const isVisible = !removedIndices.includes(i);
 
-              // Apply custom rounding to outer corners of the collective shape
+              // Apply custom rounding based on yellow/black marked areas
               let roundingClass = "";
               if (i === 1) roundingClass = "rounded-tl-[8rem]";
-              if (i === 4) roundingClass = "rounded-tr-[8rem]";
-              if (i === 7) roundingClass = "rounded-br-[8rem]";
               if (i === 6) roundingClass = "rounded-bl-[8rem]";
+              if (i === 7) roundingClass = "rounded-tl-[8rem] rounded-br-[8rem]"; // Added tl per yellow circle
 
               return (
                 <div
