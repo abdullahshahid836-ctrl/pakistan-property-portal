@@ -238,11 +238,8 @@ const AboutPage = () => {
               // Outer Perimeter Rounding (ONLY the very edges)
               let roundingClass = "";
               if (i === 1) roundingClass = "rounded-tl-[8rem]";
+              if (i === 6) roundingClass = "rounded-bl-[8rem]";
               if (i === 7) roundingClass = "rounded-br-[8rem]";
-
-              const extraStyle: React.CSSProperties = i === 6
-                ? { borderRadius: '0 0 80px 0', overflow: 'hidden' }
-                : {};
 
               return (
                 <div
@@ -253,8 +250,7 @@ const AboutPage = () => {
                     backgroundSize: '500% 300%',
                     backgroundPosition: `${col * 25}% ${row * 50}%`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundColor: '#004737',
-                    ...extraStyle
+                    backgroundColor: '#004737'
                   }}
                 >
                   {/* INVERTED CORNER LOGIC (Concave) */}
