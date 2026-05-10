@@ -239,7 +239,7 @@ const AboutPage = () => {
               let roundingClass = "";
               if (i === 1) roundingClass = "rounded-tl-[8rem]";
               if (i === 6) roundingClass = "rounded-bl-[8rem]";
-              if (i === 7) roundingClass = "rounded-tr-[3rem] rounded-br-[8rem]";
+              if (i === 7) roundingClass = "rounded-tr-[1rem] rounded-br-[8rem]";
 
               return (
                 <div
