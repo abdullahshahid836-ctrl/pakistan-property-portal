@@ -235,9 +235,8 @@ const AboutPage = () => {
               const removedIndices = [0, 5, 8, 9, 10, 11, 12, 13, 14];
               const isVisible = !removedIndices.includes(i);
 
-              // Outer Perimeter Rounding (ONLY the very edges)
+              // Outer Perimeter Rounding
               let roundingClass = "";
-              if (i === 1) roundingClass = "rounded-tl-[8rem]";
 
               return (
                 <div
