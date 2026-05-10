@@ -263,9 +263,15 @@ const AboutPage = () => {
 
                   {/* Corner B: Blue Arrow (Top-left of Tile 7) */}
                   {i === 7 && (
-                    <div className="absolute -top-16 -left-16 w-16 h-16 pointer-events-none z-10 overflow-hidden">
-                       <div className="w-full h-full rounded-br-[4rem] shadow-[20px_20px_0_40px_#004737]" />
-                    </div>
+                    <>
+                      <div className="absolute -top-16 -left-16 w-16 h-16 pointer-events-none z-10 overflow-hidden">
+                        <div className="w-full h-full rounded-br-[4rem] shadow-[20px_20px_0_40px_#004737]" />
+                      </div>
+                      {/* Refined Top-right inverted corner */}
+                      <div className="absolute -top-[1px] -right-[1px] w-16 h-16 pointer-events-none z-10 overflow-hidden translate-x-full -translate-y-full">
+                        <div className="w-full h-full rounded-bl-[4rem] shadow-[-20px_20px_0_40px_#004737]" />
+                      </div>
+                    </>
                   )}
                 </div>
               );
