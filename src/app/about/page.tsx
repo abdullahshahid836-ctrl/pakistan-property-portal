@@ -238,6 +238,7 @@ const AboutPage = () => {
               // Outer Perimeter Rounding
               let roundingClass = "";
               if (i === 1) roundingClass = "rounded-tl-[8rem]";
+              if (i === 4) roundingClass = "rounded-tr-[8rem]";
               if (i === 6) roundingClass = "rounded-bl-[8rem]";
               if (i === 7) roundingClass = "rounded-br-[8rem]";
 
