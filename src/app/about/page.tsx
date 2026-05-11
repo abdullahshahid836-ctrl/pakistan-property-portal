@@ -223,14 +223,19 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
-          {/* ── DESKTOP GRID (lg+): 5×3, 15 tiles ── */}
-          <div className="absolute inset-0 z-0 hidden lg:grid grid-cols-5 grid-rows-3 bg-[#004737]">
-            {[...Array(15)].map((_, i) => {
+          {/* STEP 1: Fragmented Puzzle Grid Container (Sculpted) */}
+          <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 bg-[#004737]">
+             {[...Array(15)].map((_, i) => {
               const col = i % 5;
               const row = Math.floor(i / 5);
+              
+              // 1. First column (0, 5, 10)
+              // 2. Bottom row (10, 11, 12, 13, 14)
+              // 3. Middle row right (8, 9)
               const removedIndices = [0, 5, 8, 9, 10, 11, 12, 13, 14];
               const isVisible = !removedIndices.includes(i);
 
+              // Outer Perimeter Rounding
               let roundingClass = "";
               if (i === 1) roundingClass = "rounded-tl-[8rem]";
               if (i === 6) roundingClass = "rounded-bl-[8rem]";
@@ -239,28 +244,19 @@ const AboutPage = () => {
               return (
                 <div
                   key={i}
-                  className={`w-full h-full ${roundingClass}`}
+                  className={`w-full h-full relative ${roundingClass}`}
                   style={{
                     backgroundImage: isVisible ? `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)` : 'none',
                     backgroundSize: '500% 300%',
                     backgroundPosition: `${col * 25}% ${row * 50}%`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundColor: '#004737',
+                    backgroundColor: '#004737'
                   }}
-                />
+                >
+                  {/* INVERTED CORNER LOGIC (Concave) */}
+                </div>
               );
             })}
-          </div>
-
-          {/* ── MOBILE / TABLET: Full-bleed single image (< lg) ── */}
-          <div className="absolute inset-0 z-0 lg:hidden">
-            <Image
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920"
-              alt="About us background"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center top' }}
-              priority
-            />
           </div>
 
           {/* STEP 5: Dark Overlay above the grid */}
