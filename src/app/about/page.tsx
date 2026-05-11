@@ -73,23 +73,24 @@ const OrbitPill = ({ label, startAngle }: { label: string; startAngle: number })
 )
 
 // LIFECYCLE PILL: For the property journey circle (Percentage-based for responsiveness)
-const LifecyclePill = ({ label, angle, active }: { label: string; angle: number; active: boolean }) => {
+const LifecyclePill = ({ label, angle, active, visible }: { label: string; angle: number; active: boolean; visible: boolean }) => {
   const x = Math.cos((angle * Math.PI) / 180) * 46.66
   const y = Math.sin((angle * Math.PI) / 180) * 46.66
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: 0, scale: 0.5 }}
       animate={{ 
-        opacity: 1, 
-        scale: active ? 1.05 : 1,
+        opacity: visible ? 1 : 0, 
+        scale: visible ? (active ? 1.1 : 1) : 0.5,
         left: `${50 + x}%`,
         top: `${50 + y}%`
       }}
+      transition={{ duration: 0.6, ease: EASE }}
       className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
     >
       <span className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-syne font-black text-[9px] sm:text-xs uppercase tracking-widest shadow-xl transition-all duration-500 whitespace-nowrap border ${
         active 
-          ? 'bg-[#C8F55A] text-[#004737] border-[#C8F55A] scale-110 shadow-[#C8F55A]/20' 
+          ? 'bg-[#C8F55A] text-[#004737] border-[#C8F55A] shadow-[#C8F55A]/30' 
           : 'bg-[#0D1B17] text-white/60 border-white/10'
       }`}>
         {label}
@@ -99,18 +100,19 @@ const LifecyclePill = ({ label, angle, active }: { label: string; angle: number;
 }
 
 // ARROW INDICATOR: Small directional icons on the path
-const ArrowIndicator = ({ angle, active }: { angle: number; active: boolean }) => {
+const ArrowIndicator = ({ angle, active, visible }: { angle: number; active: boolean; visible: boolean }) => {
   const x = Math.cos((angle * Math.PI) / 180) * 46.66
   const y = Math.sin((angle * Math.PI) / 180) * 46.66
   return (
     <motion.div
+      initial={{ opacity: 0, scale: 0 }}
       animate={{ 
-        opacity: 1,
-        scale: active ? 1.2 : 1,
+        opacity: visible ? 1 : 0,
+        scale: visible ? (active ? 1.2 : 1) : 0,
         left: `${50 + x}%`,
         top: `${50 + y}%`
       }}
-      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#004737] border border-[#C8F55A]/20 flex items-center justify-center shadow-lg transition-colors duration-500"
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#004737] border border-[#C8F55A]/20 flex items-center justify-center shadow-lg transition-all duration-500"
     >
       <ArrowRight 
         className={`w-3 h-3 sm:w-4 sm:h-4 transition-colors duration-500 ${active ? 'text-[#C8F55A]' : 'text-white/20'}`} 
@@ -221,14 +223,29 @@ const LifecycleSection = () => {
           </div>
 
           {/* Lifecycle Pills */}
-          <LifecyclePill label="Secure Listing" angle={-90} active={step === 0 || step === 3} />
-          <LifecyclePill label="Living & Enjoying" angle={30} active={step === 1} />
-          <LifecyclePill label="Completion & Renewal" angle={150} active={step === 2} />
+          <LifecyclePill 
+            label="Secure Listing" 
+            angle={-90} 
+            active={step === 0 || step === 3} 
+            visible={true} 
+          />
+          <LifecyclePill 
+            label="Living & Enjoying" 
+            angle={30} 
+            active={step === 1} 
+            visible={step >= 1} 
+          />
+          <LifecyclePill 
+            label="Completion & Renewal" 
+            angle={150} 
+            active={step === 2} 
+            visible={step >= 2} 
+          />
 
           {/* Arrow Indicators */}
-          <ArrowIndicator angle={-30} active={step === 0} />
-          <ArrowIndicator angle={90} active={step === 1} />
-          <ArrowIndicator angle={210} active={step === 2} />
+          <ArrowIndicator angle={-30} active={step === 0} visible={step >= 1} />
+          <ArrowIndicator angle={90} active={step === 1} visible={step >= 2} />
+          <ArrowIndicator angle={210} active={step === 2} visible={step >= 3} />
         </div>
       </div>
     </section>
