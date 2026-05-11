@@ -154,16 +154,20 @@ const JourneyItem = ({ item, i }: { item: { year: string; title: string; desc: s
 // LIFECYCLE SECTION: The animated circular property lifecycle
 const LifecycleSection = () => {
   const [step, setStep] = useState(0)
+  const containerRef = useRef(null)
+  const isInView = useInView(containerRef, { once: false, margin: "-100px" })
 
   useEffect(() => {
+    if (!isInView) return
+
     const interval = setInterval(() => {
       setStep((prev) => (prev + 1) % 3)
-    }, 3000)
+    }, 2000) // Faster interval
     return () => clearInterval(interval)
-  }, [])
+  }, [isInView])
 
   return (
-    <section className="relative bg-[#004737] py-20 sm:py-32 overflow-hidden">
+    <section ref={containerRef} className="relative bg-[#004737] py-20 sm:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10 flex flex-col items-center">
         {/* Circular Animation Container */}
         <div className="relative w-[340px] h-[340px] sm:w-[680px] sm:h-[680px] flex items-center justify-center scale-90 sm:scale-100">
@@ -188,9 +192,9 @@ const LifecycleSection = () => {
               strokeWidth="2"
               strokeDasharray="1759.29"
               animate={{ 
-                strokeDashoffset: 1759.29 - (1759.29 * ((step + 1) / 3)) 
+                strokeDashoffset: isInView ? 1759.29 - (1759.29 * ((step + 1) / 3)) : 1759.29
               }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             />
           </svg>
 
@@ -198,7 +202,7 @@ const LifecycleSection = () => {
           <div className="relative z-40">
             <button
               onClick={() => setStep(0)}
-              className="flex flex-col items-center gap-3 px-6 py-4 rounded-3xl hover:bg-white/5 transition-all duration-500 group"
+              className="flex flex-col items-center gap-3 px-6 py-4 rounded-3xl hover:bg-white/5 transition-all duration-500 group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-full bg-[#0D1B17] border border-white/10 flex items-center justify-center group-hover:border-[#C8F55A]/40 transition-colors">
                 <RotateCcw className="w-5 h-5 text-white/40 group-hover:text-[#C8F55A] group-hover:rotate-180 transition-all duration-700" />
