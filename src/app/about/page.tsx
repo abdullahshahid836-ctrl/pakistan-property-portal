@@ -161,9 +161,11 @@ const LifecycleSection = () => {
     if (isInView) {
       setStep(0)
       const interval = setInterval(() => {
-        setStep((prev) => (prev + 1) % 3)
-      }, 2000)
+        setStep((prev) => (prev + 1) % 4)
+      }, 2500)
       return () => clearInterval(interval)
+    } else {
+      setStep(0)
     }
   }, [isInView])
 
@@ -190,12 +192,13 @@ const LifecycleSection = () => {
               r="280"
               fill="none"
               stroke="#C8F55A"
-              strokeWidth="2"
+              strokeWidth="3"
               strokeDasharray="1759.29"
+              initial={{ strokeDashoffset: 1759.29 }}
               animate={{ 
-                strokeDashoffset: isInView ? 1759.29 - (1759.29 * ((step + 1) / 3)) : 1759.29
+                strokeDashoffset: isInView ? 1759.29 - (1759.29 * (step / 3)) : 1759.29
               }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             />
           </svg>
 
@@ -216,7 +219,7 @@ const LifecycleSection = () => {
           </div>
 
           {/* Lifecycle Pills */}
-          <LifecyclePill label="Secure Listing" angle={-90} active={step === 0} />
+          <LifecyclePill label="Secure Listing" angle={-90} active={step === 0 || step === 3} />
           <LifecyclePill label="Living & Enjoying" angle={30} active={step === 1} />
           <LifecyclePill label="Completion & Renewal" angle={150} active={step === 2} />
 
