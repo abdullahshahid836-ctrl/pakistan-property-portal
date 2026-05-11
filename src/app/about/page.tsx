@@ -72,23 +72,23 @@ const OrbitPill = ({ label, startAngle }: { label: string; startAngle: number })
   </div>
 )
 
-// LIFECYCLE PILL: For the property journey circle
+// LIFECYCLE PILL: For the property journey circle (Percentage-based for responsiveness)
 const LifecyclePill = ({ label, angle, active }: { label: string; angle: number; active: boolean }) => {
-  const x = Math.cos((angle * Math.PI) / 180) * 280
-  const y = Math.sin((angle * Math.PI) / 180) * 280
+  const x = Math.cos((angle * Math.PI) / 180) * 46
+  const y = Math.sin((angle * Math.PI) / 180) * 46
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ 
         opacity: active ? 1 : 0.3, 
         scale: active ? 1 : 0.9,
-        x: 300 + x,
-        y: 300 + y
+        left: `${50 + x}%`,
+        top: `${50 + y}%`
       }}
       className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
     >
-      <span className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-syne font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-xl transition-colors duration-500 whitespace-nowrap ${
-        active ? 'bg-[#C8F55A] text-[#004737]' : 'bg-[#0D1B17] text-white/40 border border-white/10'
+      <span className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-syne font-black text-[9px] sm:text-xs uppercase tracking-widest shadow-xl transition-colors duration-500 whitespace-nowrap border ${
+        active ? 'bg-[#C8F55A] text-[#004737] border-[#C8F55A]' : 'bg-[#0D1B17] text-white/40 border-white/10'
       }`}>
         {label}
       </span>
@@ -98,20 +98,20 @@ const LifecyclePill = ({ label, angle, active }: { label: string; angle: number;
 
 // ARROW INDICATOR: Small directional icons on the path
 const ArrowIndicator = ({ angle, active }: { angle: number; active: boolean }) => {
-  const x = Math.cos((angle * Math.PI) / 180) * 280
-  const y = Math.sin((angle * Math.PI) / 180) * 280
+  const x = Math.cos((angle * Math.PI) / 180) * 46
+  const y = Math.sin((angle * Math.PI) / 180) * 46
   return (
     <motion.div
       animate={{ 
         opacity: active ? 1 : 0.2,
         scale: active ? 1.2 : 1,
-        x: 300 + x,
-        y: 300 + y
+        left: `${50 + x}%`,
+        top: `${50 + y}%`
       }}
-      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0D1B17] border border-white/20 flex items-center justify-center"
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#0D1B17] border border-white/20 flex items-center justify-center"
     >
       <ArrowRight 
-        className="w-4 h-4 text-[#C8F55A]" 
+        className="w-3 h-3 sm:w-4 sm:h-4 text-[#C8F55A]" 
         style={{ transform: `rotate(${angle}deg)` }} 
       />
     </motion.div>
@@ -194,23 +194,16 @@ const LifecycleSection = () => {
             />
           </svg>
 
-          {/* Central Text Content */}
-          <div className="relative z-40 max-w-[260px] sm:max-w-[500px]">
-            <motion.h2 
-              key={step}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="font-syne font-black text-[clamp(1.4rem,3.5vw,3.2rem)] text-white uppercase tracking-tighter leading-[0.95] mb-8"
-            >
-              PPP is the platform that helps <span className="text-[#C8F55A] italic">homeowners</span> thrive in the property cycle.
-            </motion.h2>
-            
+          {/* Central Reset Control */}
+          <div className="relative z-40">
             <button
               onClick={() => setStep(0)}
-              className="flex items-center gap-2 mx-auto px-5 py-2.5 bg-[#0D1B17] border border-white/10 rounded-full text-white/50 hover:text-[#C8F55A] hover:border-[#C8F55A]/40 transition-all duration-300 group"
+              className="flex flex-col items-center gap-3 px-6 py-4 rounded-3xl hover:bg-white/5 transition-all duration-500 group"
             >
-              <RotateCcw className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-500" />
-              <span className="font-syne font-black text-[9px] uppercase tracking-[0.2em]">Restart Animation</span>
+              <div className="w-12 h-12 rounded-full bg-[#0D1B17] border border-white/10 flex items-center justify-center group-hover:border-[#C8F55A]/40 transition-colors">
+                <RotateCcw className="w-5 h-5 text-white/40 group-hover:text-[#C8F55A] group-hover:rotate-180 transition-all duration-700" />
+              </div>
+              <span className="font-syne font-black text-[10px] text-white/30 uppercase tracking-[0.3em] group-hover:text-white/60 transition-colors">Restart</span>
             </button>
           </div>
 
