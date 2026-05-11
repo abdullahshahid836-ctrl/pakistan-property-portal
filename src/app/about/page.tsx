@@ -252,36 +252,15 @@ const AboutPage = () => {
             })}
           </div>
 
-          {/* ── MOBILE / TABLET GRID (< lg): 3×3, 9 tiles ── */}
-          <div className="absolute inset-0 z-0 grid lg:hidden grid-cols-3 grid-rows-3 bg-[#004737]">
-            {[...Array(9)].map((_, i) => {
-              const col = i % 3;
-              const row = Math.floor(i / 3);
-              // Remove top-left corner only to keep the aesthetic
-              const removedIndices = [0];
-              const isVisible = !removedIndices.includes(i);
-
-              // Responsive border-radius (smaller for mobile)
-              let roundingClass = "";
-              if (i === 1) roundingClass = "rounded-tl-[4rem]";   // top-left of shape
-              if (i === 6) roundingClass = "rounded-bl-[4rem]";   // bottom-left
-              if (i === 8) roundingClass = "rounded-br-[4rem]";   // bottom-right
-
-              return (
-                <div
-                  key={i}
-                  className={`w-full h-full ${roundingClass}`}
-                  style={{
-                    backgroundImage: isVisible ? `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)` : 'none',
-                    // 3 cols → 300%, 3 rows → 300% — each tile shows 1/3 of image
-                    backgroundSize: '300% 300%',
-                    backgroundPosition: `${col * 50}% ${row * 50}%`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: '#004737',
-                  }}
-                />
-              );
-            })}
+          {/* ── MOBILE / TABLET: Full-bleed single image (< lg) ── */}
+          <div className="absolute inset-0 z-0 lg:hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920"
+              alt="About us background"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center top' }}
+              priority
+            />
           </div>
 
           {/* STEP 5: Dark Overlay above the grid */}
