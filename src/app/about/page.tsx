@@ -223,39 +223,63 @@ const AboutPage = () => {
       <div className="overflow-x-hidden">
         {/* 1. HERO — Responsive Flecto Design */}
         <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#004737]">
-          {/* STEP 1: Fragmented Puzzle Grid Container (Sculpted) */}
-          <div className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-3 bg-[#004737]">
-             {[...Array(15)].map((_, i) => {
+          {/* ── DESKTOP GRID (lg+): 5×3, 15 tiles ── */}
+          <div className="absolute inset-0 z-0 hidden lg:grid grid-cols-5 grid-rows-3 bg-[#004737]">
+            {[...Array(15)].map((_, i) => {
               const col = i % 5;
               const row = Math.floor(i / 5);
-              
-              // 1. First column (0, 5, 10)
-              // 2. Bottom row (10, 11, 12, 13, 14)
-              // 3. Middle row right (8, 9)
               const removedIndices = [0, 5, 8, 9, 10, 11, 12, 13, 14];
               const isVisible = !removedIndices.includes(i);
 
-              // Outer Perimeter Rounding
               let roundingClass = "";
               if (i === 1) roundingClass = "rounded-tl-[8rem]";
-              if (i === 4) roundingClass = "rounded-tr-[8rem]";
               if (i === 6) roundingClass = "rounded-bl-[8rem]";
               if (i === 7) roundingClass = "rounded-br-[8rem]";
 
               return (
                 <div
                   key={i}
-                  className={`w-full h-full relative ${roundingClass}`}
+                  className={`w-full h-full ${roundingClass}`}
                   style={{
                     backgroundImage: isVisible ? `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)` : 'none',
                     backgroundSize: '500% 300%',
                     backgroundPosition: `${col * 25}% ${row * 50}%`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundColor: '#004737'
+                    backgroundColor: '#004737',
                   }}
-                >
-                  {/* INVERTED CORNER LOGIC (Concave) */}
-                </div>
+                />
+              );
+            })}
+          </div>
+
+          {/* ── MOBILE / TABLET GRID (< lg): 3×3, 9 tiles ── */}
+          <div className="absolute inset-0 z-0 grid lg:hidden grid-cols-3 grid-rows-3 bg-[#004737]">
+            {[...Array(9)].map((_, i) => {
+              const col = i % 3;
+              const row = Math.floor(i / 3);
+              // Remove top-left corner only to keep the aesthetic
+              const removedIndices = [0];
+              const isVisible = !removedIndices.includes(i);
+
+              // Responsive border-radius (smaller for mobile)
+              let roundingClass = "";
+              if (i === 1) roundingClass = "rounded-tl-[4rem]";   // top-left of shape
+              if (i === 6) roundingClass = "rounded-bl-[4rem]";   // bottom-left
+              if (i === 8) roundingClass = "rounded-br-[4rem]";   // bottom-right
+
+              return (
+                <div
+                  key={i}
+                  className={`w-full h-full ${roundingClass}`}
+                  style={{
+                    backgroundImage: isVisible ? `url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920)` : 'none',
+                    // 3 cols → 300%, 3 rows → 300% — each tile shows 1/3 of image
+                    backgroundSize: '300% 300%',
+                    backgroundPosition: `${col * 50}% ${row * 50}%`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor: '#004737',
+                  }}
+                />
               );
             })}
           </div>
