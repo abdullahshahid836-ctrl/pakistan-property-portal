@@ -74,8 +74,8 @@ const OrbitPill = ({ label, startAngle }: { label: string; startAngle: number })
 
 // LIFECYCLE PILL: For the property journey circle (Percentage-based for responsiveness)
 const LifecyclePill = ({ label, angle, active }: { label: string; angle: number; active: boolean }) => {
-  const x = Math.cos((angle * Math.PI) / 180) * 46
-  const y = Math.sin((angle * Math.PI) / 180) * 46
+  const x = Math.cos((angle * Math.PI) / 180) * 46.66
+  const y = Math.sin((angle * Math.PI) / 180) * 46.66
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -98,8 +98,8 @@ const LifecyclePill = ({ label, angle, active }: { label: string; angle: number;
 
 // ARROW INDICATOR: Small directional icons on the path
 const ArrowIndicator = ({ angle, active }: { angle: number; active: boolean }) => {
-  const x = Math.cos((angle * Math.PI) / 180) * 46
-  const y = Math.sin((angle * Math.PI) / 180) * 46
+  const x = Math.cos((angle * Math.PI) / 180) * 46.66
+  const y = Math.sin((angle * Math.PI) / 180) * 46.66
   return (
     <motion.div
       animate={{ 
@@ -108,11 +108,11 @@ const ArrowIndicator = ({ angle, active }: { angle: number; active: boolean }) =
         left: `${50 + x}%`,
         top: `${50 + y}%`
       }}
-      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#0D1B17] border border-white/20 flex items-center justify-center"
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#004737] border border-[#C8F55A]/30 flex items-center justify-center shadow-lg"
     >
       <ArrowRight 
         className="w-3 h-3 sm:w-4 sm:h-4 text-[#C8F55A]" 
-        style={{ transform: `rotate(${angle}deg)` }} 
+        style={{ transform: `rotate(${angle + 90}deg)` }} 
       />
     </motion.div>
   )
