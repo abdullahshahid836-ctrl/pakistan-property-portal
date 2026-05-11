@@ -166,7 +166,7 @@ const LifecycleSection = () => {
       setStep(0)
       const interval = setInterval(() => {
         setStep((prev) => (prev + 1) % 4)
-      }, 2500)
+      }, 1500) // Faster interval
       return () => clearInterval(interval)
     } else {
       setStep(0)
@@ -202,7 +202,7 @@ const LifecycleSection = () => {
               animate={{ 
                 strokeDashoffset: isInView ? 1759.29 - (1759.29 * (step / 3)) : 1759.29
               }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             />
           </svg>
 
