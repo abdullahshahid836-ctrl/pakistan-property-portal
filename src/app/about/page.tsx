@@ -158,12 +158,13 @@ const LifecycleSection = () => {
   const isInView = useInView(containerRef, { once: false, margin: "-100px" })
 
   useEffect(() => {
-    if (!isInView) return
-
-    const interval = setInterval(() => {
-      setStep((prev) => (prev + 1) % 3)
-    }, 2000) // Faster interval
-    return () => clearInterval(interval)
+    if (isInView) {
+      setStep(0)
+      const interval = setInterval(() => {
+        setStep((prev) => (prev + 1) % 3)
+      }, 2000)
+      return () => clearInterval(interval)
+    }
   }, [isInView])
 
   return (
@@ -199,16 +200,19 @@ const LifecycleSection = () => {
           </svg>
 
           {/* Central Reset Control */}
-          <div className="relative z-40">
-            <button
+          <div className="relative z-50">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setStep(0)}
-              className="flex flex-col items-center gap-3 px-6 py-4 rounded-3xl hover:bg-white/5 transition-all duration-500 group cursor-pointer"
+              style={{ cursor: 'pointer' }}
+              className="flex flex-col items-center gap-3 px-8 py-6 rounded-[2.5rem] hover:bg-white/5 transition-all duration-500 group"
             >
-              <div className="w-12 h-12 rounded-full bg-[#0D1B17] border border-white/10 flex items-center justify-center group-hover:border-[#C8F55A]/40 transition-colors">
-                <RotateCcw className="w-5 h-5 text-white/40 group-hover:text-[#C8F55A] group-hover:rotate-180 transition-all duration-700" />
+              <div className="w-14 h-14 rounded-full bg-[#0D1B17] border border-white/10 flex items-center justify-center group-hover:border-[#C8F55A]/40 transition-colors">
+                <RotateCcw className="w-6 h-6 text-white/40 group-hover:text-[#C8F55A] group-hover:rotate-180 transition-all duration-700" />
               </div>
-              <span className="font-syne font-black text-[10px] text-white/30 uppercase tracking-[0.3em] group-hover:text-white/60 transition-colors">Restart</span>
-            </button>
+              <span className="font-syne font-black text-[11px] text-white/30 uppercase tracking-[0.3em] group-hover:text-white/60 transition-colors">Restart</span>
+            </motion.button>
           </div>
 
           {/* Lifecycle Pills */}
