@@ -90,7 +90,7 @@ const LifecyclePill = ({ label, angle, active, visible }: { label: string; angle
     >
       <span className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-syne font-black text-[9px] sm:text-xs uppercase tracking-widest shadow-xl transition-all duration-500 whitespace-nowrap border ${
         active 
-          ? 'bg-[#C8F55A] text-[#004737] border-[#C8F55A] shadow-[#C8F55A]/30' 
+          ? 'bg-[#56F09F] text-[#004737] border-[#56F09F] shadow-[#56F09F]/30' 
           : 'bg-[#0D1B17] text-white/60 border-white/10'
       }`}>
         {label}
@@ -112,10 +112,10 @@ const ArrowIndicator = ({ angle, active, visible }: { angle: number; active: boo
         left: `${50 + x}%`,
         top: `${50 + y}%`
       }}
-      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#004737] border border-[#C8F55A]/20 flex items-center justify-center shadow-lg transition-all duration-500"
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#004737] border border-[#56F09F]/20 flex items-center justify-center shadow-lg transition-all duration-500"
     >
       <ArrowRight 
-        className={`w-3 h-3 sm:w-4 sm:h-4 transition-colors duration-500 ${active ? 'text-[#C8F55A]' : 'text-white/20'}`} 
+        className={`w-3 h-3 sm:w-4 sm:h-4 transition-colors duration-500 ${active ? 'text-[#56F09F]' : 'text-white/20'}`} 
         style={{ transform: `rotate(${angle + 90}deg)` }} 
       />
     </motion.div>
@@ -165,8 +165,8 @@ const LifecycleSection = () => {
     if (isInView) {
       setStep(0)
       const interval = setInterval(() => {
-        setStep((prev) => (prev + 1) % 4)
-      }, 1500) // Faster interval
+        setStep((prev) => (prev + 1) % 7)
+      }, 1200)
       return () => clearInterval(interval)
     } else {
       setStep(0)
@@ -195,12 +195,12 @@ const LifecycleSection = () => {
               cy="300"
               r="280"
               fill="none"
-              stroke="#C8F55A"
+              stroke="#56F09F"
               strokeWidth="3"
               strokeDasharray="1759.29"
               initial={{ strokeDashoffset: 1759.29 }}
               animate={{ 
-                strokeDashoffset: isInView ? 1759.29 - (1759.29 * (step / 3)) : 1759.29
+                strokeDashoffset: isInView ? 1759.29 - (1759.29 * (step / 6)) : 1759.29
               }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             />
@@ -215,8 +215,8 @@ const LifecycleSection = () => {
               style={{ cursor: 'pointer' }}
               className="flex flex-col items-center gap-3 px-8 py-6 rounded-[2.5rem] hover:bg-white/5 transition-all duration-500 group"
             >
-              <div className="w-14 h-14 rounded-full bg-[#0D1B17] border border-white/10 flex items-center justify-center group-hover:border-[#C8F55A]/40 transition-colors">
-                <RotateCcw className="w-6 h-6 text-white/40 group-hover:text-[#C8F55A] group-hover:rotate-180 transition-all duration-700" />
+              <div className="w-14 h-14 rounded-full bg-[#0D1B17] border border-white/10 flex items-center justify-center group-hover:border-[#56F09F]/40 transition-colors">
+                <RotateCcw className="w-6 h-6 text-white/40 group-hover:text-[#56F09F] group-hover:rotate-180 transition-all duration-700" />
               </div>
               <span className="font-syne font-black text-[11px] text-white/30 uppercase tracking-[0.3em] group-hover:text-white/60 transition-colors">Restart</span>
             </motion.button>
@@ -226,26 +226,26 @@ const LifecycleSection = () => {
           <LifecyclePill 
             label="Secure Listing" 
             angle={-90} 
-            active={step === 0 || step === 3} 
+            active={step === 0 || step === 6} 
             visible={true} 
           />
           <LifecyclePill 
             label="Living & Enjoying" 
             angle={30} 
-            active={step === 1} 
-            visible={step >= 1} 
+            active={step === 2} 
+            visible={step >= 2} 
           />
           <LifecyclePill 
             label="Completion & Renewal" 
             angle={150} 
-            active={step === 2} 
-            visible={step >= 2} 
+            active={step === 4} 
+            visible={step >= 4} 
           />
 
           {/* Arrow Indicators */}
-          <ArrowIndicator angle={-30} active={step === 0} visible={step >= 1} />
-          <ArrowIndicator angle={90} active={step === 1} visible={step >= 2} />
-          <ArrowIndicator angle={210} active={step === 2} visible={step >= 3} />
+          <ArrowIndicator angle={-30} active={step === 1} visible={step >= 1} />
+          <ArrowIndicator angle={90} active={step === 3} visible={step >= 3} />
+          <ArrowIndicator angle={210} active={step === 5} visible={step >= 5} />
         </div>
       </div>
     </section>
