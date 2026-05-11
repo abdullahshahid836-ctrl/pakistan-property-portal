@@ -80,15 +80,17 @@ const LifecyclePill = ({ label, angle, active }: { label: string; angle: number;
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ 
-        opacity: active ? 1 : 0.3, 
-        scale: active ? 1 : 0.9,
+        opacity: 1, 
+        scale: active ? 1.05 : 1,
         left: `${50 + x}%`,
         top: `${50 + y}%`
       }}
       className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
     >
-      <span className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-syne font-black text-[9px] sm:text-xs uppercase tracking-widest shadow-xl transition-colors duration-500 whitespace-nowrap border ${
-        active ? 'bg-[#C8F55A] text-[#004737] border-[#C8F55A]' : 'bg-[#0D1B17] text-white/40 border-white/10'
+      <span className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-syne font-black text-[9px] sm:text-xs uppercase tracking-widest shadow-xl transition-all duration-500 whitespace-nowrap border ${
+        active 
+          ? 'bg-[#C8F55A] text-[#004737] border-[#C8F55A] scale-110 shadow-[#C8F55A]/20' 
+          : 'bg-[#0D1B17] text-white/60 border-white/10'
       }`}>
         {label}
       </span>
@@ -103,15 +105,15 @@ const ArrowIndicator = ({ angle, active }: { angle: number; active: boolean }) =
   return (
     <motion.div
       animate={{ 
-        opacity: active ? 1 : 0.2,
+        opacity: 1,
         scale: active ? 1.2 : 1,
         left: `${50 + x}%`,
         top: `${50 + y}%`
       }}
-      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#004737] border border-[#C8F55A]/30 flex items-center justify-center shadow-lg"
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#004737] border border-[#C8F55A]/20 flex items-center justify-center shadow-lg transition-colors duration-500"
     >
       <ArrowRight 
-        className="w-3 h-3 sm:w-4 sm:h-4 text-[#C8F55A]" 
+        className={`w-3 h-3 sm:w-4 sm:h-4 transition-colors duration-500 ${active ? 'text-[#C8F55A]' : 'text-white/20'}`} 
         style={{ transform: `rotate(${angle + 90}deg)` }} 
       />
     </motion.div>
