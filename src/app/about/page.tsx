@@ -72,6 +72,52 @@ const OrbitPill = ({ label, startAngle }: { label: string; startAngle: number })
   </div>
 )
 
+// LIFECYCLE PILL: For the property journey circle
+const LifecyclePill = ({ label, angle, active }: { label: string; angle: number; active: boolean }) => {
+  const x = Math.cos((angle * Math.PI) / 180) * 280
+  const y = Math.sin((angle * Math.PI) / 180) * 280
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ 
+        opacity: active ? 1 : 0.3, 
+        scale: active ? 1 : 0.9,
+        x: 300 + x,
+        y: 300 + y
+      }}
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
+    >
+      <span className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-syne font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-xl transition-colors duration-500 whitespace-nowrap ${
+        active ? 'bg-[#C8F55A] text-[#004737]' : 'bg-[#0D1B17] text-white/40 border border-white/10'
+      }`}>
+        {label}
+      </span>
+    </motion.div>
+  )
+}
+
+// ARROW INDICATOR: Small directional icons on the path
+const ArrowIndicator = ({ angle, active }: { angle: number; active: boolean }) => {
+  const x = Math.cos((angle * Math.PI) / 180) * 280
+  const y = Math.sin((angle * Math.PI) / 180) * 280
+  return (
+    <motion.div
+      animate={{ 
+        opacity: active ? 1 : 0.2,
+        scale: active ? 1.2 : 1,
+        x: 300 + x,
+        y: 300 + y
+      }}
+      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0D1B17] border border-white/20 flex items-center justify-center"
+    >
+      <ArrowRight 
+        className="w-4 h-4 text-[#C8F55A]" 
+        style={{ transform: `rotate(${angle}deg)` }} 
+      />
+    </motion.div>
+  )
+}
+
 // JOURNEY ITEM: Extracted to satisfy React rules-of-hooks
 const JourneyItem = ({ item, i }: { item: { year: string; title: string; desc: string }; i: number }) => {
   const ref = useRef(null)
@@ -102,6 +148,84 @@ const JourneyItem = ({ item, i }: { item: { year: string; title: string; desc: s
         </div>
       </div>
     </motion.div>
+  )
+}
+
+// LIFECYCLE SECTION: The animated circular property lifecycle
+const LifecycleSection = () => {
+  const [step, setStep] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStep((prev) => (prev + 1) % 3)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <section className="relative bg-[#004737] py-20 sm:py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 text-center relative z-10 flex flex-col items-center">
+        {/* Circular Animation Container */}
+        <div className="relative w-[340px] h-[340px] sm:w-[680px] sm:h-[680px] flex items-center justify-center scale-90 sm:scale-100">
+          {/* SVG Path Background */}
+          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 600 600">
+            <circle
+              cx="300"
+              cy="300"
+              r="280"
+              fill="none"
+              stroke="white"
+              strokeWidth="1"
+              strokeOpacity="0.05"
+            />
+            {/* Animated Path Segment */}
+            <motion.circle
+              cx="300"
+              cy="300"
+              r="280"
+              fill="none"
+              stroke="#C8F55A"
+              strokeWidth="2"
+              strokeDasharray="1759.29"
+              animate={{ 
+                strokeDashoffset: 1759.29 - (1759.29 * ((step + 1) / 3)) 
+              }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            />
+          </svg>
+
+          {/* Central Text Content */}
+          <div className="relative z-40 max-w-[260px] sm:max-w-[500px]">
+            <motion.h2 
+              key={step}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-syne font-black text-[clamp(1.4rem,3.5vw,3.2rem)] text-white uppercase tracking-tighter leading-[0.95] mb-8"
+            >
+              PPP is the platform that helps <span className="text-[#C8F55A] italic">homeowners</span> thrive in the property cycle.
+            </motion.h2>
+            
+            <button
+              onClick={() => setStep(0)}
+              className="flex items-center gap-2 mx-auto px-5 py-2.5 bg-[#0D1B17] border border-white/10 rounded-full text-white/50 hover:text-[#C8F55A] hover:border-[#C8F55A]/40 transition-all duration-300 group"
+            >
+              <RotateCcw className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-500" />
+              <span className="font-syne font-black text-[9px] uppercase tracking-[0.2em]">Restart Animation</span>
+            </button>
+          </div>
+
+          {/* Lifecycle Pills */}
+          <LifecyclePill label="Secure Listing" angle={-90} active={step === 0} />
+          <LifecyclePill label="Living & Enjoying" angle={30} active={step === 1} />
+          <LifecyclePill label="Completion & Renewal" angle={150} active={step === 2} />
+
+          {/* Arrow Indicators */}
+          <ArrowIndicator angle={-30} active={step === 0} />
+          <ArrowIndicator angle={90} active={step === 1} />
+          <ArrowIndicator angle={210} active={step === 2} />
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -314,48 +438,8 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* 2. CIRCULAR ECONOMY */}
-        <section className="relative bg-[#004737] py-20 sm:py-40 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-            <FadeUp>
-              <span className="inline-block mb-8 px-5 py-2 border border-[#C8F55A]/30 text-[#C8F55A] font-syne font-black text-[10px] uppercase tracking-[0.3em] rounded-full">
-                Circular Economy
-              </span>
-            </FadeUp>
-            <ScrollLine>
-              <h2 className="font-syne font-black text-[clamp(2rem,6vw,6rem)] text-white uppercase tracking-tighter leading-none">
-                Connecting Buyers,
-              </h2>
-            </ScrollLine>
-            <ScrollLine delay={0.1}>
-              <h2 className="font-syne font-black text-[clamp(2rem,6vw,6rem)] text-[#C8F55A] italic uppercase tracking-tighter leading-none">
-                Sellers &amp; Renters.
-              </h2>
-            </ScrollLine>
-
-            {/* Orbit Ring */}
-            <FadeUp delay={0.3} className="mt-16 sm:mt-24">
-              <div className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] mx-auto">
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 360 360">
-                  <circle cx="180" cy="180" r="170" fill="none" stroke="#C8F55A" strokeWidth="1" strokeDasharray="6 8" opacity="0.25" />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#C8F55A]/10 border border-[#C8F55A]/30 flex items-center justify-center text-[#C8F55A]">
-                    <Zap className="w-6 h-6 sm:w-8 sm:h-8" />
-                  </div>
-                </div>
-                <OrbitPill label="Property Listed" startAngle={0} />
-                <OrbitPill label="Buyer Connected" startAngle={180} />
-              </div>
-            </FadeUp>
-
-            <FadeUp delay={0.5} className="mt-16">
-              <p className="text-[#A8C4BB] font-inter text-lg max-w-2xl mx-auto opacity-70 leading-relaxed">
-                Our platform enables a higher turnover of property transactions, creating a sustainable cycle that benefits buyers, sellers, and the national economy.
-              </p>
-            </FadeUp>
-          </div>
-        </section>
+        {/* 2. PROPERTY LIFECYCLE — Animated Circular Section */}
+        <LifecycleSection />
 
         {/* ═══════════════════════════════════════════════════
             3. VALUES — Large Cream Card with Ear Notch
